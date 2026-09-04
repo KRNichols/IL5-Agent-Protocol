@@ -562,3 +562,568 @@ PL-08 architecture narrative must describe tenant isolation, key management, and
 - PS-02 Position Risk Designation
 - PS-03 Personnel Screening + PS-03(03) Information Requiring Special Protective Measures
 - PS-04 Personnel Termination + PS-04(02) Automated Actions
+- PS-05 Personnel Transfer
+- PS-06 Access Agreements
+- PS-07 External Personnel Security
+- PS-08 Personnel Sanctions
+- PS-09 Position Descriptions
+
+See §12. PS-03(04) appears in DoD Table D-1 as a personnel-citizenship parameter.
+
+### 5.14 Risk Assessment (RA)
+
+- RA-01 Policy and Procedures
+- RA-02 Security Categorization
+- RA-03 Risk Assessment + **RA-03(01) Supply Chain Risk Assessment**
+- RA-05 Vulnerability Monitoring and Scanning  
+  RA-05(02) Update Vulnerabilities to Be Scanned  
+  RA-05(03) Breadth and Depth of Coverage  
+  RA-05(04) Discoverable Information  
+  **RA-05(05) Privileged Access** (authenticated scans)  
+  RA-05(08) Review Historic Audit Logs  
+  **RA-05(11) Public Disclosure Program**
+- RA-07 Risk Response
+- RA-09 Criticality Analysis
+
+RA-05 is the legal home of the entire scan program in §14.
+
+### 5.15 System and Services Acquisition (SA)
+
+- SA-01 Policy and Procedures
+- SA-02 Allocation of Resources
+- SA-03 System Development Life Cycle
+- SA-04 Acquisition Process  
+  SA-04(01) Functional Properties of Controls  
+  SA-04(02) Design and Implementation Information for Controls  
+  SA-04(05) System, Component, and Service Configurations  
+  SA-04(09) Functions, Ports, Protocols, and Services in Use  
+  SA-04(10) Use of Approved PIV Products
+- SA-05 System Documentation
+- SA-08 Security and Privacy Engineering Principles
+- SA-09 External System Services  
+  SA-09(01) Risk Assessments and Organizational Approvals  
+  SA-09(02) Identification of Functions, Ports, Protocols, and Services  
+  SA-09(05) Processing, Storage, and Service Location
+- SA-10 Developer Configuration Management
+- SA-11 Developer Testing and Evaluation  
+  **SA-11(01) Static Code Analysis**  
+  **SA-11(02) Threat Modeling and Vulnerability Analyses**
+- SA-15 Development Process, Standards, and Tools + SA-15(03) Criticality Analysis
+- SA-16 Developer-provided Training
+- SA-17 Developer Security and Privacy Architecture and Design
+- SA-21 Developer Screening
+- SA-22 Unsupported System Components
+
+SA-09(05) is how you document that processing stays in the US. SA-22 unsupported components become automatic POA&M / High findings.
+
+### 5.16 System and Communications Protection (SC)
+
+- SC-01 Policy and Procedures
+- SC-02 Separation of System and User Functionality
+- SC-03 Security Function Isolation
+- SC-04 Information in Shared System Resources
+- SC-05 Denial-of-service Protection
+- SC-07 Boundary Protection  
+  SC-07(03) Access Points  
+  SC-07(04) External Telecommunications Services  
+  SC-07(05) Deny by Default — Allow by Exception  
+  SC-07(07) Split Tunneling for Remote Devices  
+  SC-07(08) Route Traffic to Authenticated Proxy Servers  
+  SC-07(10) Prevent Exfiltration  
+  SC-07(12) Host-based Protection  
+  SC-07(18) Fail Secure  
+  SC-07(20) Dynamic Isolation and Segregation  
+  SC-07(21) Isolation of System Components
+- SC-08 Transmission Confidentiality and Integrity + SC-08(01) Cryptographic Protection
+- SC-10 Network Disconnect
+- SC-12 Cryptographic Key Establishment and Management + SC-12(01) Availability
+- SC-13 Cryptographic Protection
+- SC-15 Collaborative Computing Devices and Applications
+- SC-17 Public Key Infrastructure Certificates
+- SC-18 Mobile Code (+ DoD SC-18(2)(3) DSPAV / mobile-code restrictions)
+- SC-20 / SC-21 / SC-22 Secure Name/Address Resolution (DNSSEC)
+- SC-23 Session Authenticity
+- SC-24 Fail in Known State
+- SC-28 Protection of Information at Rest + SC-28(01) Cryptographic Protection
+- SC-39 Process Isolation
+- SC-45 System Time Synchronization + SC-45(01) Synchronization with Authoritative Time Source
+
+This family plus isolation language in the SRG is most of the IL5 architecture.
+
+### 5.17 System and Information Integrity (SI)
+
+- SI-01 Policy and Procedures
+- SI-02 Flaw Remediation  
+  SI-02(02) Automated Flaw Remediation Status  
+  SI-02(03) Time to Remediate Flaws and Benchmarks for Corrective Actions
+- SI-03 Malicious Code Protection
+- SI-04 System Monitoring  
+  SI-04(01) System-wide Intrusion Detection System  
+  SI-04(02) Automated Tools and Mechanisms for Real-time Analysis  
+  SI-04(04) Inbound and Outbound Communications Traffic  
+  SI-04(05) System-generated Alerts  
+  SI-04(10) Visibility of Encrypted Communications  
+  SI-04(11) Analyze Communications Traffic Anomalies  
+  SI-04(12) Automated Organization-generated Alerts  
+  SI-04(14) Wireless Intrusion Detection  
+  SI-04(16) Correlate Monitoring Information  
+  SI-04(18) Analyze Traffic and Covert Exfiltration  
+  SI-04(19) Risk for Individuals  
+  SI-04(20) Privileged Users  
+  SI-04(22) Unauthorized Network Services  
+  SI-04(23) Host-based Devices
+- SI-05 Security Alerts, Advisories, and Directives + SI-05(01) Automated Alerts and Advisories
+- SI-06 Security and Privacy Function Verification
+- SI-07 Software, Firmware, and Information Integrity  
+  SI-07(01) Integrity Checks  
+  SI-07(02) Automated Notifications of Integrity Violations  
+  SI-07(05) Automated Response to Integrity Violations  
+  SI-07(07) Integration of Detection and Response  
+  SI-07(15) Code Authentication
+- SI-08 Spam Protection + SI-08(02) Automatic Updates
+- SI-10 Information Input Validation
+- SI-11 Error Handling
+- SI-12 Information Management and Retention
+- SI-16 Memory Protection
+
+SI-02 clocks start at **vendor release**, not detection. SI-04 encrypted-traffic visibility (10) is a High-specific design constraint (TLS inspection architecture or equivalent).
+
+### 5.18 Supply Chain Risk Management (SR)
+
+- SR-01 Policy and Procedures
+- SR-02 Supply Chain Risk Management Plan + SR-02(01) Establish SCRM Team
+- SR-03 Supply Chain Controls and Processes
+- SR-05 Acquisition Strategies, Tools, and Methods
+- SR-06 Supplier Assessments and Reviews
+- SR-08 Notification Agreements
+- SR-09 Tamper Resistance and Detection + SR-09(01) Multiple Stages of System Development Life Cycle
+- SR-10 Inspection of Systems or Components
+- SR-11 Component Authenticity  
+  SR-11(01) Anti-counterfeit Training  
+  SR-11(02) Configuration Control for Component Service and Repair
+- SR-12 Component Disposal
+
+SCRM plan is SSP Appendix P. SBOMs, provenance, and update integrity are now expected evidence, not optional.
+
+### 5.19 Program Management (PM) and Privacy (PT)
+
+PM controls are organization-level. Many are inherited from the company security program; they still must be described. PT (Personally Identifiable Information Processing and Transparency) applies when PII is in scope; pair with the CNSSI Privacy Overlay if DoD PII/PHI is present.
+
+Use the official Appendix A High template as the complete ID list. If a control is in Appendix A High and not listed above, Appendix A wins.
+
+---
+
+## 6. DoD FedRAMP+ / Table D-1 / SSP Addendum
+
+### 6.1 What “FedRAMP+” actually is
+
+Not a second catalog. It is:
+
+1. Parameter value overrides (DSPAV — DoD Specific Assignment Value) on FedRAMP controls.
+2. A short list of extra C/CEs FedRAMP High does not already require.
+3. Non-control SRG requirements (location, tenancy, BCAP, citizenship, STIGs, CSSP).
+
+Documented in:
+
+- CSP SRG Appendix D / Table D-1
+- *DoD Rev 5 SSP Addendum Controls v1.2* (Excel, 3 Dec 2025)
+- *DoD SRG Control Crosswalk* (23 Apr 2026)
+
+### 6.2 Table D-1 examples (verify in the current SRG zip)
+
+These are illustrative of the *kind* of override DISA publishes. They are not a substitute for the official table.
+
+| Control | DoD direction seen in CSP SRG Appendix D | ILs |
+|---|---|---|
+| AC-07 | Privileged lockout after **3** unsuccessful attempts | IL2/4/5 (5 attempts if SIPR token at higher IL) |
+| AU-05(01) | May use FedRAMP value | IL4/5/6 |
+| CM-07(05) | DSPAV must be used | IL4/5/6 |
+| IA-05(01) | DSPAV must be used | IL4/5/6 |
+| PE-15 | DSPAV must be used | IL4/5/6 |
+| PS-03(04) | Users = US citizens, US nationals, or US persons; foreign personnel only with AO approval | IL4/5/6 |
+| SA-04(05), SA-09(01), SA-09(06)(07)(08) | Listed for IL4/5/6 | IL4/5/6 |
+| SC-12(06), SC-17 | PKI per DoDI 8520.02 / 8520.03 | IL4/5/6 |
+| SC-18 / SC-18(02) | DSPAV; mobile code restrictions | IL4/5/6 |
+
+Older CC SRG v1r4 Table 2: **10 additional C/CEs** beyond FedRAMP High for IL5. Rev 5 SSP Addendum replaced that list. InfusionPoints’ public breakdown of the Rev 5 addendum: IL5 added ~21 controls and removed ~47 relative to prior FedRAMP+; IL5 NSS added ~178. Use the Excel addendum.
+
+### 6.3 How to implement FedRAMP+ without drowning
+
+1. Export FedRAMP High Appendix A to a workbook.
+2. Join the DoD SSP Addendum on Control ID.
+3. Flag every row that is “DoD added,” “parameter changed,” or “DSPAV required.”
+4. Write the DoD implementation statement in the SSP Addendum, not by silently editing the FedRAMP SSP.
+5. Map each extra row to a test case the 3PAO / DISA SCA will run.
+
+---
+
+## 7. CNSSI 1253 NSS overlays
+
+### 7.1 When this layer turns on
+
+The system is an NSS under NIST SP 800-59, **or** the AO applies NSS overlays to elevated CUI at IL5. Current CSP SRG v1r3 language treats IL5 as the NSS tier.
+
+### 7.2 What you add
+
+- CNSSI 1253 Table D-1 “+” selections at the CIA level the AO chose (commonly H-H-x for NSS IL5 in recent SRG analysis — ~170 controls).
+- Applicable Appendix E / F attachments:
+  - Overlay template
+  - Cross Domain Solution Overlay (if any CDS)
+  - Intelligence Overlay (U//FOUO; restricted site)
+  - Classified System Overlay (IL6, not IL5 — listed so you do not grab it by accident)
+  - Privacy Overlay (PII/PHI)
+  - Space Platform Overlay (if applicable)
+  - ICS overlay if industrial control
+
+Overlays are published on cnss.gov and updated independently of the base instruction. Check the site when you freeze the baseline.
+
+### 7.3 Privacy overlay interaction
+
+DoD PII/PHI in the cloud can add privacy C/CEs that are **not** in FedRAMP High or FedRAMP+. Older SRG tables listed extras such as AC-02(13), AC-03(09), AC-04(08)(15)(17)(18), AC-16, IR-10, MP-06(01)(08), PE-18, and a block of PM controls, with different PII-Low / PII-Mod / PII-High / PHI parameter values. If PII is in scope, pull the current Privacy Overlay and the SRG PII/PHI parameter tables.
+
+---
+
+## 8. Non-control IL5 architecture requirements
+
+These fail packages that have perfect NIST narratives and the wrong cloud shape.
+
+### 8.1 Location
+
+- Processing, storage, and administration of IL5 data: United States, US outlying areas, or DoD on-premises.
+- SA-09(05) and PE-18 must name regions, facilities, and any replication targets.
+- Support staff who can reach IL5 data cannot do so from offshore operations.
+
+### 8.2 Tenancy and isolation (SRG 5.2.2.3)
+
+- **Physical separation** from non-DoD and non-federal tenants (public, state, local, commercial). Shared physical hosts, storage arrays, and network switches with those tenants are out.
+- **Virtual / logical separation** among DoD and federal tenants is acceptable.
+- Virtual / logical separation between tenant/mission systems is the minimum inside the federal community.
+- Dedicated Host / isolated VM / dedicated tenancy constructs are how hyperscalers usually meet compute isolation (Azure Government Dedicated Host guidance is the public example).
+- Storage isolation via customer-managed keys in FIPS-validated HSMs has been accepted by DISA as cryptographic separation for some services — **only where the current PA says so**. Do not assume it.
+
+### 8.3 Federal-community cloud, not public commercial
+
+IL5 CSOs are federal government community clouds. Commercial customers do not ride the same physical stack.
+
+### 8.4 Management plane
+
+DISA will ask, in the architecture briefing:
+
+- Is the CSO management plane shared with the vendor’s commercial cloud?
+- Where do break-glass and hypervisor admins sit?
+- Can a commercial-region admin reach IL5 hosts?
+- How does the vendor corporate network touch the CSO?
+
+A shared commercial management plane is a classic IL5 finding.
+
+### 8.5 Data at rest / in use / in transit placement
+
+- No IL5 data on non-federal physical media.
+- Encryption does not waive physical-separation rules for compute during processing unless the current SRG / PA explicitly allows cryptographic isolation for that service class.
+- Backups, snapshots, logs, crash dumps, and support bundles are in-scope data.
+
+### 8.6 SCCA functional components
+
+Secure Cloud Computing Architecture is primarily a **mission-owner** stack the CSO must support, not a FedRAMP control family. Four parts:
+
+| Component | Function |
+|---|---|
+| **CAP** | BCAP (off-prem commercial CSO) or ICAP (on-prem commercial CSO inside a DoD facility). The DISN extension. |
+| **VDSS** | Virtual Datacenter Security Stack — firewall, IDS/IPS, WAF facing the CAP |
+| **VDMS** | Virtual Datacenter Management Stack — privileged access path, host security, jump / management plane |
+| **TCCM** | Trusted Cloud Credential Manager — cloud admin credential vault / issuance |
+
+Mission owner implements SCCA. CSP must support CAP connectivity, flow logs, CSSP sensor insertion, and a management plane that VDMS can actually administer. PA is **not** permission to connect. CATC + CPTC + SCCA checklist come after the PA. Cloud CPG 3.0 and the DISN Connection Process Guide are the connection how-to.
+
+---
+
+## 9. Cryptography (FIPS 140-3 sunset)
+
+### 9.1 The rule
+
+Every cryptographic function in the CSO uses a **CMVP-validated** module on the active validation list, operated **in FIPS mode**. “FIPS-compliant algorithms,” “AES-256,” or “FIPS inside the library but not the module” fail SC-13.
+
+### 9.2 Where crypto is required
+
+| Use | Control | Bar |
+|---|---|---|
+| Data in transit | SC-08 / SC-08(01), AC-17(02) | TLS 1.2 minimum, 1.3 preferred. SSL / TLS 1.0 / 1.1 forbidden (NIST SP 800-52 Rev 2) |
+| Data at rest | SC-28 / SC-28(01) | AES-256 typical; customer-managed keys in HSM |
+| Authenticators | IA-05, IA-07 | Module-authenticated |
+| Hashing, RNG, signing, keygen | SC-12, SC-13 | Validated module |
+| Backups | CP-09(08) | Encrypted with validated module |
+| Logs | AU-09(03) | Cryptographic protection |
+| Internal service-to-service (NSS IL5) | SC-08 / SC-13 | Treat every internal cryptographic boundary as in-scope |
+
+### 9.3 FIPS 140-2 historical date
+
+**FIPS 140-2 modules go historical 21 September 2026.** New IL5 builds should specify FIPS 140-3 only. Existing 140-2 modules need a documented transition off the CMVP historical list. Appendix Q (Cryptographic Modules Table) must list every module, version, certificate number, and FIPS mode evidence.
+
+### 9.4 Key management
+
+- Customer-managed keys for IL5 mission data.
+- HSM-backed (FIPS 140-3 Level 3 is the usual target for CMK).
+- Key material stored separately from ciphertext.
+- Document SC-12 availability (SC-12(01)) so key-service loss does not become a silent availability failure.
+
+### 9.5 Certificates
+
+DoD users authenticate with DoD PKI (CAC). External-facing and some NPE certs follow DoD CIO commercial-PKI memos and DoDI 8520.02. Let’s Encrypt and public CAs are not a default for IL5 DoD-facing endpoints.
+
+---
+
+## 10. Identity, CAC/PIV, Credential Strength D
+
+### 10.1 FedRAMP High floor
+
+- MFA for privileged and non-privileged organizational users (IA-02(01)(02)).
+- Replay-resistant authentication (IA-02(08)).
+- Accept PIV (IA-02(12), IA-08(01)).
+- NIST SP 800-63 alignment via the Digital Identity Worksheet (SSP Appendix E).
+
+### 10.2 IL5 raise — DoDI 8520.03 Credential Strength D
+
+Hardware token implementing multifactor OTP **or** a PKI certificate. Software TOTP by itself is not Strength D.
+
+Practical pattern:
+
+- DoD human users: CAC / PIV smart card, PKI.
+- CSP privileged admins: hardware token or PKI, US persons, no shared accounts.
+- Service accounts / NPEs: PKI or equivalent hardware-backed identity; no embedded static secrets (IA-05(07)).
+- SaaS customer portals at IL4/5: PIV/CAC per older SRG IA-2(12) language; alternatives only by AO waiver.
+
+### 10.3 Federation
+
+If you federate to DoD ICAM / mission IdP, document IA-08 profiles, assertion protection, and what happens when the IdP is unreachable. Do not invent a local password fallback that drops below Strength D.
+
+---
+
+## 11. Network: BCAP, SCCA, NIPRNet, SNAP
+
+### 11.1 Traffic path
+
+```
+DoD user on NIPRNet
+    → Boundary Cloud Access Point (BCAP)  [DISA]
+        → dedicated circuit / encrypted path
+            → IL5 CSO enclave (US federal-community cloud)
+
+Internet user (if the mission allows)
+    → NIPRNet IAP / DoD DMZ
+        → BCAP
+            → IL5 CSO
+```
+
+There is **no direct IL5 mission path across the open internet** except through NIPRNet IAPs and a DMZ owned by the mission owner, a DoD component, or DISA.
+
+### 11.2 BCAP facts
+
+- DISA BCAP meet-me points publicly listed in authorization-process decks: Equinix Ashburn VA, San Jose CA, Dallas TX, Chicago IL (confirm current list with SCCA PMO).
+- IL4/5 CSOs fund and sustain the circuit from the hosting enclave to the BCAPs they will use.
+- Meet-me points in commercial facilities need locked cage/cabinet physical protection per SRG.
+- SCCA PMO activates the BCAP connection only after CAO issues Cloud Permission to Connect (CPTC) for a mission Cloud IT Project.
+
+### 11.3 Addressing, DNS, PPSM
+
+- Prefer DoD NIC addressing where the SRG requires it; some IL4/5 CSOs are approved for commercial addressing **with VPN**.
+- DNS through DoD-approved DNS.
+- Ports, protocols, services registered under DoDI 8551.01 PPSM. Unregistered PPS is a connection-approval finding.
+
+### 11.4 Management access
+
+Management from inside NIPRNet: defined source IPs, encrypted tunnel through CAP/ICAP. Jump hosts. No split-tunnel admin laptops into IL5 from coffee-shop networks (SC-07(07)).
+
+### 11.5 Registration and connection artifacts
+
+| Artifact | System | Who |
+|---|---|---|
+| Sponsor request | DCAS portal (CAC) | DoD sponsor |
+| CSO assessment package | Cloud eMASS | CSP + 3PAO + sponsor |
+| Cloud IT Project registration | SNAP (IL2/4/5) or SGS (IL6) | Mission owner |
+| Cloud Approval to Connect (CATC) | SNAP / CAO | DISA CAO → CSO |
+| Cloud Permission to Connect (CPTC) | SNAP / CAO | DISA CAO → mission C-ITP |
+| IATT (if testing) | DCCS IATT form + SNAP | Mission owner |
+| Whitelist / NIC / PKI tickets | NIC, PKE, SCCA | CSP + mission |
+
+SNAP: https://snap.dod.mil/ (CAC)
+
+### 11.6 Connection process in order (DISA diagram, condensed)
+
+1. DoD sponsor submits via DCAS.
+2. DISA RE2 initial contact + kickoff (sponsor, CSP, 3PAO, CAO, SCCA, NIC, PKI, whitelist).
+3. Architecture briefing (use DISA’s preparation guide).
+4. Package in cloud eMASS; 3PAO assesses FedRAMP High + FedRAMP+ + SRG.
+5. DISA SCA-R / JVT review → AO decision → PA or IATT.
+6. CAO issues CATC for the CSO.
+7. Mission owner ATOs the C-ITP, registers in SNAP.
+8. CAO issues CPTC; SCCA turns up BCAP.
+9. CSSP monitoring live before operational traffic.
+
+---
+
+## 12. Personnel, citizenship, screening
+
+### 12.1 Who can touch IL5
+
+SRG 5.2.2.3 / 5.5.x family (confirm current text):
+
+- Privileged access to IL5 CSO infrastructure: **US citizens**.
+- Broader IL4/5 user language in Table D-1 PS-03(04): US citizens, US nationals, or US persons; foreign persons only with AO approval.
+- IL6 is citizens with SECRET and SSBI — out of scope here.
+
+Implement the stricter of “citizens-only privileged” and whatever the current SRG table says. Do not staff IL5 hypervisor / KMS / SOC privileged roles with non-US persons.
+
+### 12.2 Screening
+
+Typical IL5 privileged bar in public briefings: ADP-2 / IT-2 / Tier 3 (NACLC) plus NDA. Some roles rise to ADP-1 / Tier 5. Mission AO and vendor personnel security policy set the exact tier. Contractors supporting the CSO follow PS-07.
+
+### 12.3 Operations implications
+
+- 24x7 ops must be staffed with eligible persons on US soil.
+- Break-glass procedures cannot route through an offshore NOC.
+- Background reinvestigation and termination (PS-04 automated disable) must be fast enough that a leaver cannot retain cloud-admin tokens.
+
+---
+
+## 13. STIG / SRG / SCAP / ACAS hardening
+
+### 13.1 CM-6 priority order
+
+1. Current DISA STIG or Application SRG for that product.
+2. If no STIG: CIS Level 2 or NIST NCP checklist (SP 800-70).
+3. If neither: a custom benchmark the 3PAO validates and DISA accepts.
+
+### 13.2 STIG severity
+
+| CAT | Meaning | Authorization posture |
+|---|---|---|
+| CAT I | High / severe | **None open at ATO / PA** |
+| CAT II | Medium | Remediate or POA&M |
+| CAT III | Low | Remediate or accept with documentation |
+
+STIGs refresh quarterly and when vendors ship new versions. Treat STIG maintenance as a standing sprint, not a one-time harden.
+
+### 13.3 What to STIG in a typical IL5 CSO
+
+Build a coverage matrix. Every row needs a STIG/SRG ID, scan tool, last result date, CAT I count.
+
+- Hypervisor / dedicated host
+- Guest OS (RHEL, Windows Server, Ubuntu if a STIG exists)
+- Containers / Kubernetes (DISA Container Hardening / Kubernetes STIG)
+- Database (PostgreSQL, Oracle, SQL Server, Mongo if STIG exists)
+- Web server / reverse proxy
+- Application server
+- Identity provider
+- Jump host / bastion
+- Network devices / load balancers / firewalls
+- Logging stack
+- Backup infrastructure
+- Laptop / admin workstation images used to manage the CSO
+
+### 13.4 How to scan STIGs
+
+- SCAP content from DISA + OpenSCAP / Evaluate-STIG / STIG Viewer.
+- Nessus compliance plugins (often inside ACAS for DoD-connected IaaS/PaaS).
+- Results mapped to Vuln IDs (V-###### / SV-######).
+- Store 90+ days of evidence.
+
+### 13.5 ACAS
+
+For IaaS/PaaS connected to DISN, Cloud Computing Mission Owner Network SRG expects ACAS (Tenable Security Center + Nessus) or a CSP scanner DISA accepts as meeting DoD scanning and reporting requirements, feeding the CSSP. SaaS offerings often N/A this specific rule but still owe FedRAMP authenticated scans.
+
+DoDI 8531.01 sets DoD vulnerability management policy. USCYBERCOM TASKORD 13-670 is the operational scan order ACAS implements. Next-gen ACAS discussions have floated sub-72-hour cadence; do not design a program that can only scan monthly if your connection agreement demands faster.
+
+---
+
+## 14. Scan program — types, cadence, evidence
+
+This is the “scans” half of the original request. Assessors score the **system**, not a one-off Qualys export.
+
+### 14.1 Scan types (all of them)
+
+| Type | Control hook | What “done” looks like |
+|---|---|---|
+| Discovery / inventory | CM-08, RA-05(04) | Every addressable asset in Appendix M; 3PAO will discovery-scan the boundary |
+| OS / infrastructure vuln | RA-05 | Authenticated, full-plugin, nondestructive, 100% or approved sample |
+| Web application / API DAST | RA-05 | Every URL / service in the boundary, authenticated + unauthenticated crawl |
+| Database | RA-05 | Every DB including infrastructure DBs, authenticated |
+| Container image | RA-05, CM-8 | Every production image class scanned before deploy and on ≤30-day cycle; running instances mapped to scanned image |
+| Container runtime / K8s config | CM-06, RA-05 | CIS/STIG against cluster and node |
+| STIG / SCAP compliance | CM-06 | Current quarterly STIG, CAT I = 0 at authorization |
+| SAST / secret scan | SA-11(01) | Pipeline gate on every release |
+| SCA / dependency / SBOM | RA-03(01), SR, SA-11(02) | Dependencies inventoried; KEV matched |
+| IaC / policy as code | CM-03, CM-06 | Terraform/K8s manifests fail the build on High/CAT I |
+| Malware / EDR | SI-03, SI-04 | Real-time on hosts; periodic scans |
+| Wireless IDS | SI-04(14) | If any wireless exists in the boundary (usually “none, disabled”) |
+| External attack-surface | RA-05(04) | What the 3PAO will see from the internet before you do |
+
+### 14.2 Cadence
+
+| When | Who | What |
+|---|---|---|
+| Every build / deploy | CSP CI | SAST, container image, IaC, secret scan |
+| Daily (High VDR recommendation) | CSP | Sample of assets likely to drift — CR26 FRR-VDR-TF-HI-02 |
+| Every 7 days (High VDR recommendation) | CSP | Drift-prone assets — FRR-VDR-TF-HI-03 |
+| **Monthly minimum** | CSP | Authenticated OS + web + DB + container of 100% inventory (or AO-approved unique-class sample). **No sampling of internet-reachable assets.** |
+| Monthly | CSP | Inventory export matching scans |
+| Monthly | CSP | POA&M + deviation file |
+| Quarterly | CSP | STIG content refresh + full compliance rescan |
+| 60–90 days before SAR | CSP → 3PAO | Prior scan corpus in machine-readable form |
+| Scans of record | CSP, validated by 3PAO | Immediately before SAR; show remediation vs earlier scans |
+| Annual | 3PAO | Independent vuln + config + pentest + (High) red team |
+| After significant change | CSP + 3PAO as typed | Delta scans of affected inventory |
+
+### 14.3 Authentication and authorization rules (the ones that trigger DFR)
+
+- Moderate and High: **authenticated** scans wherever possible (RA-05(05)).
+- Scans run with **full system authorization** — scanners must actually be allowed to see what they claim to see.
+- Unauthenticated results ≥ **10%** of a submission → Detailed Finding Review on first offense; Corrective Action Plan on repeat within six months.
+- Scanner hardened (unnecessary ports/services closed).
+- Plugin / signature updates at least monthly (RA-05(02)).
+- Scanner configuration checksum matches the last 3PAO-validated config. Quietly changing plugins mid-ConMon is a finding.
+- Machine-readable output (XML / CSV / JSON) with CVE + CVSSv3 (or tool-native severity mapped).
+- Every finding maps to a unique asset ID from Appendix M.
+
+### 14.4 Sampling
+
+FedRAMP has a separate *Guide for Determining Eligibility and Requirements for the Use of Sampling for Vulnerability Scans*. Unique asset classes may be sampled; externally accessible assets may not. Document the methodology in the SAP. If you cannot defend sampling, scan 100%.
+
+### 14.5 Containers specifically
+
+- Only hardened images in production.
+- Unique asset ID per image class; instances tracked automatically (CM-08).
+- Scan the image that will run, not a cousin tag.
+- 30-day freshness window is the working FedRAMP expectation.
+- Unsigned or unpinned base images fail CM-14 / SI-07(15).
+
+### 14.6 What “good evidence” looks like
+
+For each monthly cycle:
+
+1. Raw scan files (OS, web, DB, container, SCAP).
+2. Summary report (exec + detailed + inventory).
+3. Inventory workbook (Appendix M) with same hostnames / IPs / image IDs.
+4. POA&M with one row per unique scanner finding ID.
+5. Deviation file for FP / RA / OR.
+6. Scanner config export + signature date.
+7. Change log if scanner or plugin set moved.
+
+Keep at least 90 days online; annual-assessment lookback is longer.
+
+### 14.7 CR26 Vulnerability Detection and Response (parallel path)
+
+Consolidated Rules treat “vulnerability” as any weakness, including a stale control statement in the Security Decision Record. High-specific VDR targets include:
+
+- 7-day machine-readable history of detection/response (FRR-VDR-TF-HI-01)
+- Daily sampling of similar machine resources (HI-02)
+- 7-day drift detection (HI-03)
+- Monthly detection of non-drifting resources (HI-04)
+- Evaluate all vulns within 2 days of detection (HI-05)
+
+VDR path can replace traditional POA&M with an Accepted Weaknesses list for providers who implement it. Until you have formally switched, run the classic POA&M program. BOD 26-04 / KEV dates override local clocks when shorter. FedRAMP has pointed to mandatory VDR/VER alignment on a 2026 timetable — track the current RFC / notice.
+
+---
+
+## 15. Penetration test and red team
+
+### 15.1 Rules
