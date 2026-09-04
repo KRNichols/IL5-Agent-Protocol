@@ -1127,3 +1127,568 @@ VDR path can replace traditional POA&M with an Accepted Weaknesses list for prov
 ## 15. Penetration test and red team
 
 ### 15.1 Rules
+
+- Required at Moderate and High.
+- Performed by the FedRAMP-recognized 3PAO (JAB path) or the agency-designated assessor (agency ATO path). For IL5, use a 3PAO that has done both High and DISA packages.
+- Methodology: NIST SP 800-115 + FedRAMP Penetration Test Guidance.
+- Automated scanning is **not** a pentest.
+- Initial test **≤ 6 months before the SAR**. Then at least every 12 months.
+- Rules of Engagement and test plan live in the SAP and are AO-approved before testing.
+- High / Class D additionally requires **CA-08(02) red team exercises**, scoped and scheduled separately from the annual pentest.
+
+### 15.2 Six mandatory attack vectors
+
+The 3PAO covers each vector or writes a formal omission justification in the ROE:
+
+1. **External → corporate** — phishing / social engineering of CSP admins and corporate systems that can reach the CSO.
+2. **External → CSP target system** — unauthenticated internet attack plus movement to the internal boundary.
+3. **Tenant → CSP management plane** — web app, APIs, control plane, ticketing, “support” paths.
+4. **Tenant → tenant** — isolation breakout. This is the IL5 vector. Physical/logical separation claims die here if they are paper-only.
+5. **Mobile application → target system** — if a mobile client exists; otherwise justify N/A.
+6. **Client-side application / agent → target system** — browser agents, desktop clients, sidecars.
+
+### 15.3 Threat models FedRAMP names
+
+Enterprise (recon, privilege escalation, infiltration/exfil, detection evasion, persistence), web application, and mobile. Infrastructure vs SaaS changes origin of testing but not the need to cover the vectors.
+
+### 15.4 What the report must give the AO
+
+Attack path narratives, evidence, detection/response observations (whether SI-04 actually fired), residual risk, and a map back to failed controls (often AC-04, SC-07, SC-04, SC-39, CM-06).
+
+Rehearse all six vectors internally before the 3PAO arrives. Tenant isolation surprises are the expensive kind.
+
+---
+
+## 16. POA&M, deviations, remediation clocks
+
+### 16.1 POA&M rules
+
+- Official FedRAMP POA&M Excel template only.
+- One unique scanner vulnerability ID = one POA&M item. You may split one ID into several items (different asset classes, different fixes). You may **not** bundle different IDs into one row.
+- Every open SAR finding and every late ConMon finding lives here.
+- Weak control implementations discovered by scan (unsupported software = SA-22, bad crypto = SC-13) are logged as **both** the vuln and the control finding.
+
+### 16.2 Deviation types (Vulnerability Deviation Request Form)
+
+| Type | Meaning | Bar |
+|---|---|---|
+| False Positive (FP) | Tool is wrong | Reproduce, show why, 3PAO/AO accept; closed tab |
+| Risk Adjustment (RA) | Severity is lower in this context | Compensating control + residual risk; 3PAO/AO accept |
+| Operational Requirement (OR) | Cannot fix without breaking the service | **High-impact ORs are not approved.** Approved ORs stay Open and are reassessed |
+| RA + OR | Combined request | Same High-OR bar |
+| Vendor Dependency (VD) | Fix is waiting on a vendor | **Not a deviation request.** Track on the POA&M. Monthly vendor check-in evidence. High VDs must be **mitigated to Moderate within 30 days** |
+
+Unapproved deviations are just late POA&Ms. FedRAMP will not authorize with open High residual risks that lack an accepted RA. Official form: Vulnerability Deviation Request Form.
+
+### 16.3 Remediation clocks
+
+| Item | Clock start | Deadline |
+|---|---|---|
+| Critical / High vuln | Detection | **30 days** |
+| Moderate vuln | Detection | **90 days** |
+| Low vuln | Detection | **180 days** |
+| Vendor security patch (SI-02) | **Vendor release date** | **30 days** |
+| CISA KEV | KEV due date | KEV date if shorter than local clock |
+| STIG CAT I | Detection / new STIG drop | Treat as High; 0 open at authorization |
+| STIG CAT II | Detection | 90-day class unless AO says otherwise |
+| BOD 26-04 high-risk KEV triage | KEV add | Agency/CSP forensic triage in days, not weeks |
+
+### 16.4 Escalation triggers (ConMon performance management)
+
+- Unique vuln count +20% from P-ATO baseline (or +10 unique, whichever greater) → visibility trigger.
+- Unauthenticated ≥10% → DFR, then CAP on repeat.
+- 5+ unique High/Critical POA&Ms aged >30 days → DFR.
+- Same aged >60 days → Corrective Action Plan.
+- Late monthly package → DFR / CAP path.
+
+Track these as operational SLOs, not GRC folklore.
+
+---
+
+## 17. Continuous monitoring calendar
+
+### 17.1 Monthly package
+
+- Raw OS, web, DB, container scans + summaries
+- Updated Integrated Inventory Workbook (Appendix M)
+- Updated POA&M
+- Deviation request file
+- ConMon monthly executive summary (template)
+- Scanner signature / config attestation
+- Incident list for the period (even if “none”)
+
+Upload on a fixed calendar day. Use the FedRAMP Continuous Monitoring Deliverables Template to publish the schedule and repository path (Connect.gov / agency repository). Folder naming must include POAM or POA&M if using the managed repository.
+
+### 17.2 Collaborative ConMon
+
+RFC-0026 / CA-07: if you have multiple agency customers, you owe monitoring information to **all** of them and to FedRAMP — either via the VDR balance-improvement path or via monthly scans + POA&M + annual independent scans. Do not build a one-sponsor-only reporting pipe if you intend to scale.
+
+### 17.3 Annual
+
+- SSP update (every control implementation that drifted)
+- 3PAO annual assessment: core controls + ~1/3 of the remainder so every control is tested at least once every three years
+- Annual independent scans
+- Annual pentest (and High red team per CA-08(02) schedule)
+- CP-04 / IR-03 tests
+- Inventory and boundary re-validation (discovery scan)
+- Significant-change backlog closed or scheduled
+- POA&M aging review with AO
+
+### 17.4 DoD extras after PA
+
+- eMASS continuous control status
+- CSSP ticket / sensor health
+- SNAP registration kept current
+- STIG quarterly deltas
+- Architecture-change notices to DISA RE2 / SCCA when the CSO shape moves
+
+---
+
+## 18. Incident reporting clocks
+
+### 18.1 FedRAMP Consolidated Rules (Class D / High)
+
+Incident Evaluation and Communication + RFC-0031. Ratings use Potential Agency Impact N-rating (PAIN / N5–N1).
+
+Published RFC-0031 Class D table (confirm live CR26 page before you print this into an IRP):
+
+| PAIN | Initial Incident Report | Ongoing | Final |
+|---|---|---|---|
+| N5 | **15 minutes** after evaluation | every **3 hours** | **3 hours** after recovery |
+| N4 | 30 minutes | every 6 hours | 6 hours after recovery |
+| N3 | 1 hour | every 6 hours | 6 hours after recovery |
+| N2 | 1 hour | every 6 hours | 6 hours after recovery |
+| N1 | 1 hour | every 24 hours | 24 hours after recovery |
+
+A later notice described an even tighter “15 min IIR / 3 hr OIR / 3 hr FIR for N5–N3 on Class D.” **IRP must quote the live CR26 page**, not this file, on the day you freeze the plan.
+
+IIR contents: IR coordinator contact, provider tracking ID, description, timeline (start, detect, evaluation complete), estimated customer impact, affected agencies, recovery sketch.
+
+### 18.2 CISA
+
+CR26 moves primary CISA notification for agency-customer impact onto the **agency**, except where contracts still require the CSP to notify CISA. Maintain a CISA path anyway for:
+
+- Confirmed compromise of federal customer data
+- KEV / BOD 26-04 escalation
+- CIRCIA if you are a covered entity (72-hour covered-cyber-incident / 24-hour ransom payment — separate statute)
+
+### 18.3 DoD
+
+- CSSP notified per DoDI 8530.01 / DTM-24-001 and the PA.
+- CJCSM 6510.01 incident reporting timelines for DoD networks.
+- DFARS 252.204-7012 / Subpart 204.73 for CUI incidents on contractor systems (72-hour to DoD) — still relevant if the CSO or a connected contractor enclave holds CUI.
+- Spillage (IR-09) is its own playbook: isolate, report, sanitize, after-action.
+
+### 18.4 IR capability DISA will ask about
+
+Volatile memory capture, forensic imaging, malware detonation, time-sync’d logs, ability to preserve tenant data without mixing tenants. Name the CSSP and the CSP IR retainer in the IRP.
+
+---
+
+## 19. Logging (M-21-31 and successors)
+
+OMB M-21-31 created EL1 / EL2 / EL3 maturity and long hot/cold retention (often cited as 12 months hot + 18 months cold for EL1). A 2026 OMB memo revised federal logging toward a risk-based six-month searchable baseline for agencies. **Your CSO still owes whatever FedRAMP AU family + customer contracts + DoD CSSP feed specify.**
+
+Build for the stricter of:
+
+- FedRAMP AU-02/03/04/06/11 parameter values in Appendix A High
+- Customer agency EL-tier
+- CSSP sensor requirements
+- M-21-31 Appendix event types that still appear in contracts (CloudTrail / Azure Activity / GCP Admin, IdP sign-in, DNS, DHCP, firewall, break-glass, VPC flow, WAF, EDR)
+
+Minimum engineering bar that survives assessment:
+
+- UTC timestamps from an authoritative source (SC-45(01), NIST time)
+- User identity, source/destination, action, result on every privileged and auth event
+- Central store, crypto-protected, access-limited (AU-09)
+- Queryable by CSP IR and by CSSP / agency SOC without a ticket that takes days
+- Break-glass account use is always logged and alerted
+- Encrypted-traffic visibility strategy documented under SI-04(10)
+
+---
+
+## 20. Significant change process
+
+### 20.1 Rule
+
+Every change is typed. Impact-level changes (High ↔ Moderate) are **reauthorization**, not a significant-change notice.
+
+Types used in FedRAMP SCN / RFC-0007 language: ordinary significant, transformative, adaptive, etc. Transformative changes are the ones that move boundary, tenancy, crypto, identity, or data flows.
+
+### 20.2 Transformative change pattern (RFC-0007)
+
+1. Notify FedRAMP and agency customers ≥ 14 calendar days before the first ConMon meeting that will discuss the change.
+2. Discuss in **two sequential** monthly ConMon meetings before executing.
+3. 3PAO reviews scope **before** execution and concurs; SAP for the delta exists first.
+4. Execute.
+5. Notify FedRAMP and customers within **1 calendar day** and at the next ConMon meeting.
+6. 3PAO starts assessment within **1 calendar day**; target complete within **7 calendar days**.
+
+### 20.3 DoD parallel
+
+Cloud Change Request / whitelist forms on the DCCS library. Architecture deltas that touch BCAP, tenancy, region, or management plane go through DISA RE2 / SCCA, not just FedRAMP ConMon.
+
+### 20.4 Examples that are significant / transformative
+
+- New region or AD
+- New service that stores CUI
+- IdP change
+- Customer-managed key service change
+- Container platform swap
+- Opening a public endpoint
+- Absorbing a corporate shared service into the boundary
+- Losing physical isolation (this is an IL5-breaking change)
+
+---
+
+## 21. IaaS / PaaS / SaaS shared responsibility
+
+| Concern | IaaS | PaaS | SaaS |
+|---|---|---|---|
+| Physical / PE | Inherit from IL5 IaaS | Inherit | Inherit |
+| Hypervisor isolation | CSP | CSP | CSP |
+| Guest OS STIG + scan | Mission / CSP depending on who patches | Often CSP | CSP |
+| App code SAST / pentest | Mission | Split | CSP |
+| Customer tenant isolation | CSP + mission config | CSP + mission config | CSP |
+| CAC/PIV on the app | Mission | Split | CSP must offer it at IL5 |
+| BCAP | CSP enclave + mission C-ITP | Same | Same; SaaS still needs CATC/CPTC |
+| ACAS | Required for IaaS/PaaS DISN-connected | Required | Often N/A; FedRAMP scans still required |
+| Inventory | VMs, VPCs, disks | Plus platform services | Plus every SaaS component and job |
+
+Write a Customer Responsibility Matrix (CRM / CIS workbook, SSP Appendix J). Every inherited control names the offering and authorization ID you inherit from. Every customer-responsible control is written so a mission AO can put it in **their** SSP.
+
+---
+
+## 22. Inheritance, CRM, GovCloud / Azure Government
+
+### 22.1 Leveraged authorizations
+
+You may inherit PE, some SC, some AU, some CP from:
+
+- AWS GovCloud (US) / AWS Secret-Region is out of IL5 scope; GovCloud has FedRAMP High and DoD IL2/4/5 PAs for in-scope services
+- Azure Government (US Gov AZ / TX / VA) — IL5 isolation guidance requires Dedicated Host in those regions for compute isolation
+- Google Cloud Assured / Google public IL5 PA scope list
+- Other FedRAMP High + IL5 PAs
+
+Inheritance is **service-by-service**. A platform PA does not cover a service that is not on the PA boundary list. Check the FedRAMP Marketplace package and the DISA PA service list.
+
+### 22.2 What you cannot inherit
+
+- Your application’s AC / IA / SI-10 / SA-11
+- Your customer-managed keys if you hold them
+- Your tenant-isolation design
+- Your ConMon scans of **your** inventory
+- Your IRP for **your** CSO
+- Citizenship of **your** privileged staff
+
+### 22.3 CRM hygiene
+
+- One row per control: Implemented / Inherited / Shared / Customer / Not applicable
+- Inherited-from package ID + date
+- Shared: exact split sentence
+- Customer: exact implementation they must perform
+- 3PAO tests inherited controls by examining the leveraged package and residual risk, not by ignoring them
+
+---
+
+## 23. Package artifacts and SSP appendices
+
+### 23.1 FedRAMP SSP appendices (Rev 5)
+
+Starred items must use the FedRAMP template.
+
+| App | Content |
+|---|---|
+| A* | High security controls (the big one) |
+| B | Acronyms |
+| C | Policies and procedures |
+| D | User guide |
+| E | Digital Identity Worksheet |
+| F* | Rules of Behavior |
+| G* | Information System Contingency Plan |
+| H | Configuration Management Plan |
+| I | Incident Response Plan |
+| J* | CIS and CRM workbook |
+| K | FIPS 199 worksheet |
+| L | CSO-specific laws and regulations |
+| M* | Integrated Inventory Workbook |
+| N | Continuous Monitoring Plan |
+| O* | POA&M |
+| P | Supply Chain Risk Management Plan |
+| Q* | Cryptographic Modules Table |
+
+Plus: authorization boundary diagram, data-flow diagrams, network diagrams, interconnection table.
+
+### 23.2 Assessment package
+
+- Security Assessment Plan (SAP) + Rules of Engagement
+- Test Case Workbook
+- Penetration test report
+- Vulnerability scan corpus (scans of record + 60–90 day history)
+- Security Assessment Report (SAR)
+- SAR Appendix A Risk Exposure Table
+- SAR Appendix B High SRTM
+- POA&M
+- Deviation file
+- 3PAO attestation / independence statement
+
+### 23.3 DoD delta package
+
+- DoD Rev 5 SSP Addendum (filled)
+- Architecture briefing slides per DISA guide
+- Onboarding questionnaire
+- eMASS control import (DISA SOP)
+- SCCA / BCAP design
+- CSSP concept of operations
+- Personnel citizenship / screening evidence
+- SNAP artifacts once connection starts
+- PA request through DCAS sponsor
+
+### 23.4 High Readiness Assessment Report
+
+Optional but useful. 3PAO RAR before full assessment catches missing FIPS modules, missing MFA, missing boundary hygiene, missing scan authentication. High RAR template is specific — do not use the Moderate RAR.
+
+---
+
+## 24. 3PAO assessment mechanics
+
+### 24.1 Who
+
+FedRAMP-recognized 3PAO (A2LA / FedRAMP list). Independence rules include a cooling-off period after consulting (commonly described as two years — confirm current 3PAO Obligations document). Do not use the firm that designed the system as the assessor.
+
+### 24.2 Initial vs annual
+
+- Initial: **all ~410** High controls + all in-scope FedRAMP+ / NSS overlay controls.
+- Annual: core set published by FedRAMP (AC-2 family, AU family, CA-8, CM-5/6/7/8, IA-2/4/5, IR-3/4, RA-5, SC-7/8/12/13/28, SI-3/4/7, etc. — use the current Independent Verification page) plus about one-third of the rest.
+
+### 24.3 Methods
+
+Examine, interview, test. High CA-02(02) specialized assessments: the SAP must say which of in-depth monitoring, instrumentation, automated test cases, vuln scanning, malicious-user testing, insider-threat assessment, performance/load, data-leakage apply.
+
+### 24.4 Sampling of people-process controls
+
+Account request / termination / transfer samples, change tickets, training records, visitor logs, media sanitization certificates. 3PAO picks the sample; you produce the population.
+
+### 24.5 What “ready for 3PAO” means
+
+- Boundary diagrams match reality (they will nmap)
+- Inventory = scan targets = running systems
+- Authenticated scan coverage ≥ 90%
+- No unexplained CAT I / Critical
+- Appendix Q complete with certificate numbers
+- CRM internally consistent with Appendix A
+- Pentest ROE drafted
+- Policies dated and trained
+- FIPS mode actually enabled, not just licensed
+
+---
+
+## 25. Authorization sequence: FedRAMP then DISA PA then ATO
+
+```
+[0] AO categorization memo (IL + NSS + overlays)
+[1] Architect IL5 constraints (region, dedicated hardware, citizens, BCAP, FIPS 140-3, STIGs)
+[2] Implement FedRAMP High / Class D + write SSP Appendix A
+[3] Internal rehearsal scans + rehearsal pentest (all 6 vectors)
+[4] High RAR (optional but recommended)
+[5] 3PAO SAP → test → SAR
+[6] Agency ATO and/or JAB P-ATO → Marketplace
+[7] Fill DoD SSP Addendum + Table D-1 DSPAVs
+[8] If NSS: apply CNSSI 1253 “+” and overlays; delta test
+[9] DoD sponsor via DCAS → DISA kickoff + architecture briefing
+[10] Cloud eMASS + DISA SCA review
+[11] DISA AO issues IL5 PA (or IATT for test)
+[12] Mission owner RMF ATO under DoDI 8510.01
+[13] SNAP C-ITP + CATC + CPTC + SCCA BCAP up + CSSP live
+[14] ConMon forever
+```
+
+Two paths to a DoD PA (public.cyber.mil/dccs):
+
+- Leverage an existing FedRAMP authorization and assess the delta; or
+- DoD component sponsors the CSO for a PA without waiting on Marketplace listing — you still must **demonstrate FedRAMP High control compliance** during the IL5 audit.
+
+A FedRAMP High P-ATO does not skip steps 7–14.
+
+---
+
+## 26. FedRAMP 2026 / 20x transition dates
+
+Live dates from FedRAMP timeline pages as of compilation. Recheck [fedramp.gov/2026/timeline](https://fedramp.gov/2026/timeline/).
+
+| Date | Event |
+|---|---|
+| 4 Jul 2026 | CR26 optional / early adoption; 20x new apps follow CR26 |
+| 6 Jul 2026 | Marketplace listings for Initial Implementation |
+| 28 Jul 2026 | **FedRAMP Ready goes Legacy** — no new Ready submissions |
+| 17 Nov 2026 | Ready holders convert to a Certification by the later of this date or their next annual-assessment expiry |
+| 7 Dec 2026 | Track BOD 26-04 / VDR-VER alignment date on the live FedRAMP VDR page |
+| 3 Aug 2026 | 20x Class A pipeline opens |
+| 10 Aug 2026 | Temporary Rev5 Class B/C Ready Conversion / Lost Sponsor pipelines |
+| 31 Aug 2026 | 20x Class B and Class C pipelines open |
+| **1 Jan 2027** | CR26 mandatory for Rev5 stakeholders; Rev5 certs adopt at next independent assessment after this date |
+| Late 2026 / early 2027 | 20x Class D pilot → formal option (High equivalent on 20x) |
+| **11 Jun 2027** | **No new Rev5 certification applications** |
+| 1 Feb 2028 | Remaining CR26 grace periods expire; non-compliant listings lose certification |
+| 31 Dec 2027 | Legacy Ready status fully retired |
+| 31 Dec 2028 | Existing Rev5 certifications targeted to remain at least until this date unless directed otherwise; CR26 practices expire no later than this date |
+
+**Directional cost and time (industry, not official):** FedRAMP High commonly 12–24 months and mid-six to seven figures for 3PAO + documentation + engineering, depending on starting posture. IL5 adds dedicated federal-community infrastructure, US-person staffing, DISA cycle time, and BCAP circuit cost. Budget the IL5 architecture in year zero; do not treat it as a paperwork delta after High.
+
+Engineering implication: write OSCAL-capable, machine-readable evidence **now**. A High SSP that can only exist as a 400-page Word file will be expensive to migrate.
+
+RFC-0020 “Certified Level 5” language, if you see it, is FedRAMP package-depth / High — not DoD IL5.
+
+---
+
+## 27. Related regimes that are not IL5 (CMMC, 800-171, ITAR, CJIS)
+
+Do not substitute these for IL5. They collide with it.
+
+| Regime | What it is | Relationship |
+|---|---|---|
+| NIST SP 800-171 / CMMC Level 2 | CUI on **nonfederal** contractor systems | Contractor enclave path. Not a cloud PA. Significant-change rules differ. You can be CMMC L2 and still be unable to host DoD missions at IL5 |
+| CMMC Level 3 / 800-172 | Higher CUI against APTs | Still not DISA IL5 |
+| DFARS 252.204-7012 / 7019 / 7020 / 7021 | CUI clauses + CMMC | Appear in the contract that **uses** your CSO; they do not authorize the CSO |
+| ITAR / EAR | Export control | Often the reason an AO picks IL5; adds US-person and US-soil constraints you already have |
+| CJIS | Criminal justice data | Separate policy; some Gov clouds carry both |
+| IRS 1075 | FTI | Separate overlay |
+| HIPAA | PHI | Privacy overlay + BAAs; not IL5 |
+| FedRAMP Moderate | Civilian CUI-ish | Not an IL5 floor |
+| StateRAMP / GovRAMP | State/local | Irrelevant to DISA PA |
+| SOC 2 | Commercial | Useful evidence, not a control baseline |
+
+If you only need to **handle CUI as a defense contractor** on your own corporate systems, CMMC L2 + 800-171 is the path. If you need to **sell a cloud offering that DoD missions run on**, this IL5 file is the path.
+
+---
+
+## 28. Common failure modes
+
+1. Building in commercial multi-tenant regions and planning to “encrypt harder” later.
+2. Shared commercial management plane.
+3. Offshore privileged support.
+4. Software TOTP sold as IL5 MFA.
+5. “FIPS-compliant” OpenSSL with no CMVP certificate.
+6. FIPS 140-2 modules still in the design after 21 Sep 2026.
+7. Unauthenticated monthly scans.
+8. Inventory that does not match DNS / IPs / images the 3PAO discovers.
+9. Bundled POA&M rows.
+10. No tenant-to-tenant pentest.
+11. STIG once, never again.
+12. Assuming AWS/Azure/GCP IL5 PA covers *your* SaaS automatically.
+13. Blank organization-defined parameters.
+14. CRM that says “inherited” for controls the platform PA does not include.
+15. Direct-to-internet admin paths.
+16. Missing Appendix Q certificate numbers.
+17. IRP clocks copied from a Moderate package.
+18. Treating FedRAMP High Marketplace listing as a DISA PA.
+19. Skipping the written NSS / IL decision and discovering at kickoff you owe 170 more controls.
+20. Trusting a blog that said “10 extra controls” or “47 extra controls” instead of the current SSP Addendum.
+
+---
+
+## 29. Build order and staffing checklist
+
+### 29.1 Order
+
+1. Written AO categorization (IL, NSS, overlays, information types).
+2. Boundary + data-flow + tenancy architecture that already satisfies §8–§12.
+3. US federal-community region + dedicated hosts + HSM CMK + no commercial neighbors.
+4. Identity: CAC/PIV or hardware token, US-person privileged roles, no shared admins.
+5. FIPS 140-3 modules in FIPS mode everywhere crypto exists; fill Appendix Q as you go.
+6. STIG baselines in the image pipeline; CAT I fails the build.
+7. Authenticated scan pipeline: OS, web, DB, container, SCAP → inventory → POA&M.
+8. SAST / SBOM / signing (SA-11, CM-14, SI-07(15)).
+9. Logging + time sync + SIEM that CSSP can use.
+10. Policies, SSP Appendix A, CRM, SCRM, CP, IRP using official templates.
+11. Internal six-vector pentest.
+12. 3PAO High RAR then full SAR.
+13. FedRAMP authorization.
+14. SSP Addendum + DISA architecture briefing + eMASS.
+15. PA → mission ATO → SNAP → BCAP → ConMon.
+
+### 29.2 Roles you actually need
+
+- System owner / ISSO
+- Boundary architect who has shipped an IL5 or Gov-cloud dedicated-host design
+- Crypto / KMS owner
+- Identity owner (PKI)
+- Platform hardening (STIG) owner
+- Scan + inventory automation owner
+- Application security (SAST/DAST) owner
+- GRC package owner who lives in Appendix A
+- IR lead who can hit 15-minute N5 clocks
+- Personnel security for citizenship / screening
+- Sponsor liaison (DoD component) for DCAS
+- 3PAO contract that forbids them from also consulting
+
+### 29.3 Evidence you should be producing every week from month one
+
+- Inventory diff
+- Scan raw files
+- CAT I / Critical aging
+- FIPS module list
+- Privileged-user roster with citizenship attestation
+- Change tickets
+- Pipeline pass/fail on STIG + SAST
+
+If that weekly pack does not exist, you are not “almost ready for 3PAO.”
+
+---
+
+## 30. Contacts, portals, and mailboxes
+
+Verify before use; mailboxes move.
+
+| Function | Where |
+|---|---|
+| FedRAMP PMO | info@fedramp.gov — https://www.fedramp.gov/ |
+| FedRAMP incident / security | fedramp_security@fedramp.gov |
+| FedRAMP Marketplace | https://marketplace.fedramp.gov/ |
+| DCCS public | https://public.cyber.mil/dccs/ |
+| DCCS library | https://public.cyber.mil/dccs/dccs-documents/ |
+| DISA Cloud Assessments | disa.meade.re.mbx.cloud-team@mail.mil |
+| Cloud eMASS | disa.meade.re.mbx.disa-cloud-emass-team@mail.mil — https://cloud.emass.apps.mil/ (CAC/ECA) |
+| DCAS sponsor portal | https://dod365.sharepoint-mil.us/sites/DISA-RE-Apps/cas (CAC) |
+| SNAP | https://snap.dod.mil/ (CAC) |
+| Connection Approval Office | disa.meade.re.mbx.ucao@mail.mil |
+| SCCA PMO (BCAP) | hac-scca-pmo@mail.mil / disa.meade.se.mbx.disa-scca-pmo@mail.mil |
+| DoD NIC | disa.columbus.ns.list.hostmaster-dod-nic-dl@mail.mil |
+| PPSM | dod.ppsm@mail.mil |
+| PKI/PKE | dodpke@mail.mil — https://public.cyber.mil/pki-pke/interoperability/ |
+| CSSP listing | IntelShare CAC site (see DCCS Help) |
+| CNSS issuances | https://www.cnss.gov/CNSS/issuances/Instructions.cfm |
+| NIST CSRC | https://csrc.nist.gov/ |
+| CMVP | https://csrc.nist.gov/projects/cryptographic-module-validation-program |
+| CISA incident notifications | CISA Federal Incident Notification Guidelines |
+| DoD CUI contractor incidents | DIBNet (DFARS 252.204-7012, 72 hours) |
+| STIG downloads | https://public.cyber.mil/stigs/ |
+
+---
+
+## 31. Revision and verification notes
+
+This file is a navigation layer over official publications. It is not a DISA PA, not a FedRAMP baseline, and not legal advice.
+
+**Before you freeze a baseline for assessment:**
+
+1. Re-download SSP Appendix A High and the DoD Rev 5 SSP Addendum. Diff against this file.
+2. Re-read CSP SRG Appendix D Table D-1 for current DSPAVs.
+3. Confirm NSS / overlay applicability with the AO in writing.
+4. Confirm FIPS module certificates are still **active** on CMVP (not historical, not revoked).
+5. Confirm FedRAMP incident clocks on the live CR26 Incident Evaluation page — they have moved during 2026 RFCs.
+6. Confirm BCAP sites and SNAP/DCAS URLs with SCCA / RE2.
+7. Confirm 20x Class D status if you are starting after early 2027.
+
+### Suggested next artifacts to generate from this file
+
+- Control workbook: Appendix A High ⋈ SSP Addendum ⋈ owner ⋈ evidence path ⋈ scan hook
+- Inventory + scan coverage matrix
+- Isolation design narrative (compute, storage, network, management plane, keys)
+- Six-vector pentest ROE draft
+- ConMon calendar with named producers and repository paths
+- Architecture briefing slide outline matching DISA’s preparation guide
+
+---
+
+*End of guide.*
