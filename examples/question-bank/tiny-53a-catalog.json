@@ -1,0 +1,186 @@
+{
+  "catalog": {
+    "uuid": "00000000-0000-4000-8000-000000000001",
+    "metadata": {
+      "title": "EXAMPLE SHAPE SNAPSHOT — not NIST SP 800-53A and not FedRAMP High / Class D",
+      "version": "example-0.1",
+      "remarks": "SOURCE: shape-only snapshot for IL5 Scanner question synthesis. Original short stems, not official 800-53A prose. Operator must fetch the NIST OSCAL catalog (usnistgov/oscal-content NIST_SP-800-53_rev5_catalog.json) and filter with official FedRAMP Appendix A High / Class D IDs. Do not treat the control count in this file as an official baseline."
+    },
+    "groups": [
+      {
+        "id": "at",
+        "title": "Awareness and Training",
+        "controls": [
+          {
+            "id": "at-4",
+            "title": "Training Records",
+            "parts": [
+              {
+                "id": "at-4_obj",
+                "name": "assessment-objective",
+                "parts": [
+                  {
+                    "id": "at-4_obj.a",
+                    "name": "assessment-objective",
+                    "prose": "training activity records are documented for awareness and role-based training"
+                  },
+                  {
+                    "id": "at-4_obj.b",
+                    "name": "assessment-objective",
+                    "prose": "individual training records are retained for the organization-defined period"
+                  }
+                ]
+              },
+              {
+                "id": "at-4_asm-examine",
+                "name": "assessment-method",
+                "props": [{ "name": "method", "value": "EXAMINE" }],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "training policy; training record procedures; sample training records"
+                  }
+                ]
+              },
+              {
+                "id": "at-4_asm-interview",
+                "name": "assessment-method",
+                "props": [{ "name": "method", "value": "INTERVIEW" }],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "personnel who retain security and privacy training records"
+                  }
+                ]
+              },
+              {
+                "id": "at-4_asm-test",
+                "name": "assessment-method",
+                "props": [{ "name": "method", "value": "TEST" }],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "record-keeping mechanism for training completion"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "au",
+        "title": "Audit and Accountability",
+        "controls": [
+          {
+            "id": "au-8",
+            "title": "Time Stamps",
+            "parts": [
+              {
+                "id": "au-8_obj",
+                "name": "assessment-objective",
+                "parts": [
+                  {
+                    "id": "au-8_obj.a",
+                    "name": "assessment-objective",
+                    "prose": "audit records receive timestamps from system clocks"
+                  },
+                  {
+                    "id": "au-8_obj.b",
+                    "name": "assessment-objective",
+                    "prose": "timestamps use a documented time standard"
+                  }
+                ]
+              },
+              {
+                "id": "au-8_asm-examine",
+                "name": "assessment-method",
+                "props": [{ "name": "method", "value": "EXAMINE" }],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "audit policy; time-stamp procedures; sample audit records"
+                  }
+                ]
+              },
+              {
+                "id": "au-8_asm-interview",
+                "name": "assessment-method",
+                "props": [{ "name": "method", "value": "INTERVIEW" }],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "personnel responsible for audit time sources"
+                  }
+                ]
+              },
+              {
+                "id": "au-8_asm-test",
+                "name": "assessment-method",
+                "props": [{ "name": "method", "value": "TEST" }],
+                "parts": [
+                  {
+                    "name": "assessment-objects",
+                    "prose": "timestamp generation on audit records"
+                  }
+                ]
+              }
+            ],
+            "controls": [
+              {
+                "id": "au-8.1",
+                "title": "Synchronization with Authoritative Time Source",
+                "parts": [
+                  {
+                    "id": "au-8.1_obj",
+                    "name": "assessment-objective",
+                    "parts": [
+                      {
+                        "id": "au-8.1_obj.a",
+                        "name": "assessment-objective",
+                        "prose": "clocks used for audit timestamps synchronize to a documented authoritative time source"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "au-8.1_asm-examine",
+                    "name": "assessment-method",
+                    "props": [{ "name": "method", "value": "EXAMINE" }],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "time-sync configuration; named authoritative source"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "au-8.1_asm-interview",
+                    "name": "assessment-method",
+                    "props": [{ "name": "method", "value": "INTERVIEW" }],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "personnel who operate time synchronization"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "au-8.1_asm-test",
+                    "name": "assessment-method",
+                    "props": [{ "name": "method", "value": "TEST" }],
+                    "parts": [
+                      {
+                        "name": "assessment-objects",
+                        "prose": "time-sync mechanism"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

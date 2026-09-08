@@ -1,0 +1,7 @@
+# EXAMPLE filter only — not the official FedRAMP High / Class D set.
+# SOURCE: shape demo. Official IDs live in SSP Appendix A High and the
+# FedRAMP Security Controls Baseline workbook on fedramp.gov.
+# Do not treat this 3-ID list as a control count.
+at-4
+au-8
+au-8.1

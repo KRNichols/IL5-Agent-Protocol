@@ -60,10 +60,36 @@ they land, fire the scan playbook.
    claimed.
 7. Package artifacts: SSP appendices, CRM inheritance, boundary.
 8. Common failure modes (standard §28).
+9. If a synthesized question bank is in scope, answer every
+   in-scope question per the answering protocol. Synthesis is
+   in `QUESTION-BANK.md`. Do not invent a fake full High bank.
 
 Score only what was handed to you. Mark the rest `MISSING`.
 Do not invent evidence. Cite standard sections on gaps
 (e.g. §14, §28).
+
+## Question bank (transitional scanner)
+
+Commercial GRC scanners ask hundreds of questions. This
+scanner does the same when a synthesized bank is in scope.
+Questions come from NIST SP 800-53A Rev 5 Examine / Interview /
+Test procedures against the operator-supplied FedRAMP High /
+Class D set, plus FedRAMP+ / CNSSI / SRG overlay rows when the
+buyer path is IL5. Do not invent official control counts.
+Point at NIST 800-53A, FedRAMP Appendix A High, and official
+workbooks. NIST SP 800-53B HIGH is not FedRAMP High.
+
+### Answering protocol
+
+- Every in-scope synthesized question must be answered
+  `PASS | HOLD | WARN | N/A | MISSING`
+- PASS requires cited evidence from the handed solution
+- Never invent answers. Wrong or guessed answers are HOLD
+- READY never means ATO, FedRAMP authorization, or DISA PA
+- High-alone still fails an IL5 assessment
+- If the bank was not generated from an official catalog plus
+  official High / overlay workbooks, say so and do not treat
+  the question count as the official C/CE count
 
 ## Required report
 
@@ -84,6 +110,16 @@ COVERAGE:
 - Package artifacts: PASS | HOLD | WARN | N/A | MISSING — <evidence>
 - §28 failure modes: PASS | HOLD | WARN | N/A | MISSING — <evidence>
 
+QUESTIONS:
+- in_scope: N
+- answered: N
+- PASS: N
+- HOLD: N
+- WARN: N
+- N/A: N
+- MISSING: N
+- artifact: <path or none>
+
 GAPS (ordered by assessment risk):
 1. ...
 
@@ -94,10 +130,15 @@ PLAIN ENGLISH:
 - What to do next (top 3):
 ```
 
+`answered` is PASS + HOLD + WARN + N/A (a determination other
+than MISSING). If no generated bank is in scope, set
+`in_scope: 0` and `artifact: none`.
+
 `HOLD` examples: High-only claiming IL5; unauthenticated-only
 scans; inventory ≠ scan targets; missing FIPS modules when
 crypto is in scope; treating CMMC as an IL5 PA; invented
-control counts; missing rubric file.
+control counts; missing rubric file; guessed question-bank
+answers.
 
 `WARN` is for soft gaps that do not kill the claimed stack.
 Never use `WARN` for a hard hold.
