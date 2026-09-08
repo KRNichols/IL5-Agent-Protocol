@@ -1,0 +1,6 @@
+# FIXTURE only — not production. Not the official FedRAMP High / Class D set.
+# SOURCE: unit-test shape. Production IDs: question-bank/fedramp-high-class-d.ids.txt
+# Do not treat this 3-ID list as a control count.
+at-4
+au-8
+au-8.1

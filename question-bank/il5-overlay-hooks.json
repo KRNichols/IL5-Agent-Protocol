@@ -1,0 +1,85 @@
+{
+  "format": "il5-overlay-rows-v1",
+  "source": "IL5 overlay HOOKS — not a substitute for the official DoD Rev 5 SSP Addendum or CNSSI 1253. Fetched 2026-09-08: public.cyber.mil / www.cyber.mil/dccs/dccs-documents/ is a login-walled LWC community; no machine-readable addendum or crosswalk was retrieved. CNSSI 1253 remains on cnss.gov. These rows are documented architecture / parameter-cite hooks from FEDRAMP-HIGH-IL5-STANDARD.md §§6–12. They are not an invented extra-control count. Replace with official workbook extracts when the operator can download them.",
+  "official_workbooks_not_fetched": [
+    "https://public.cyber.mil/dccs/dccs-documents/",
+    "https://www.cyber.mil/dccs/dccs-documents/",
+    "DoD Rev 5 SSP Addendum Controls v1.2",
+    "DoD SRG Control Crosswalk",
+    "https://www.cnss.gov/CNSS/issuances/Instructions.cfm"
+  ],
+  "rows": [
+    {
+      "control": "AC-7",
+      "enhancement": "",
+      "objective_id": "ac-7_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Examine: Does the handed SSP Addendum record the current DoD lockout parameter for AC-7 from Table D-1 / DSPAV? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil on 2026-09-08."
+    },
+    {
+      "control": "AC-7",
+      "enhancement": "",
+      "objective_id": "ac-7_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Interview: Who applies the DoD AC-7 lockout parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP?"
+    },
+    {
+      "control": "PS-3",
+      "enhancement": "4",
+      "objective_id": "ps-3.4_srg_citizenship",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Examine: Does the handed package show US-person / citizenship screening for privileged users as required by the current CSP SRG / SSP Addendum? Cite the official row. CMMC is not a substitute."
+    },
+    {
+      "control": "IA-2",
+      "enhancement": "12",
+      "objective_id": "ia-2.12_cac_piv",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Examine: Does the handed package show CAC/PIV (or approved PKI) for privileged DoD users at Credential Strength D, with the implementation cited from the package (not inferred)?"
+    },
+    {
+      "control": "SC-13",
+      "enhancement": "",
+      "objective_id": "sc-13_fips_140-3",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Examine: When crypto is in scope, does the handed package cite active FIPS 140-3 CMVP module certificates (not historical, not revoked) for the modules actually used?"
+    },
+    {
+      "control": "SC-13",
+      "enhancement": "",
+      "objective_id": "sc-13_fips_140-3",
+      "method": "Test",
+      "layer": "SRG",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Test: Does the handed evidence show FIPS mode enabled on in-scope modules, not merely licensed?"
+    },
+    {
+      "control": "AC-17",
+      "enhancement": "3",
+      "objective_id": "ac-17.3_bcap_scca",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Examine: If the CSO will connect to DoD networks, does the handed package show BCAP/SCCA-ready managed access points (AC-17(3)) rather than a High-only commercial edge?"
+    },
+    {
+      "control": "IA-2",
+      "enhancement": "",
+      "objective_id": "ia-2_cnssi_nss",
+      "method": "Examine",
+      "layer": "CNSSI",
+      "path_applicability": ["IL5 NSS"],
+      "question": "Examine: If the path is IL5 NSS, does the handed package show the AO-selected CNSSI 1253 Table D-1 '+' rows from the official instruction (cnss.gov), not a blog count?"
+    }
+  ]
+}

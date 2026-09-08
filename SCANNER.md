@@ -2,18 +2,17 @@
 
 `AGENTS.md` is the contract. `FEDRAMP-HIGH-IL5-STANDARD.md` is the rubric. Read both at the checkout root before you grade. `AGENTS.perfect.md` is the identical twin of `AGENTS.md` when present.
 
-Question synthesis (NIST SP 800-53A Examine / Interview / Test → scanner questions) is documented in `QUESTION-BANK.md`. The tool is `tools/synthesize_questions.py`. A tiny shape snapshot lives in `examples/question-bank/`. Full High / IL5 banks are generated-from-catalog after the operator supplies official files. Do not invent official control counts.
+The production HIGH bank is `il5-scanner/banks/production-high-53a-questions.jsonl` (**4003** questions from NIST SP 800-53A on the NIST HIGH-baseline-resolved-profile catalog). Interim baseline label: `NIST-800-53B-HIGH` — not FedRAMP Appendix A. Rebuild with `tools/generate_production_banks.py`. See `QUESTION-BANK.md`. `fixtures/question-bank/` is a unit fixture only. Do not invent official control counts.
 
 This file is a pointer. It does not replace the contract. Paths here are checkout-relative (`FEDRAMP-HIGH-IL5-STANDARD.md`), not absolute machine paths.
 
-## Intake (four questions, then wait)
+## Intake (three questions, then wait)
 
-When they say scan, grade, review this package, is this IL5 ready, or hill-climb this solution: ask these **once**, then **stop and wait**. Do not recon. Do not invent answers. If the four answers are already in this session, do not re-ask.
+When they say scan, grade, review this package, is this IL5 ready, or hill-climb this solution: ask these **once**, then **stop and wait**. Do not recon. Do not invent answers. If the three answers are already in this session, do not re-ask.
 
-1. Buyer path: CSP selling a CSO | defense contractor COCO | both / unsure
-2. Target stack: FedRAMP High only | IL5 non-NSS | IL5 NSS | unknown
-3. What to scan (paths, repo, package folder, architecture doc, evidence pack)
-4. Shared responsibility: IaaS | PaaS | SaaS | unknown
+1. Target stack: FedRAMP High only | IL5 non-NSS | IL5 NSS | unknown
+2. What to scan (paths, repo, package folder, architecture doc, evidence pack)
+3. Shared responsibility: IaaS | PaaS | SaaS | unknown
 
 Then `HOLD` until answers that are still needed arrive. After they land, fire the scan playbook.
 
@@ -41,7 +40,7 @@ Score only what was handed to you. Mark the rest `MISSING`. Do not invent eviden
 6. POA&M, remediation clocks, ConMon, incident reporting if claimed.
 7. Package artifacts: SSP appendices, CRM inheritance, boundary.
 8. Common failure modes (standard §28).
-9. If a synthesized question bank is in scope, answer every in-scope question per the answering protocol.
+9. Answer every in-scope question in `il5-scanner/banks/production-high-53a-questions.jsonl`.
 
 ## Answering protocol (question bank)
 
@@ -51,7 +50,7 @@ Every in-scope synthesized question must be answered `PASS | HOLD | WARN | N/A |
 - Never invent answers. Wrong or guessed answers are HOLD.
 - READY never means ATO, FedRAMP authorization, or DISA PA.
 - High-alone still fails an IL5 assessment.
-- If the bank was not generated from an official catalog plus official High / overlay workbooks, say so and do not treat the question count as the official C/CE count.
+- If SOURCE is missing or the catalog was not official, say so and do not treat the question count as the official C/CE count.
 
 ## Required GRADE block
 
@@ -61,7 +60,6 @@ Every review ends with this block, then Plain English.
 GRADE: READY | HOLD | WARN
 
 PATH: FedRAMP High | IL5 non-NSS | IL5 NSS | MIXED / UNCLEAR
-BUYER: CSP | COCO | UNSTATED
 
 COVERAGE:
 - Categorization: PASS | HOLD | WARN | N/A | MISSING — <evidence>
@@ -94,9 +92,9 @@ PLAIN ENGLISH:
 
 `READY` means ready for human GRC / 3PAO prep review of this slice. It is never authorized, PA'd, or ATO'd.
 
-`answered` is PASS + HOLD + WARN + N/A. If no generated bank is in scope, set `in_scope: 0` and `artifact: none`.
+`answered` is PASS + HOLD + WARN + N/A. Default artifact is `il5-scanner/banks/production-high-53a-questions.jsonl`. If that production HIGH bank is missing, `HOLD`.
 
-`HOLD` examples: High-only claiming IL5; unauthenticated-only scans; inventory ≠ scan targets; missing FIPS modules when crypto is in scope; treating CMMC as an IL5 PA; invented control counts; missing rubric file; guessed question-bank answers.
+`HOLD` examples: High-only claiming IL5; unauthenticated-only scans; inventory ≠ scan targets; missing FIPS modules when crypto is in scope; treating CMMC as an IL5 PA; invented control counts; missing rubric file; guessed question-bank answers; missing production question bank.
 
 `WARN` is for soft gaps that do not kill the claimed stack. Never use `WARN` for a hard hold.
 
@@ -108,4 +106,4 @@ PLAIN ENGLISH:
 - Don't claim ATO, FedRAMP, or DISA PA.
 - Don't write exploits, PoCs, payloads, or attack playbooks.
 - Don't treat CMMC / 800-171 / ITAR as substitutes for IL5 PA.
-- Don't quiz past the four intake questions.
+- Don't quiz past the three intake questions.

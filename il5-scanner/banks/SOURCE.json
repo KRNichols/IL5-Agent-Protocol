@@ -1,0 +1,25 @@
+{
+  "generated_from_catalog": true,
+  "production": true,
+  "fetched_at": "2026-09-08T23:19:02Z",
+  "high_bank": {
+    "path": "il5-scanner/banks/production-high-53a-questions.jsonl",
+    "question_count": 4003,
+    "catalog_controls_emitted": 370,
+    "baseline": "NIST-800-53B-HIGH",
+    "not_fedramp_appendix_a": true,
+    "catalog": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline-resolved-profile_catalog-min.json",
+    "label": "NIST SP 800-53 HIGH-baseline-resolved-profile catalog (includes 800-53A). Not FedRAMP High / Class D."
+  },
+  "full_bank": {
+    "path": "il5-scanner/banks/production-full-53a-questions.jsonl",
+    "question_count": 7772,
+    "catalog_controls_emitted": 1196,
+    "baseline": "NIST-SP-800-53-REV5-FULL-CATALOG",
+    "catalog": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog-min.json",
+    "label": "Entire NIST SP 800-53/53A catalog. Not a baseline. Max-size bank."
+  },
+  "question_count_is_not_a_control_count": true,
+  "high_alone_fails_il5": true,
+  "overlay_hooks": "question-bank/il5-overlay-hooks.json"
+}

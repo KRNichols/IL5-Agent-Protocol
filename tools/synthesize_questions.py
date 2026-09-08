@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """Synthesize transitional-scanner questions from a 800-53A catalog.
 
-This is a scaffold. It does not vendor NIST or FedRAMP catalogs and it
-does not invent official control counts.
+Production path: tools/build_production_bank.py fetches official NIST
+800-53A + the FedRAMP Rev 5 High / Class D OSCAL profile and writes
+question-bank/. It does not invent official control counts.
 
-Inputs (operator-supplied, or the marked example snapshot):
+Inputs:
   - OSCAL catalog JSON (NIST SP 800-53 Rev 5 + 800-53A assessment
     procedures), or a flattened il5-question-catalog-v1 file
-  - Optional baseline ID list / OSCAL profile (FedRAMP High / Class D
-    from official workbooks — not guessed here)
+  - Optional baseline ID list / OSCAL profile (FedRAMP High / Class D)
   - Optional overlay row files (FedRAMP+ / CNSSI / SRG) when the path
     is IL5
+  - fixtures/question-bank/ is a unit fixture only, not production
 
 Official fetch / source path is printed by --print-sources.
 See QUESTION-BANK.md.
@@ -54,8 +55,20 @@ NIST_OSCAL_HIGH_PROFILE = (
     "https://raw.githubusercontent.com/usnistgov/oscal-content/main/"
     "nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json"
 )
+NIST_OSCAL_HIGH_RESOLVED = (
+    "https://raw.githubusercontent.com/usnistgov/oscal-content/main/"
+    "nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline-resolved-profile_catalog-min.json"
+)
+FEDRAMP_HIGH_PROFILE = (
+    "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/"
+    "baselines/rev5/json/FedRAMP_rev5_HIGH-baseline_profile.json"
+)
+FEDRAMP_HIGH_RESOLVED = (
+    "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/"
+    "baselines/rev5/json/FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.json"
+)
 
-SOURCES_TEXT = """Official sources (operator fetch — not vendored in this repo)
+SOURCES_TEXT = """Official sources
 
 NIST SP 800-53 Rev 5 + SP 800-53A Rev 5 assessment procedures (OSCAL):
   {catalog}
@@ -63,30 +76,34 @@ NIST SP 800-53 Rev 5 + SP 800-53A Rev 5 assessment procedures (OSCAL):
   https://github.com/usnistgov/oscal-content/tree/main/nist.gov/SP800-53/rev5/json
   https://csrc.nist.gov/pubs/sp/800/53/a/r5/final
 
+FedRAMP Rev 5 High / Class D OSCAL profile (preferred ID list):
+  {fedramp_high}
+  {fedramp_resolved}
+  GSA/fedramp-automation returned 404 on 2026-09-08. This profile is the
+  published FedRAMP Rev 5 High baseline (OSCAL Foundation). Class D = High.
+  Also: https://fedramp.gov/2026/reference/fedramp-certification/
+        https://fedramp.gov/2026/reference/controls/
+
 NIST SP 800-53B HIGH baseline profile (NOT FedRAMP High / Class D):
   {high_profile}
-  Use only as a NIST High filter. FedRAMP High / Class D is a different
-  set. Official High / Class D IDs live in SSP Appendix A High and the
-  FedRAMP Security Controls Baseline workbook:
-  https://fedramp.gov/2026/reference/fedramp-certification/
-  https://fedramp.gov/2026/reference/controls/
-  https://www.fedramp.gov/rev5/documents-templates/
+  Different set. Do not substitute for FedRAMP High.
 
-DoD FedRAMP+ / IL5 overlay (not invented here):
+DoD FedRAMP+ / IL5 overlay:
   DoD Rev 5 SSP Addendum + SRG Control Crosswalk
   https://public.cyber.mil/dccs/dccs-documents/
+  (login-walled as of 2026-09-08; production bank uses documented hooks)
 
 CNSSI 1253 NSS overlays (IL5 NSS only):
   https://www.cnss.gov/CNSS/issuances/Instructions.cfm
 
-This synthesizer emits questions. It does not publish an official C/CE
-count. Do not treat a generated question count as FedRAMP High (~410
-directional) or IL5 NSS (~600 directional). Official counts live in the
-workbooks above.
+Question count is synthesized 53A rows. It is not an official C/CE count.
+Production artifacts: question-bank/  Rebuild: tools/build_production_bank.py
 """.format(
     catalog=NIST_OSCAL_CATALOG,
     catalog_min=NIST_OSCAL_CATALOG_MIN,
     high_profile=NIST_OSCAL_HIGH_PROFILE,
+    fedramp_high=FEDRAMP_HIGH_PROFILE,
+    fedramp_resolved=FEDRAMP_HIGH_RESOLVED,
 )
 
 PARAM_RE = re.compile(r"\{\{\s*insert:\s*param,\s*([^}]+?)\s*\}\}")
@@ -321,6 +338,7 @@ def questions_from_control(
     *,
     default_layer: str,
     source: str,
+    published_only: bool = True,
 ) -> list[dict[str, Any]]:
     cid = str(control.get("id") or "")
     if not cid:
@@ -333,11 +351,13 @@ def questions_from_control(
 
     objectives = flattened_objectives(control) or leaf_objectives(control.get("parts"))
     methods = flattened_methods(control) or assessment_methods(control.get("parts"))
-    if not methods:
+    if not methods and not published_only:
         methods = [(m, "") for m in METHODS]
-    if not objectives:
+    if not objectives and not published_only:
         fallback = title or f"{label} assessment procedure"
         objectives = [(control.get("id") or "obj", f"{fallback} is implemented as required")]
+    if not methods or not objectives:
+        return []
 
     out: list[dict[str, Any]] = []
     for objective_id, prose in objectives:
@@ -365,11 +385,14 @@ def load_baseline_ids(path: Path) -> tuple[set[str], str]:
         label = f"OSCAL profile/JSON IDs from {path}"
         if isinstance(doc, dict) and doc.get("profile"):
             title = (doc.get("profile") or {}).get("metadata", {}).get("title") or ""
-            if "800-53B" in title or "HIGH IMPACT BASELINE" in title.upper():
+            upper = title.upper()
+            if "FEDRAMP" in upper and "HIGH" in upper:
+                label = f"FedRAMP High / Class D OSCAL profile ({path})"
+            elif "800-53B" in title or "HIGH IMPACT BASELINE" in upper:
                 warn(
                     "baseline looks like NIST SP 800-53B HIGH, which is not "
-                    "FedRAMP High / Class D. Filter only. Official Class D "
-                    "IDs live in SSP Appendix A High / FedRAMP workbooks."
+                    "FedRAMP High / Class D. Production bank must use the "
+                    "FedRAMP High profile."
                 )
         return ids, label
     ids = set()
@@ -520,11 +543,13 @@ def build_meta(
         "question_count": len(questions),
         "by_layer": layers,
         "by_method": methods,
-        "official_counts_live_in": [
-            "FedRAMP SSP Appendix A High / Class D workbook",
+        "official_id_lists_live_in": [
+            "FedRAMP Rev 5 High / Class D OSCAL profile (OSCAL-Foundation/fedramp-resources)",
+            "FedRAMP SSP Appendix A High / Class D workbook on fedramp.gov",
             "DoD Rev 5 SSP Addendum + SRG Control Crosswalk on cyber.mil",
             "CNSSI 1253 if NSS",
         ],
+        "question_count_is_not_a_control_count": True,
     }
 
 
@@ -558,12 +583,25 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     p.add_argument("--format", choices=("jsonl", "json"), default="jsonl")
     p.add_argument("--out", type=Path, help="Write here instead of stdout")
+    p.add_argument("--meta-out", type=Path, help="Write generation meta JSON here")
     p.add_argument("--print-sources", action="store_true")
     p.add_argument(
         "--fetch-nist-catalog",
         type=Path,
         metavar="DEST",
         help="Download the official NIST 800-53/53A min catalog to DEST.",
+    )
+    p.add_argument(
+        "--fetch-fedramp-high-profile",
+        type=Path,
+        metavar="DEST",
+        help="Download the FedRAMP Rev 5 High / Class D OSCAL profile to DEST.",
+    )
+    p.add_argument(
+        "--fill-missing-methods",
+        action="store_true",
+        help="If a control omits Examine/Interview/Test, invent all three. "
+        "Default is published-methods-only (production).",
     )
     return p.parse_args(argv)
 
@@ -572,15 +610,19 @@ def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if args.print_sources:
         sys.stdout.write(SOURCES_TEXT)
-        if not args.catalog and not args.fetch_nist_catalog:
+        if not args.catalog and not args.fetch_nist_catalog and not args.fetch_fedramp_high_profile:
             return 0
     if args.fetch_nist_catalog:
         fetch_url(NIST_OSCAL_CATALOG_MIN, args.fetch_nist_catalog)
+        if not args.catalog and not args.fetch_fedramp_high_profile:
+            return 0
+    if args.fetch_fedramp_high_profile:
+        fetch_url(FEDRAMP_HIGH_PROFILE, args.fetch_fedramp_high_profile)
         if not args.catalog:
             return 0
 
     if not args.catalog:
-        die("provide --catalog, or use --print-sources / --fetch-nist-catalog")
+        die("provide --catalog, or use --print-sources / fetch flags")
 
     doc = load_json(args.catalog)
     source = catalog_source_label(doc, args.catalog)
@@ -612,7 +654,12 @@ def main(argv: list[str] | None = None) -> int:
             continue
         emitted_ids.append(cid)
         questions.extend(
-            questions_from_control(control, default_layer=default_layer, source=source)
+            questions_from_control(
+                control,
+                default_layer=default_layer,
+                source=source,
+                published_only=not args.fill_missing_methods,
+            )
         )
 
     for overlay in args.overlay:
@@ -632,10 +679,18 @@ def main(argv: list[str] | None = None) -> int:
         "generated-from-catalog: "
         f"{meta['question_count']} questions from "
         f"{meta['catalog_controls_emitted']} catalog controls "
-        "(not an official FedRAMP High / IL5 C/CE count)",
+        "(question count is not an official C/CE count)",
         file=sys.stderr,
     )
     emit(questions, args.format, args.out, meta)
+    if args.meta_out:
+        args.meta_out.parent.mkdir(parents=True, exist_ok=True)
+        args.meta_out.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
+    elif args.out:
+        sidecar = args.out.with_suffix(args.out.suffix + ".meta.json")
+        if args.format == "jsonl":
+            sidecar = Path(str(args.out) + ".meta.json")
+        sidecar.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
     return 0
 
 

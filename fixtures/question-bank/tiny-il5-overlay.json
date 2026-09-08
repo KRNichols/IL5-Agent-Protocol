@@ -1,6 +1,6 @@
 {
   "format": "il5-overlay-rows-v1",
-  "source": "EXAMPLE SHAPE — not the DoD Rev 5 SSP Addendum, not CNSSI 1253, not an SRG workbook. Fetch official overlay rows from public.cyber.mil/dccs/dccs-documents/ and cnss.gov. Do not invent official extra-control counts.",
+  "source": "FIXTURE — not production. Not the DoD Rev 5 SSP Addendum. Production overlay hooks: question-bank/il5-overlay-hooks.json.",
   "rows": [
     {
       "control": "AC-7",

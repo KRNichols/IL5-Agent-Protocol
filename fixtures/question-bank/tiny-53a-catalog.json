@@ -2,9 +2,9 @@
   "catalog": {
     "uuid": "00000000-0000-4000-8000-000000000001",
     "metadata": {
-      "title": "EXAMPLE SHAPE SNAPSHOT — not NIST SP 800-53A and not FedRAMP High / Class D",
-      "version": "example-0.1",
-      "remarks": "SOURCE: shape-only snapshot for IL5 Scanner question synthesis. Original short stems, not official 800-53A prose. Operator must fetch the NIST OSCAL catalog (usnistgov/oscal-content NIST_SP-800-53_rev5_catalog.json) and filter with official FedRAMP Appendix A High / Class D IDs. Do not treat the control count in this file as an official baseline."
+      "title": "FIXTURE — not production, not NIST SP 800-53A, not FedRAMP High / Class D",
+      "version": "fixture-0.1",
+      "remarks": "SOURCE: unit-test fixture only. Original short stems, not official 800-53A prose. Production bank is question-bank/fedramp-high-class-d.questions.jsonl."
     },
     "groups": [
       {
