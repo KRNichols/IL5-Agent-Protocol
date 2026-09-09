@@ -2,8 +2,10 @@
 
 The scanner asks every published NIST SP 800-53A Rev 5 Examine /
 Interview / Test objective in the **production HIGH bank**.
+That bank is the **default** after intake (`RUN.md` step 6).
 
 This is not a demo. `READY` never means ATO. High-alone still fails IL5.
+`fixtures/question-bank/` is a **unit fixture only** — never the grading bank.
 
 ## Production artifacts
 
@@ -99,3 +101,12 @@ QUESTIONS:
 ```
 
 If the production HIGH bank is missing, `HOLD`.
+
+## Neo4j EC2 GovCloud answering
+
+`tools/answer_bank_from_evidence.py` loads this HIGH bank by default,
+maps `evidence/<run-id>/` through
+`il5-scanner/collectors/neo4j-ec2-govcloud-map.json`, and writes
+`answers.jsonl` + GRADE + QUESTIONS. It marks **MISSING** unless a
+mapped evidence file is present. It **never invents PASS**. See
+`playbooks/NEO4J-EC2-GOVCLOUD.md` and `RUN.md`.

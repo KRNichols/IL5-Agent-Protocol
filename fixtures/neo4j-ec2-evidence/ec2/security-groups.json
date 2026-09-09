@@ -1,0 +1,10 @@
+{
+  "SecurityGroups": [
+    {
+      "GroupId": "sg-fixture",
+      "IpPermissions": [
+        {"FromPort": 7687, "ToPort": 7687, "IpProtocol": "tcp", "IpRanges": [{"CidrIp": "0.0.0.0/0"}]}
+      ]
+    }
+  ]
+}

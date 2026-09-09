@@ -3,3 +3,8 @@ question-bank/raw/
 tools/__pycache__/
 __pycache__/
 *.pyc
+
+# Live evidence runs (keep the README)
+evidence/*
+!evidence/README.md
+
