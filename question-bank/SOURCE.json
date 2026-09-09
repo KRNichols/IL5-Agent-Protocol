@@ -9,10 +9,12 @@
   "gsa_fedramp_automation_profile_url_404_as_of": "2026-09-08 and rechecked this build",
   "high_bank": {
     "path": "il5-scanner/banks/production-high-53a-questions.jsonl",
+    "is_default_grade_path": true,
     "question_count": 4238,
     "catalog_controls_emitted": 410,
     "baseline": "FedRAMP-HIGH-CLASS-D",
     "official_profile_id_count": 410,
+    "not_fedramp_appendix_a": false,
     "not_nist_800_53b_high": true,
     "profile": "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/baselines/rev5/json/FedRAMP_rev5_HIGH-baseline_profile.json",
     "profile_title": "FedRAMP Rev 5 High Baseline",
@@ -25,6 +27,8 @@
   },
   "nist_53b_high_comparison_bank": {
     "path": "il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl",
+    "is_default_grade_path": false,
+    "named_alternate": true,
     "question_count": 4003,
     "catalog_controls_emitted": 370,
     "baseline": "NIST-800-53B-HIGH",

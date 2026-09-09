@@ -775,7 +775,16 @@ def main(argv: list[str] | None = None) -> int:
         changes=changes,
     )
     if high_only:
-        notes.append("PATH is FedRAMP High only. High alone fails an IL5 assessment.")
+        notes.append(
+            "PATH is FedRAMP High only. All in-scope High PASS with cited "
+            "evidence can be scanner READY for this slice only — still never ATO. "
+            "High alone is HOLD on an IL5 path."
+        )
+    elif path_label in {"IL5 non-NSS", "IL5 NSS"}:
+        notes.append(
+            "PATH is IL5. High alone is HOLD. IL5 needs FedRAMP High plus "
+            "overlays plus architecture. READY is never ATO."
+        )
 
     answers_path = out_dir / "answers.jsonl"
     with answers_path.open("w", encoding="utf-8") as fh:

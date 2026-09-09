@@ -68,7 +68,8 @@ def test_keys_gate() -> None:
     assert "READY" in text
     assert "never" in text.lower()
     assert "ATO" in text
-    assert "High alone fails" in text or "fails an IL5" in text
+    assert "High alone" in text and "HOLD" in text
+    assert "FedRAMP High slice only" in text
     assert "DISA PA" in text
     assert "FedRAMP High" in text
 
@@ -89,6 +90,10 @@ def test_high_bank_is_fedramp_high() -> None:
     assert n == 4238, f"FedRAMP High bank count unexpected: {n}"
     assert meta["catalog_controls_emitted"] == 410
     assert src["high_bank"]["baseline"] == "FedRAMP-HIGH-CLASS-D"
+    assert src["high_bank"]["is_default_grade_path"] is True
+    assert src["high_bank"]["not_fedramp_appendix_a"] is False
+    assert src["nist_53b_high_comparison_bank"]["is_default_grade_path"] is False
+    assert src["nist_53b_high_comparison_bank"]["not_fedramp_appendix_a"] is True
     assert src["nist_53b_high_is_not_fedramp_high"] is True
     assert src["high_alone_fails_il5"] is True
     assert "FedRAMP High" in (meta.get("baseline") or "")

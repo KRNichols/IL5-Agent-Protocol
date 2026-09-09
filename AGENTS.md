@@ -124,11 +124,12 @@ target stack is IL5. Do not invent official control counts.
 - PASS requires cited evidence from the handed solution
 - Never invent answers. Wrong or guessed answers are HOLD
 - READY never means ATO, FedRAMP authorization, or DISA PA
-- All High questions PASS with evidence can make PATH
-  FedRAMP High `READY` (scanner grade only). IL5 still
-  needs overlays, architecture, CRM, STIG, CAC/PIV, SSP
-  package items the bank cannot invent (`KEYS.md`)
-- High-alone still fails an IL5 assessment
+- All in-scope FedRAMP High questions PASS with cited
+  evidence ⇒ scanner GRADE READY for the **FedRAMP High
+  slice only** (`KEYS.md`). Still never ATO.
+- IL5 needs High + overlays + architecture. High alone
+  is HOLD on an IL5 path. The bank cannot invent CRM,
+  STIG, CAC/PIV, or SSP package items.
 - If the bank SOURCE is missing or the catalog was not official,
   say so and do not treat the question count as the official
   C/CE count
@@ -176,7 +177,8 @@ than MISSING). Default artifact is
 `il5-scanner/banks/production-high-53a-questions.jsonl`.
 If that production HIGH bank is missing, `HOLD`.
 
-`HOLD` examples: High-only claiming IL5; unauthenticated-only
+`HOLD` examples: High-only claiming IL5 (High alone HOLD on an
+IL5 path); unauthenticated-only
 scans; inventory ≠ scan targets; missing FIPS modules when
 crypto is in scope; treating CMMC as an IL5 PA; invented
 control counts; missing rubric file; guessed question-bank

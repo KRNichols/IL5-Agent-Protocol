@@ -154,9 +154,20 @@ python tools\answer_bank_from_evidence.py `
 
 Defaults:
 
-- Bank: `il5-scanner/banks/production-high-53a-questions.jsonl` (**4238** FedRAMP High)
+- Bank: `il5-scanner/banks/production-high-53a-questions.jsonl` (**4238** FedRAMP High / Class D)
 - Map: `il5-scanner/collectors/neo4j-ec2-govcloud-map.json`
 - IL5 paths also append overlay **hooks** (not a downloaded SSP Addendum)
+
+Named alternate only (not the grade path):
+
+```bash
+python3 tools/answer_bank_from_evidence.py \
+  --evidence evidence/fixture-smoke \
+  --path "FedRAMP High" \
+  --bank il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl
+```
+
+That file is NIST SP 800-53B HIGH (**4003** / 370 IDs). Do not use it to claim a FedRAMP High grade.
 
 The stub marks **MISSING** unless a mapped evidence file is present. It **never invents PASS**. Codex may upgrade HOLD→PASS only after reading the cited file.
 
@@ -181,9 +192,9 @@ Open, in order:
 
 `answered` = PASS + HOLD + WARN + N/A. This stub’s PASS count is **0** until a human/Codex upgrades from evidence.
 
-If PATH is FedRAMP High only and the mission needed IL5: **HOLD**. High alone fails IL5.
+If PATH is IL5: **HOLD** until High **plus** overlays **plus** architecture have cited evidence. High alone is HOLD on an IL5 path.
 
-All High questions PASS with cited evidence can make **PATH: FedRAMP High** scanner-READY. That is still not ATO. IL5 still needs overlays and architecture (`KEYS.md`).
+All in-scope FedRAMP High questions PASS with cited evidence ⇒ scanner **READY** for the **FedRAMP High slice only**. Still never ATO. See `KEYS.md`.
 
 ---
 

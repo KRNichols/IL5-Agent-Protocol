@@ -225,10 +225,12 @@ def main() -> int:
         "gsa_fedramp_automation_profile_url_404_as_of": "2026-09-08 and rechecked this build",
         "high_bank": {
             "path": rel(high_q),
+            "is_default_grade_path": True,
             "question_count": high_meta.get("question_count"),
             "catalog_controls_emitted": high_meta.get("catalog_controls_emitted"),
             "baseline": "FedRAMP-HIGH-CLASS-D",
             "official_profile_id_count": id_info["id_count"],
+            "not_fedramp_appendix_a": False,
             "not_nist_800_53b_high": True,
             "profile": FEDRAMP_HIGH_PROFILE,
             "profile_title": id_info["title"],
@@ -244,6 +246,8 @@ def main() -> int:
         },
         "nist_53b_high_comparison_bank": {
             "path": rel(nist_q),
+            "is_default_grade_path": False,
+            "named_alternate": True,
             "question_count": nist_meta.get("question_count"),
             "catalog_controls_emitted": nist_meta.get("catalog_controls_emitted"),
             "baseline": "NIST-800-53B-HIGH",

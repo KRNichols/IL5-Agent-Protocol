@@ -12,21 +12,26 @@ This file is blunt on purpose. Speak this way to operators.
 
 ## What “all questions answered PASS with evidence” means
 
-Default bank:
+Default bank (the grade path):
 
 `il5-scanner/banks/production-high-53a-questions.jsonl`
 
 That bank is **FedRAMP Rev 5 High / Class D** (official OSCAL profile,
 **410** control IDs) × published NIST SP 800-53A Examine / Interview /
 Test methods (**4238** questions on this freeze). See
-`il5-scanner/banks/PROVENANCE.md`.
+`il5-scanner/banks/SOURCE.json` and `QUESTION-BANK.md`.
 
-If **PATH is FedRAMP High** and every **in-scope** High-layer question
-is `PASS` with a **cited evidence path** from what was handed:
+**If PATH is FedRAMP High** and every **in-scope** FedRAMP High
+question is `PASS` with a **cited evidence path** from what was handed:
 
-- Scanner `GRADE` may be **READY**
+- Scanner `GRADE` is **READY** for the **FedRAMP High slice only**
 - That means: ready for **human GRC / 3PAO prep review of this slice**
 - The QUESTIONS tally must show `MISSING: 0` and no guessed PASS
+- It is **still never ATO**, FedRAMP authorization, or DISA PA
+
+**If PATH is IL5 (non-NSS or NSS):** High alone is **HOLD**.
+IL5 needs FedRAMP High **plus** overlays **plus** architecture.
+All High questions PASS does **not** make an IL5 path READY.
 
 PASS requires a real file you can point at. The answerer stub **never**
 invents PASS. A human or Codex upgrades HOLD → PASS only after reading
@@ -34,11 +39,16 @@ the cited file.
 
 Guessed answers are HOLD. Missing files are MISSING.
 
+Named alternate (not the default): NIST SP 800-53B HIGH 4003 at
+`il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl`. Do not grade
+FedRAMP High from that file.
+
 ---
 
 ## What still fails IL5 even if High is READY
 
-**Building only to FedRAMP High fails an IL5 assessment.**
+**Building only to FedRAMP High fails an IL5 assessment.
+High alone = HOLD on an IL5 path.**
 
 The High bank cannot invent DoD overlays or architecture. These stay
 `MISSING` (or HOLD) until you hand evidence — including the overlay

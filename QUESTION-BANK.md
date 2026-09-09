@@ -9,7 +9,9 @@ This is not a demo. `READY` never means ATO. High-alone still fails IL5.
 `fixtures/question-bank/` is a **unit fixture only** — never the grading bank.
 
 NIST SP 800-53B HIGH (**4003** questions / **370** IDs) is **not**
-FedRAMP High. It is kept only as a comparison bank.
+FedRAMP High. It is a **named alternate** only
+(`il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl`).
+`AGENTS.md` / `RUN.md` / `SCANNER.md` default to the FedRAMP High bank.
 
 ## Production artifacts
 
