@@ -21,7 +21,7 @@ Drop or clone the pack at the Codex workspace root so these files sit together:
 
 **Option B — GitHub**
 
-Point Codex at `https://github.com/KRNichols/IL5-Agent-Protocol` on **`main`** after this PR lands. Until then, use this branch / PR checkout.
+`main` already has the production HIGH **4003** bank (PR #1, `c9d74ce`). Point Codex at `https://github.com/KRNichols/IL5-Agent-Protocol` on **`main`** for the bank + contract. Until **this** PR lands, checkout this branch for `RUN.md`, the Neo4j GovCloud playbook, and the collectors.
 
 Linux:
 
