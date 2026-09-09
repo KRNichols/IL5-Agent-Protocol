@@ -1,0 +1,10 @@
+{
+  "Volumes": [
+    {
+      "VolumeId": "vol-fixture",
+      "Encrypted": false,
+      "KmsKeyId": null,
+      "AvailabilityZone": "us-east-1a"
+    }
+  ]
+}
