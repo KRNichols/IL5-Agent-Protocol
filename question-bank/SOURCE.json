@@ -1,14 +1,101 @@
 {
   "generated_from_catalog": true,
   "production": true,
-  "fetched_at": "2026-09-08T23:16:34Z",
-  "question_count": 4246,
-  "fedramp_high_class_d_ids_from_official_profile": 410,
-  "nist_sp_800_53b_high_ids": 370,
+  "fetched_at": "2026-09-09T10:51:25Z",
+  "default_grade_path": "FedRAMP High / Class D",
   "nist_53b_high_is_not_fedramp_high": true,
-  "question_count_is_not_a_control_count": true,
-  "class_d_equals_fedramp_high": true,
   "high_alone_fails_il5": true,
+  "question_count_is_not_a_control_count": true,
+  "gsa_fedramp_automation_profile_url_404_as_of": "2026-09-08 and rechecked this build",
+  "high_bank": {
+    "path": "il5-scanner/banks/production-high-53a-questions.jsonl",
+    "question_count": 4238,
+    "catalog_controls_emitted": 410,
+    "baseline": "FedRAMP-HIGH-CLASS-D",
+    "official_profile_id_count": 410,
+    "not_nist_800_53b_high": true,
+    "profile": "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/baselines/rev5/json/FedRAMP_rev5_HIGH-baseline_profile.json",
+    "profile_title": "FedRAMP Rev 5 High Baseline",
+    "profile_version": "fedramp-3.0.0rc1-oscal-1.1.2",
+    "profile_last_modified": "2025-02-28T00:00:00Z",
+    "profile_published": "2024-09-24T02:24:00Z",
+    "catalog": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog-min.json",
+    "catalog_csrc": "https://csrc.nist.gov/pubs/sp/800/53/a/r5/final",
+    "label": "FedRAMP Rev 5 High / Class D OSCAL profile IDs \u00d7 NIST SP 800-53A published Examine/Interview/Test. Default scanner grade path."
+  },
+  "nist_53b_high_comparison_bank": {
+    "path": "il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl",
+    "question_count": 4003,
+    "catalog_controls_emitted": 370,
+    "baseline": "NIST-800-53B-HIGH",
+    "official_profile_id_count": 370,
+    "not_fedramp_appendix_a": true,
+    "profile": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json",
+    "catalog": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog-min.json",
+    "label": "NIST SP 800-53B HIGH only. Kept for diff against FedRAMP High. Not the default grade path."
+  },
+  "full_bank": {
+    "path": "il5-scanner/banks/production-full-53a-questions.jsonl",
+    "question_count": 7772,
+    "catalog_controls_emitted": 1196,
+    "baseline": "NIST-SP-800-53-REV5-FULL-CATALOG",
+    "catalog": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog-min.json",
+    "label": "Entire NIST SP 800-53/53A catalog. Not a baseline. Max-size bank."
+  },
+  "baseline_diff": {
+    "fedramp_high_ids": 410,
+    "nist_800_53b_high_ids": 370,
+    "ids_only_in_fedramp_high": [
+      "ac-2.7",
+      "ac-2.9",
+      "ac-4.21",
+      "ac-6.8",
+      "au-6.4",
+      "au-6.7",
+      "ca-2.3",
+      "ca-8.2",
+      "cm-14",
+      "cm-5.5",
+      "ia-2.6",
+      "ia-5.13",
+      "ia-5.7",
+      "ia-5.8",
+      "ir-4.2",
+      "ir-4.6",
+      "ir-9",
+      "ir-9.2",
+      "ir-9.3",
+      "ir-9.4",
+      "pe-14.2",
+      "ps-3.3",
+      "ra-5.3",
+      "ra-5.8",
+      "sa-11.1",
+      "sa-11.2",
+      "sa-9.1",
+      "sa-9.5",
+      "sc-45",
+      "sc-45.1",
+      "sc-7.10",
+      "sc-7.12",
+      "sc-7.20",
+      "si-2.3",
+      "si-4.1",
+      "si-4.11",
+      "si-4.16",
+      "si-4.18",
+      "si-4.19",
+      "si-4.23"
+    ],
+    "ids_only_in_nist_53b_high": [],
+    "question_delta_fedramp_minus_nist53b": 235
+  },
+  "overlay_hooks": {
+    "path": "question-bank/il5-overlay-hooks.json",
+    "row_count": 106,
+    "appended_on_il5_paths": true,
+    "not_a_downloaded_ssp_addendum": true
+  },
   "sources": [
     {
       "role": "NIST SP 800-53 Rev 5 + SP 800-53A Rev 5 assessment procedures",
@@ -18,7 +105,7 @@
       "local": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json"
     },
     {
-      "role": "FedRAMP Rev 5 High / Class D ID list (OSCAL profile)",
+      "role": "FedRAMP Rev 5 High / Class D ID list (OSCAL profile) \u2014 default grade path",
       "url": "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/baselines/rev5/json/FedRAMP_rev5_HIGH-baseline_profile.json",
       "resolved_catalog": "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/baselines/rev5/json/FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.json",
       "fedramp_certification": "https://fedramp.gov/2026/reference/fedramp-certification/",
@@ -26,8 +113,11 @@
       "title": "FedRAMP Rev 5 High Baseline",
       "version": "fedramp-3.0.0rc1-oscal-1.1.2",
       "last_modified": "2025-02-28T00:00:00Z",
+      "published": "2024-09-24T02:24:00Z",
       "id_count": 410,
-      "local_ids": "question-bank/fedramp-high-class-d.ids.txt"
+      "local_ids": "question-bank/fedramp-high-class-d.ids.txt",
+      "gsa_fedramp_automation": "https://raw.githubusercontent.com/GSA/fedramp-automation/master/dist/content/rev5/baselines/json/FedRAMP_rev5_HIGH-baseline_profile.json",
+      "gsa_status": "HTTP 404 as of 2026-09-08 and this rebuild; OSCAL Foundation profile used"
     },
     {
       "role": "NIST SP 800-53B HIGH profile (comparison only; NOT FedRAMP High)",
@@ -45,11 +135,5 @@
       "url": "https://www.cnss.gov/CNSS/issuances/Instructions.cfm",
       "fetched": false
     }
-  ],
-  "artifacts": {
-    "questions": "question-bank/fedramp-high-class-d.questions.jsonl",
-    "meta": "question-bank/fedramp-high-class-d.meta.json",
-    "ids": "question-bank/fedramp-high-class-d.ids.txt",
-    "overlay_hooks": "question-bank/il5-overlay-hooks.json"
-  }
+  ]
 }

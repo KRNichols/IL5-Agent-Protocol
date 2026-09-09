@@ -16,7 +16,7 @@
       "id": "neo4j.conf",
       "paths": ["neo4j/neo4j.conf", "neo4j/neo4j.conf.redacted"],
       "families": ["AC", "AU", "CM", "IA", "SC"],
-      "controls": ["AC-2", "AC-3", "AC-6", "AC-17", "AU-2", "AU-12", "CM-6", "CM-7", "IA-2", "IA-5", "SC-7", "SC-8", "SC-13"],
+      "controls": ["AC-2", "AC-2(7)", "AC-2(9)", "AC-3", "AC-6", "AC-6(8)", "AC-17", "AU-2", "AU-12", "CM-6", "CM-7", "IA-2", "IA-2(6)", "IA-5", "IA-5(7)", "IA-5(8)", "IA-5(13)", "SC-7", "SC-8", "SC-13"],
       "methods": ["Examine"]
     },
     {
@@ -30,21 +30,21 @@
       "id": "auth-providers",
       "paths": ["neo4j/auth-providers.txt", "neo4j/ldap-settings.redacted.txt"],
       "families": ["AC", "IA"],
-      "controls": ["AC-2", "AC-3", "IA-2", "IA-5", "IA-8"],
+      "controls": ["AC-2", "AC-3", "IA-2", "IA-2(6)", "IA-2(12)", "IA-5", "IA-5(7)", "IA-5(8)", "IA-8"],
       "methods": ["Examine"]
     },
     {
       "id": "tls",
       "paths": ["neo4j/tls-settings.txt", "neo4j/ssl-policy/"],
       "families": ["SC", "AC"],
-      "controls": ["SC-8", "SC-8(1)", "SC-12", "SC-13", "AC-17", "AC-17(2)"],
+      "controls": ["SC-8", "SC-8(1)", "SC-12", "SC-13", "AC-17", "AC-17(2)", "IA-7"],
       "methods": ["Examine"]
     },
     {
       "id": "listeners-ports",
       "paths": ["neo4j/listeners.txt", "os/listening-ports.txt"],
       "families": ["SC", "AC", "CM"],
-      "controls": ["SC-7", "CM-7", "AC-4", "AC-17"],
+      "controls": ["SC-7", "SC-7(5)", "SC-7(10)", "SC-7(12)", "SC-7(20)", "CM-7", "AC-4", "AC-4(21)", "AC-17"],
       "methods": ["Examine", "Test"]
     },
     {
@@ -72,14 +72,14 @@
       "id": "query-logging",
       "paths": ["neo4j/query-log-settings.txt", "neo4j/logging.txt"],
       "families": ["AU"],
-      "controls": ["AU-2", "AU-3", "AU-9", "AU-12"],
+      "controls": ["AU-2", "AU-3", "AU-6", "AU-6(4)", "AU-6(7)", "AU-9", "AU-12"],
       "methods": ["Examine"]
     },
     {
       "id": "security-groups",
       "paths": ["ec2/security-groups.json", "ec2/nacl.json"],
       "families": ["SC", "AC"],
-      "controls": ["SC-7", "AC-4", "AC-17"],
+      "controls": ["SC-7", "SC-7(5)", "SC-7(10)", "SC-7(12)", "SC-7(20)", "AC-4", "AC-4(21)", "AC-17"],
       "methods": ["Examine"]
     },
     {
@@ -100,7 +100,7 @@
       "id": "vpc-subnet",
       "paths": ["ec2/instance.json", "ec2/vpc.json", "ec2/subnets.json"],
       "families": ["SC", "AC"],
-      "controls": ["SC-7", "AC-4", "SC-32"],
+      "controls": ["SC-7", "SC-7(20)", "AC-4", "SA-9", "SA-9(1)", "SA-9(5)", "SC-32"],
       "methods": ["Examine"]
     },
     {
@@ -114,14 +114,14 @@
       "id": "cloudwatch",
       "paths": ["ec2/cloudwatch-log-groups.json", "ec2/cloudwatch-alarms.json"],
       "families": ["AU", "SI"],
-      "controls": ["AU-6", "AU-12", "SI-4"],
+      "controls": ["AU-6", "AU-6(4)", "AU-6(7)", "AU-12", "SI-4", "SI-4(1)", "SI-4(11)", "SI-4(16)"],
       "methods": ["Examine"]
     },
     {
       "id": "ssm-patch",
       "paths": ["ec2/ssm-patch-state.json", "ec2/ssm-patch-baseline.json"],
       "families": ["SI", "CM", "RA"],
-      "controls": ["SI-2", "CM-6", "RA-5"],
+      "controls": ["SI-2", "SI-2(3)", "CM-6", "RA-5", "RA-5(3)", "RA-5(5)", "RA-5(8)"],
       "methods": ["Examine"]
     },
     {
@@ -156,7 +156,7 @@
       "id": "partition-region",
       "paths": ["ec2/identity-document.json", "ec2/region.txt"],
       "families": ["SA", "PE", "SC"],
-      "controls": ["SA-9", "SA-9(5)", "PE-18"],
+      "controls": ["SA-9", "SA-9(1)", "SA-9(5)", "PE-18"],
       "methods": ["Examine"]
     },
     {
@@ -170,8 +170,22 @@
       "id": "scans",
       "paths": ["scans/", "os/listening-ports.txt", "os/fips.txt"],
       "families": ["RA", "CM", "SI", "SC"],
-      "controls": ["RA-5", "CM-6", "SI-2"],
+      "controls": ["RA-5", "RA-5(3)", "RA-5(5)", "RA-5(8)", "CM-6", "SI-2", "SI-2(3)", "SA-11(1)", "SA-11(2)", "CA-8", "CA-8(2)"],
       "methods": ["Test"]
+    },
+    {
+      "id": "package",
+      "paths": ["package/", "ssp/", "crm/", "poam/"],
+      "families": ["*"],
+      "controls": [],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "architecture",
+      "paths": ["architecture/"],
+      "families": ["SA", "SC", "PE", "PL", "PS", "IA", "CA"],
+      "controls": ["SA-9", "SA-9(5)", "PE-18", "PL-8", "AC-17(3)"],
+      "methods": ["Examine"]
     }
   ]
 }

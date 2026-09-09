@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Answer the production HIGH 800-53A bank from collected evidence.
+"""Answer the production FedRAMP High 800-53A bank from collected evidence.
 
 Stub rules (hard):
   - Default bank: il5-scanner/banks/production-high-53a-questions.jsonl
+    (FedRAMP High / Class D — not NIST 800-53B HIGH)
   - MISSING unless a mapped evidence file is present and non-empty
   - Never invent PASS
   - Never claim ATO, FedRAMP authorization, or DISA PA
@@ -510,7 +511,7 @@ def write_config_changes(path: Path, changes: list[dict[str, str]]) -> None:
     ]
     if not changes:
         lines.append("No automated current→required rows were derived from the files that are present.")
-        lines.append("Absence of a row is not a PASS. Most of the 4003-question bank remains MISSING until evidence exists.")
+        lines.append("Absence of a row is not a PASS. Most of the FedRAMP High bank remains MISSING until evidence exists.")
         lines.append("")
     for i, ch in enumerate(changes, 1):
         lines.append(f"## {i}. {ch['family']}")
@@ -569,7 +570,7 @@ def render_report(
         "",
         "COVERAGE:",
         cov("Categorization", "HOLD" if path_label else "MISSING", "Scored from intake only; no FIPS 199 worksheet was invented."),
-        cov("Control stack", "HOLD", "Production HIGH bank is NIST 800-53B HIGH (4003 53A rows), not FedRAMP Appendix A. Overlays are hooks, not a downloaded SSP Addendum."),
+        cov("Control stack", "HOLD", "Production HIGH bank is FedRAMP High / Class D (410 official profile IDs × 53A). Overlays are hooks, not a downloaded SSP Addendum."),
         cov("IL5 architecture", "HOLD" if "IL5" in path_label else "N/A", "GovCloud + citizenship + CAC/PIV + FIPS 140-3 + BCAP remain evidence-gated (standard §8–§12)."),
         cov("Scan program (§14)", "MISSING" if missing_n else "HOLD", "Authenticated OS/web/DB/STIG corpus must match inventory. Collector is config inspection, not a 3PAO scan of record."),
         cov("POA&M / ConMon", "MISSING", "No POA&M workbook was invented."),
@@ -606,8 +607,8 @@ def render_report(
         [
             "",
             "PLAIN ENGLISH:",
-            "- What this solution is aiming for: evidence-backed answers on the production HIGH 800-53A bank for Neo4j on EC2 in US GovCloud, toward FedRAMP High plus DoD IL5 — not an authorization.",
-            "- What already looks solid: the 4003-question production HIGH bank is in-tree; collectors write cited paths under evidence/<run-id>/.",
+            "- What this solution is aiming for: evidence-backed answers on the production FedRAMP High 800-53A bank for Neo4j on EC2 in US GovCloud, toward FedRAMP High plus DoD IL5 — not an authorization.",
+            "- What already looks solid: the FedRAMP High / Class D bank is in-tree; collectors write cited paths under evidence/<run-id>/.",
             "- What would bounce a 3PAO / DISA reviewer: guessed PASS marks, High-only sold as IL5, commercial-region hosts, unauthenticated scans, inventory that does not match the instance, missing FIPS module certificates, treating CMMC as an IL5 PA.",
             "- What to do next (top 3): (1) read CONFIG-CHANGES.md and close current→required rows, (2) fill MISSING evidence (SSP, CRM, STIG, authenticated scans, citizenship, CAC/PIV), (3) have a human upgrade HOLD→PASS only where the cited file actually meets the 53A objective.",
             "",
@@ -629,7 +630,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--bank",
         default=str(DEFAULT_BANK),
-        help="Question JSONL (default: production HIGH 4003)",
+        help="Question JSONL (default: production FedRAMP High / Class D)",
     )
     parser.add_argument(
         "--map",
@@ -694,9 +695,20 @@ def main(argv: list[str] | None = None) -> int:
     mapping = load_json(map_path)
     path_label = normalize_path(args.path)
     if args.include_overlay or path_label in {"IL5 non-NSS", "IL5 NSS"}:
-        questions = questions + load_overlay_questions()
+        existing = {q.get("id") for q in questions}
+        added = 0
+        for oq in load_overlay_questions():
+            if oq.get("id") in existing:
+                continue
+            questions.append(oq)
+            existing.add(oq.get("id"))
+            added += 1
         if path_label in {"IL5 non-NSS", "IL5 NSS"}:
-            notes.append("IL5 overlay hooks appended. They are not a downloaded DoD SSP Addendum / CNSSI workbook.")
+            notes.append(
+                f"IL5 overlay hooks appended ({added} unique). "
+                "They are not a downloaded DoD SSP Addendum / CNSSI workbook. "
+                "High alone fails IL5. READY is not ATO."
+            )
 
     collectors = build_presence(evidence, mapping)
     changes = inspect_config_changes(evidence)

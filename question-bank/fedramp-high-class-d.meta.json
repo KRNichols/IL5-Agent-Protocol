@@ -1,25 +1,20 @@
 {
   "generated_from_catalog": true,
   "not_an_official_control_count": true,
-  "catalog": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
-  "source": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
-  "baseline": "FedRAMP High / Class D OSCAL profile (/workspace/question-bank/raw/FedRAMP_rev5_HIGH-baseline_profile.json)",
-  "overlays": [
-    "/workspace/question-bank/il5-overlay-hooks.json"
-  ],
+  "catalog": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
+  "source": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
+  "baseline": "FedRAMP High / Class D OSCAL profile (question-bank/raw/FedRAMP_rev5_HIGH-baseline_profile.json; 410 official with-ids)",
+  "overlays": [],
   "path_filter": null,
   "catalog_controls_emitted": 410,
-  "question_count": 4246,
+  "question_count": 4238,
   "by_layer": {
-    "High": 4238,
-    "FedRAMP+": 2,
-    "SRG": 5,
-    "CNSSI": 1
+    "High": 4238
   },
   "by_method": {
-    "Examine": 1548,
-    "Interview": 1543,
-    "Test": 1155
+    "Examine": 1542,
+    "Interview": 1542,
+    "Test": 1154
   },
   "official_id_lists_live_in": [
     "FedRAMP Rev 5 High / Class D OSCAL profile (OSCAL-Foundation/fedramp-resources)",

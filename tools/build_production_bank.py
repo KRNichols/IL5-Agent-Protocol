@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Fetch official catalogs and build the production High / Class D question bank.
+"""Fetch official catalogs and build the production FedRAMP High / Class D bank.
+
+Preferred one-command rebuild (HIGH + NIST-53B comparison + FULL + overlay):
+  python3 tools/generate_production_banks.py
+
+This script remains the FedRAMP High / Class D ID-filter builder used by
+that command and by operators who only want question-bank/ Class D artifacts.
 
 Uses:
   - NIST SP 800-53 Rev 5 + 800-53A Rev 5 OSCAL catalog (assessment procedures)

@@ -97,7 +97,9 @@ CNSSI 1253 NSS overlays (IL5 NSS only):
   https://www.cnss.gov/CNSS/issuances/Instructions.cfm
 
 Question count is synthesized 53A rows. It is not an official C/CE count.
-Production artifacts: question-bank/  Rebuild: tools/build_production_bank.py
+Default grade path: FedRAMP High / Class D (not NIST 800-53B HIGH).
+Production artifacts: il5-scanner/banks/  Rebuild: tools/generate_production_banks.py
+Provenance: il5-scanner/banks/PROVENANCE.md
 """.format(
     catalog=NIST_OSCAL_CATALOG,
     catalog_min=NIST_OSCAL_CATALOG_MIN,

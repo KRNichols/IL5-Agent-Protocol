@@ -3,18 +3,18 @@
   "not_an_official_control_count": true,
   "catalog": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
   "source": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
-  "baseline": "NIST-SP-800-53-REV5-FULL-CATALOG (not a baseline)",
+  "baseline": "NIST-800-53B-HIGH (comparison only; NOT FedRAMP High / Class D)",
   "overlays": [],
   "path_filter": null,
-  "catalog_controls_emitted": 1196,
-  "question_count": 7772,
+  "catalog_controls_emitted": 370,
+  "question_count": 4003,
   "by_layer": {
-    "High": 7772
+    "High": 4003
   },
   "by_method": {
-    "Examine": 2775,
-    "Interview": 2772,
-    "Test": 2225
+    "Examine": 1463,
+    "Interview": 1463,
+    "Test": 1077
   },
   "official_id_lists_live_in": [
     "FedRAMP Rev 5 High / Class D OSCAL profile (OSCAL-Foundation/fedramp-resources)",
