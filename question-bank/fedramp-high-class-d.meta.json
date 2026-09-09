@@ -3,7 +3,7 @@
   "not_an_official_control_count": true,
   "catalog": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
   "source": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
-  "baseline": "FedRAMP High / Class D OSCAL profile (question-bank/raw/FedRAMP_rev5_HIGH-baseline_profile.json; 410 official with-ids)",
+  "baseline": "FedRAMP High / Class D OSCAL profile (question-bank/raw/FedRAMP_rev5_HIGH-baseline_profile.json)",
   "overlays": [],
   "path_filter": null,
   "catalog_controls_emitted": 410,
@@ -22,5 +22,7 @@
     "DoD Rev 5 SSP Addendum + SRG Control Crosswalk on cyber.mil",
     "CNSSI 1253 if NSS"
   ],
-  "question_count_is_not_a_control_count": true
+  "question_count_is_not_a_control_count": true,
+  "fedramp_constraint_questions": 2414,
+  "fedramp_set_parameter_count": 309
 }

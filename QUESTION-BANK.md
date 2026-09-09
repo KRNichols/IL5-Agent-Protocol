@@ -41,6 +41,7 @@ python3 tools/generate_production_banks.py
 
 - Published 53A methods only (no invented Test/Interview)
 - Examine 1542 · Interview 1542 · Test 1154
+- Official FedRAMP `modify.set-parameters`: **309** (170 controls), baked into `fedramp_constraint` on **2414** questions
 - Profile: OSCAL Foundation *FedRAMP Rev 5 High Baseline*
   `fedramp-3.0.0rc1-oscal-1.1.2` (last-modified 2025-02-28)
 
@@ -91,9 +92,9 @@ Every in-scope question: `PASS | HOLD | WARN | N/A | MISSING`
 - PASS requires cited evidence from the handed solution.
 - Never invent answers. Guessed answers are HOLD.
 - READY never means ATO.
-- All High PASS + cited evidence can make PATH FedRAMP High scanner-READY.
-  IL5 still fails until overlays / architecture / package evidence exists
-  (`KEYS.md`).
+- Full bank PASS ≠ FedRAMP High package READY ≠ IL5 ≠ ATO (`KEYS.md`).
+- High-alone + IL5 claim = HOLD.
+- COVERAGE gates: SSP / CRM / §14 / overlays / architecture.
 
 ## Report block
 

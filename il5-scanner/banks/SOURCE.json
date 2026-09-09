@@ -5,6 +5,9 @@
   "default_grade_path": "FedRAMP High / Class D",
   "nist_53b_high_is_not_fedramp_high": true,
   "high_alone_fails_il5": true,
+  "full_bank_pass_is_not_package_ready": true,
+  "full_bank_pass_is_not_il5": true,
+  "full_bank_pass_is_not_ato": true,
   "question_count_is_not_a_control_count": true,
   "gsa_fedramp_automation_profile_url_404_as_of": "2026-09-08 and rechecked this build",
   "high_bank": {
@@ -23,7 +26,10 @@
     "profile_published": "2024-09-24T02:24:00Z",
     "catalog": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog-min.json",
     "catalog_csrc": "https://csrc.nist.gov/pubs/sp/800/53/a/r5/final",
-    "label": "FedRAMP Rev 5 High / Class D OSCAL profile IDs \u00d7 NIST SP 800-53A published Examine/Interview/Test. Default scanner grade path."
+    "fedramp_set_parameter_count": 309,
+    "fedramp_constraint_questions": 2414,
+    "set_parameters_sidecar": "il5-scanner/banks/fedramp-high-set-parameters.json",
+    "label": "FedRAMP Rev 5 High / Class D OSCAL profile IDs \u00d7 NIST SP 800-53A published Examine/Interview/Test, with official modify.set-parameters baked into fedramp_constraint. Default scanner grade path."
   },
   "nist_53b_high_comparison_bank": {
     "path": "il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl",

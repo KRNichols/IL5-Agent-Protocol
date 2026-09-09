@@ -27,13 +27,45 @@ NIST_CMP = ROOT / "il5-scanner" / "banks" / "nist-800-53b-high-53a-questions.jso
 
 FEDRAMP_ONLY = {
     "ac-2.7",
+    "ac-2.9",
+    "ac-4.21",
+    "ac-6.8",
+    "au-6.4",
+    "au-6.7",
+    "ca-2.3",
     "ca-8.2",
+    "cm-14",
+    "cm-5.5",
+    "ia-2.6",
     "ia-5.7",
+    "ia-5.8",
+    "ia-5.13",
+    "ir-4.2",
+    "ir-4.6",
     "ir-9",
+    "ir-9.2",
+    "ir-9.3",
+    "ir-9.4",
+    "pe-14.2",
+    "ps-3.3",
+    "ra-5.3",
+    "ra-5.8",
+    "sa-9.1",
     "sa-9.5",
     "sa-11.1",
+    "sa-11.2",
+    "sc-7.10",
+    "sc-7.12",
+    "sc-7.20",
     "sc-45",
     "sc-45.1",
+    "si-2.3",
+    "si-4.1",
+    "si-4.11",
+    "si-4.16",
+    "si-4.18",
+    "si-4.19",
+    "si-4.23",
 }
 
 
@@ -68,8 +100,10 @@ def test_keys_gate() -> None:
     assert "READY" in text
     assert "never" in text.lower()
     assert "ATO" in text
-    assert "High alone" in text and "HOLD" in text
-    assert "FedRAMP High slice only" in text
+    assert "High-alone + IL5 claim" in text or "High alone" in text
+    assert "HOLD" in text
+    assert "package READY" in text
+    assert "SSP" in text and "CRM" in text
     assert "DISA PA" in text
     assert "FedRAMP High" in text
 
@@ -96,7 +130,13 @@ def test_high_bank_is_fedramp_high() -> None:
     assert src["nist_53b_high_comparison_bank"]["not_fedramp_appendix_a"] is True
     assert src["nist_53b_high_is_not_fedramp_high"] is True
     assert src["high_alone_fails_il5"] is True
+    assert src["full_bank_pass_is_not_package_ready"] is True
+    assert src["high_bank"]["fedramp_set_parameter_count"] == 309
     assert "FedRAMP High" in (meta.get("baseline") or "")
+    first = json.loads(HIGH_BANK.read_text(encoding="utf-8").splitlines()[0])
+    assert first.get("fedramp_constraint"), "FedRAMP set-parameters not baked"
+    assert any(c.get("param_id") == "ac-01_odp.05" for c in first["fedramp_constraint"])
+    assert "FedRAMP High / Class D set-parameters" in first["question"]
     ids = [
         line.strip()
         for line in IDS.read_text(encoding="utf-8").splitlines()

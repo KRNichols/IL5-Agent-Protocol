@@ -177,6 +177,25 @@ def main() -> int:
         overlay=None,
         baseline_label=high_label,
     )
+    params_by_control = syn.load_fedramp_set_parameters(fedramp_profile)
+    sidecar = banks / "fedramp-high-set-parameters.json"
+    sidecar.write_text(
+        json.dumps(
+            {
+                "source": FEDRAMP_HIGH_PROFILE,
+                "title": id_info["title"],
+                "version": id_info["version"],
+                "last_modified": id_info["last_modified"],
+                "set_parameter_count": sum(len(v) for v in params_by_control.values()),
+                "controls_with_parameters": len(params_by_control),
+                "not_an_official_control_count": True,
+                "by_control": params_by_control,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
     nist_q = banks / "nist-800-53b-high-53a-questions.jsonl"
     nist_m = banks / "nist-800-53b-high-53a-questions.meta.json"
@@ -221,6 +240,9 @@ def main() -> int:
         "default_grade_path": "FedRAMP High / Class D",
         "nist_53b_high_is_not_fedramp_high": True,
         "high_alone_fails_il5": True,
+        "full_bank_pass_is_not_package_ready": True,
+        "full_bank_pass_is_not_il5": True,
+        "full_bank_pass_is_not_ato": True,
         "question_count_is_not_a_control_count": True,
         "gsa_fedramp_automation_profile_url_404_as_of": "2026-09-08 and rechecked this build",
         "high_bank": {
@@ -239,9 +261,13 @@ def main() -> int:
             "profile_published": id_info["published"],
             "catalog": NIST_FULL,
             "catalog_csrc": NIST_53A,
+            "fedramp_set_parameter_count": high_meta.get("fedramp_set_parameter_count"),
+            "fedramp_constraint_questions": high_meta.get("fedramp_constraint_questions"),
+            "set_parameters_sidecar": "il5-scanner/banks/fedramp-high-set-parameters.json",
             "label": (
                 "FedRAMP Rev 5 High / Class D OSCAL profile IDs × NIST SP 800-53A "
-                "published Examine/Interview/Test. Default scanner grade path."
+                "published Examine/Interview/Test, with official modify.set-parameters "
+                "baked into fedramp_constraint. Default scanner grade path."
             ),
         },
         "nist_53b_high_comparison_bank": {

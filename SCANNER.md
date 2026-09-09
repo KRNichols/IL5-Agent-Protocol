@@ -60,7 +60,8 @@ Every in-scope synthesized question must be answered `PASS | HOLD | WARN | N/A |
 - PASS requires cited evidence from the handed solution.
 - Never invent answers. Wrong or guessed answers are HOLD.
 - READY never means ATO, FedRAMP authorization, or DISA PA.
-- High-alone still fails an IL5 assessment.
+- Full bank PASS ≠ FedRAMP High package READY ≠ IL5 ≠ ATO (`KEYS.md`).
+- High-alone + IL5 claim = HOLD. COVERAGE gates: SSP / CRM / §14 / overlays / architecture.
 - If SOURCE is missing or the catalog was not official, say so and do not treat the question count as the official C/CE count.
 
 ## Required GRADE block

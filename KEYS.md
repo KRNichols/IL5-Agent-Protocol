@@ -1,75 +1,70 @@
 # Keys to the kingdom — scanner grading gate
 
-The pack on GitHub is the grade gate. If the production FedRAMP High
-questions are answered with **real cited evidence**, the GRADE must say
-whether FedRAMP High / IL5 **scanner** level was hit.
+The pack on GitHub is the grade gate. Speak this way to operators.
 
-This file is blunt on purpose. Speak this way to operators.
+```
+full bank PASS
+  ≠ FedRAMP High package READY
+  ≠ IL5
+  ≠ ATO
+```
+
+Answering every in-scope FedRAMP High 53A question `PASS` with cited
+evidence is a **control-tally**. It is **not** a FedRAMP High package
+grade, **not** IL5, and **not** authorization.
 
 `READY` is **never** ATO, FedRAMP authorization, or DISA PA.
 
 ---
 
-## What “all questions answered PASS with evidence” means
-
-Default bank (the grade path):
+## Default bank
 
 `il5-scanner/banks/production-high-53a-questions.jsonl`
 
-That bank is **FedRAMP Rev 5 High / Class D** (official OSCAL profile,
-**410** control IDs) × published NIST SP 800-53A Examine / Interview /
-Test methods (**4238** questions on this freeze). See
-`il5-scanner/banks/SOURCE.json` and `QUESTION-BANK.md`.
+**FedRAMP Rev 5 High / Class D** — official OSCAL profile **410** IDs ×
+published NIST SP 800-53A Examine / Interview / Test (**4238** questions
+on this freeze). Official `modify.set-parameters` are baked into each
+matching row as `fedramp_constraint` (and into the question text).
 
-**If PATH is FedRAMP High** and every **in-scope** FedRAMP High
-question is `PASS` with a **cited evidence path** from what was handed:
+See `il5-scanner/banks/SOURCE.json` and `QUESTION-BANK.md`.
 
-- Scanner `GRADE` is **READY** for the **FedRAMP High slice only**
-- That means: ready for **human GRC / 3PAO prep review of this slice**
-- The QUESTIONS tally must show `MISSING: 0` and no guessed PASS
-- It is **still never ATO**, FedRAMP authorization, or DISA PA
-
-**If PATH is IL5 (non-NSS or NSS):** High alone is **HOLD**.
-IL5 needs FedRAMP High **plus** overlays **plus** architecture.
-All High questions PASS does **not** make an IL5 path READY.
-
-PASS requires a real file you can point at. The answerer stub **never**
-invents PASS. A human or Codex upgrades HOLD → PASS only after reading
-the cited file.
-
-Guessed answers are HOLD. Missing files are MISSING.
-
-Named alternate (not the default): NIST SP 800-53B HIGH 4003 at
+Named alternate (not the default): NIST SP 800-53B HIGH **4003** at
 `il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl`. Do not grade
 FedRAMP High from that file.
 
 ---
 
-## What still fails IL5 even if High is READY
+## What full-bank PASS is, and is not
 
-**Building only to FedRAMP High fails an IL5 assessment.
-High alone = HOLD on an IL5 path.**
+If every **in-scope** FedRAMP High question is `PASS` with a **cited
+evidence path**:
 
-The High bank cannot invent DoD overlays or architecture. These stay
-`MISSING` (or HOLD) until you hand evidence — including the overlay
-hooks in `question-bank/il5-overlay-hooks.json` when PATH is IL5:
+- The QUESTIONS tally may show `MISSING: 0`
+- That is **not** FedRAMP High **package** READY
+- That is **not** IL5
+- That is **not** ATO / FedRAMP authorization / DISA PA
 
-| Still required for IL5 | Why the High bank cannot close it |
+Scanner `GRADE` for a **FedRAMP High package** slice stays **HOLD**
+until the COVERAGE gates below are also evidenced. Guessed PASS is HOLD.
+Missing files are MISSING. The answerer stub never invents PASS.
+
+---
+
+## COVERAGE gates (required for High package READY)
+
+All of these must be scored from handed evidence. The 53A bank cannot
+invent them:
+
+| Gate | HOLD unless |
 |---|---|
-| DoD FedRAMP+ / SSP Addendum / Table D-1 DSPAV | Login-walled on cyber.mil. Do not guess parameter values. |
-| US location, federal-community tenancy, dedicated hosts | SRG architecture, not a 53A High row by itself |
-| Management plane isolated from commercial cloud | DISA architecture briefing item |
-| CAC/PIV / Credential Strength D | Software TOTP is not Strength D |
-| FIPS 140-3 CMVP certs **in FIPS mode** + Appendix Q | “AES-256” / “FIPS-compliant” fails |
-| US-person / citizenship for privileged IL5 roles | CMMC is not a substitute |
-| BCAP / SCCA / no direct internet mission path | Only if DoD-connected; collector cannot invent CAP tickets |
-| STIG / SCAP / ACAS coverage matrix | Config collect is not the STIG of record |
-| Authenticated scan program (§14) + inventory match | Unauthenticated-only is a hard hold |
-| SSP appendices, CRM inheritance, POA&M, ConMon | Package artifacts. Scanner does not write an SSP. |
-| CNSSI 1253 “+” if NSS | Official instruction on cnss.gov; ~170 is directional only |
-| Shared responsibility written | IaaS vs customer-managed Neo4j: AWS PA does **not** cover Neo4j |
+| SSP / package artifacts | Starred FedRAMP SSP appendices (A, J CRM, M inventory, O POA&M, Q crypto, …) are present or explicitly cited as missing |
+| CRM / shared responsibility | Appendix J names Implemented / Inherited / Shared / Customer per control; no false inherit of customer apps (Neo4j ≠ AWS PA) |
+| §14 scan program | Authenticated OS/web/DB/container + inventory match; unauthenticated-only is a hard hold |
+| IL5 overlays | Only if PATH is IL5 — SSP Addendum / DSPAV / CNSSI cited, not guessed |
+| IL5 architecture | Only if PATH is IL5 — US location, tenancy, CAC/PIV Strength D, FIPS 140-3 in FIPS mode, citizenship, BCAP/SCCA if DoD-connected |
 
-High-only claiming IL5 = **HOLD**.
+**High-alone + IL5 claim = HOLD.**
+IL5 needs FedRAMP High **plus** overlays **plus** architecture.
 
 ---
 
@@ -77,9 +72,10 @@ High-only claiming IL5 = **HOLD**.
 
 | Phrase | Meaning here |
 |---|---|
-| READY | Scanner grade: this slice is ready for a **human** GRC / 3PAO prep review |
+| full bank PASS | Every in-scope 53A row has cited PASS — still not a package grade |
+| READY | Scanner grade: this **slice** is ready for **human** GRC / 3PAO prep — only after bank **and** COVERAGE gates |
 | WARN | Soft gap that does not kill the claimed stack |
-| HOLD | Hard gap, missing bank, guessed answers, or High sold as IL5 |
+| HOLD | Hard gap, missing bank, guessed answers, High sold as IL5, or COVERAGE gate missing |
 | ATO | Authority to Operate — **human AO only** |
 | FedRAMP authorization / P-ATO | FedRAMP PMO / JAB / agency — **not this scanner** |
 | DISA PA | DISA provisional authorization — **not this scanner** |

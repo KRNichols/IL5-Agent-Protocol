@@ -38,7 +38,7 @@ ID list extracted from the official profile (not invented):
 
 | Bank | Path | Official IDs | 53A questions | Methods |
 |---|---|---|---|---|
-| **Default HIGH — FedRAMP High / Class D** | `production-high-53a-questions.jsonl` | **410** | **4238** | Examine 1542 · Interview 1542 · Test 1154 |
+| **Default HIGH — FedRAMP High / Class D** | `production-high-53a-questions.jsonl` | **410** | **4238** | Examine 1542 · Interview 1542 · Test 1154. Official `modify.set-parameters`: **309** on 170 controls; baked into `fedramp_constraint` on **2414** questions |
 | NIST 800-53B HIGH (comparison) | `nist-800-53b-high-53a-questions.jsonl` | **370** | **4003** | Examine 1463 · Interview 1463 · Test 1077 |
 | Full 800-53/53A catalog | `production-full-53a-questions.jsonl` | 1196 catalog controls (not a baseline) | **7772** | Examine 2775 · Interview 2772 · Test 2225 |
 | IL5 overlay hooks | `question-bank/il5-overlay-hooks.json` | n/a (not a workbook extract) | **106** rows | Appended on IL5 paths only |

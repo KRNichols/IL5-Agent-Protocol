@@ -295,6 +295,50 @@ def flattened_methods(control: dict[str, Any]) -> list[tuple[str, str]]:
     return out
 
 
+def param_id_to_control_key(param_id: str) -> str:
+    """Map ac-01_odp.05 / ac-02.02_odp.01 to normalize_id keys (ac-1, ac-2.2)."""
+    m = re.match(r"^([a-z]+)-(\d+)(?:\.(\d+))?_odp", (param_id or "").strip().lower())
+    if not m:
+        return ""
+    fam, num, enh = m.group(1), str(int(m.group(2))), m.group(3)
+    raw = f"{fam}-{num}.{int(enh)}" if enh else f"{fam}-{num}"
+    return normalize_id(raw)
+
+
+def load_fedramp_set_parameters(path: Path) -> dict[str, list[dict[str, str]]]:
+    """Extract modify.set-parameters from a FedRAMP OSCAL profile. Official only."""
+    text = path.read_text(encoding="utf-8").lstrip()
+    if not text.startswith("{"):
+        return {}
+    doc = json.loads(text)
+    profile = doc.get("profile") or {}
+    title = str((profile.get("metadata") or {}).get("title") or "")
+    if "FEDRAMP" not in title.upper():
+        return {}
+    rows = ((profile.get("modify") or {}).get("set-parameters")) or []
+    by_control: dict[str, list[dict[str, str]]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        pid = str(row.get("param-id") or "")
+        key = param_id_to_control_key(pid)
+        if not key:
+            warn(f"unmapped FedRAMP set-parameter {pid}")
+            continue
+        descriptions = []
+        for cons in row.get("constraints") or []:
+            if isinstance(cons, dict) and cons.get("description"):
+                descriptions.append(collapse(str(cons["description"])))
+        for val in row.get("values") or []:
+            descriptions.append(collapse(str(val)))
+        if not descriptions:
+            continue
+        by_control.setdefault(key, []).append(
+            {"param_id": pid, "description": "; ".join(descriptions)}
+        )
+    return by_control
+
+
 def make_question(
     *,
     control: str,
@@ -305,6 +349,7 @@ def make_question(
     layer: str,
     path_applicability: list[str],
     source: str,
+    fedramp_constraint: list[dict[str, str]] | None = None,
 ) -> dict[str, Any]:
     qid = "/".join(
         [
@@ -313,7 +358,7 @@ def make_question(
             method,
         ]
     )
-    return {
+    out = {
         "id": qid,
         "control": control,
         "enhancement": enhancement,
@@ -324,6 +369,9 @@ def make_question(
         "path_applicability": path_applicability,
         "source": source,
     }
+    if fedramp_constraint:
+        out["fedramp_constraint"] = fedramp_constraint
+    return out
 
 
 def compose_question(method: str, label: str, objective_id: str, prose: str, objects: str) -> str:
@@ -341,6 +389,7 @@ def questions_from_control(
     default_layer: str,
     source: str,
     published_only: bool = True,
+    fedramp_by_control: dict[str, list[dict[str, str]]] | None = None,
 ) -> list[dict[str, Any]]:
     cid = str(control.get("id") or "")
     if not cid:
@@ -350,6 +399,7 @@ def questions_from_control(
     title = collapse(control.get("title") or "")
     layer = normalize_layer(str(control.get("layer") or default_layer))
     paths = list(control.get("path_applicability") or DEFAULT_PATHS[layer])
+    constraints = list((fedramp_by_control or {}).get(normalize_id(cid)) or [])
 
     objectives = flattened_objectives(control) or leaf_objectives(control.get("parts"))
     methods = flattened_methods(control) or assessment_methods(control.get("parts"))
@@ -364,16 +414,25 @@ def questions_from_control(
     out: list[dict[str, Any]] = []
     for objective_id, prose in objectives:
         for method, objects in methods:
+            question = compose_question(method, label, objective_id, prose, objects)
+            if constraints:
+                baked = "; ".join(
+                    f"{c['param_id']} = {c['description']}" for c in constraints
+                )
+                question += (
+                    f" FedRAMP High / Class D set-parameters (official profile): {baked}."
+                )
             out.append(
                 make_question(
                     control=base,
                     enhancement=enhancement,
                     objective_id=objective_id,
                     method=method,
-                    question=compose_question(method, label, objective_id, prose, objects),
+                    question=question,
                     layer=layer,
                     path_applicability=paths,
                     source=source,
+                    fedramp_constraint=constraints or None,
                 )
             )
     return out
@@ -552,6 +611,17 @@ def build_meta(
             "CNSSI 1253 if NSS",
         ],
         "question_count_is_not_a_control_count": True,
+        "fedramp_constraint_questions": sum(
+            1 for q in questions if q.get("fedramp_constraint")
+        ),
+        "fedramp_set_parameter_count": len(
+            {
+                c.get("param_id")
+                for q in questions
+                for c in (q.get("fedramp_constraint") or [])
+                if c.get("param_id")
+            }
+        ),
     }
 
 
@@ -648,6 +718,16 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     default_layer = normalize_layer(args.layer)
+    fedramp_by_control: dict[str, list[dict[str, str]]] = {}
+    if args.baseline:
+        fedramp_by_control = load_fedramp_set_parameters(args.baseline)
+        if fedramp_by_control:
+            n_params = sum(len(v) for v in fedramp_by_control.values())
+            print(
+                f"FedRAMP set-parameters: {n_params} on "
+                f"{len(fedramp_by_control)} controls from {args.baseline}",
+                file=sys.stderr,
+            )
     questions: list[dict[str, Any]] = []
     emitted_ids: list[str] = []
     for control in catalog_controls(doc):
@@ -661,6 +741,7 @@ def main(argv: list[str] | None = None) -> int:
                 default_layer=default_layer,
                 source=source,
                 published_only=not args.fill_missing_methods,
+                fedramp_by_control=fedramp_by_control,
             )
         )
 

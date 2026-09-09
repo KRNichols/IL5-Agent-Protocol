@@ -192,9 +192,9 @@ Open, in order:
 
 `answered` = PASS + HOLD + WARN + N/A. This stub’s PASS count is **0** until a human/Codex upgrades from evidence.
 
-If PATH is IL5: **HOLD** until High **plus** overlays **plus** architecture have cited evidence. High alone is HOLD on an IL5 path.
+If PATH is IL5: **HOLD** until High **plus** overlays **plus** architecture have cited evidence. High-alone + IL5 claim = HOLD.
 
-All in-scope FedRAMP High questions PASS with cited evidence ⇒ scanner **READY** for the **FedRAMP High slice only**. Still never ATO. See `KEYS.md`.
+Full bank PASS ≠ FedRAMP High package READY ≠ IL5 ≠ ATO. Package READY also needs COVERAGE gates (SSP / CRM / §14). See `KEYS.md`.
 
 ---
 
