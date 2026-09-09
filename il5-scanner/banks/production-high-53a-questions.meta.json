@@ -1,0 +1,26 @@
+{
+  "generated_from_catalog": true,
+  "not_an_official_control_count": true,
+  "catalog": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_HIGH-baseline-resolved-profile_catalog-min.json",
+  "source": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_HIGH-baseline-resolved-profile_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST Special Publication 800-53 Revision 5.1.1 HIGH IMPACT BASELINE",
+  "baseline": null,
+  "overlays": [],
+  "path_filter": null,
+  "catalog_controls_emitted": 370,
+  "question_count": 4003,
+  "by_layer": {
+    "High": 4003
+  },
+  "by_method": {
+    "Examine": 1463,
+    "Interview": 1463,
+    "Test": 1077
+  },
+  "official_id_lists_live_in": [
+    "FedRAMP Rev 5 High / Class D OSCAL profile (OSCAL-Foundation/fedramp-resources)",
+    "FedRAMP SSP Appendix A High / Class D workbook on fedramp.gov",
+    "DoD Rev 5 SSP Addendum + SRG Control Crosswalk on cyber.mil",
+    "CNSSI 1253 if NSS"
+  ],
+  "question_count_is_not_a_control_count": true
+}

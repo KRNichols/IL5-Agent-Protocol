@@ -1,0 +1,31 @@
+{
+  "generated_from_catalog": true,
+  "not_an_official_control_count": true,
+  "catalog": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
+  "source": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
+  "baseline": "FedRAMP High / Class D OSCAL profile (/workspace/question-bank/raw/FedRAMP_rev5_HIGH-baseline_profile.json)",
+  "overlays": [
+    "/workspace/question-bank/il5-overlay-hooks.json"
+  ],
+  "path_filter": null,
+  "catalog_controls_emitted": 410,
+  "question_count": 4246,
+  "by_layer": {
+    "High": 4238,
+    "FedRAMP+": 2,
+    "SRG": 5,
+    "CNSSI": 1
+  },
+  "by_method": {
+    "Examine": 1548,
+    "Interview": 1543,
+    "Test": 1155
+  },
+  "official_id_lists_live_in": [
+    "FedRAMP Rev 5 High / Class D OSCAL profile (OSCAL-Foundation/fedramp-resources)",
+    "FedRAMP SSP Appendix A High / Class D workbook on fedramp.gov",
+    "DoD Rev 5 SSP Addendum + SRG Control Crosswalk on cyber.mil",
+    "CNSSI 1253 if NSS"
+  ],
+  "question_count_is_not_a_control_count": true
+}

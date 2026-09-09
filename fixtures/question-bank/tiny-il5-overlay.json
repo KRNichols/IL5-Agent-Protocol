@@ -1,0 +1,42 @@
+{
+  "format": "il5-overlay-rows-v1",
+  "source": "FIXTURE — not production. Not the DoD Rev 5 SSP Addendum. Production overlay hooks: question-bank/il5-overlay-hooks.json.",
+  "rows": [
+    {
+      "control": "AC-7",
+      "enhancement": "",
+      "objective_id": "ac-7_dspav",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Examine: Does the handed SSP Addendum record the current DoD lockout parameter for AC-7 from Table D-1 / DSPAV? Cite the addendum cell. Do not guess the official value."
+    },
+    {
+      "control": "AC-7",
+      "enhancement": "",
+      "objective_id": "ac-7_dspav",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Interview: Can the handed package name who applies the DoD AC-7 lockout parameter, and is that statement in the SSP Addendum rather than a silent edit to the FedRAMP SSP?"
+    },
+    {
+      "control": "IA-2",
+      "enhancement": "12",
+      "objective_id": "ia-2.12_cnssi",
+      "method": "Examine",
+      "layer": "CNSSI",
+      "path_applicability": ["IL5 NSS"],
+      "question": "Examine: If the path is IL5 NSS, does the handed package show the AO-selected CNSSI 1253 Table D-1 '+' row for privileged local authentication (official workbook, not a blog count)?"
+    },
+    {
+      "control": "PS-3",
+      "enhancement": "4",
+      "objective_id": "ps-3.4_srg",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
+      "question": "Examine: Does the handed package show US-person / citizenship screening for privileged users as required by the current CSP SRG (cite the SRG / SSP Addendum row; do not treat CMMC as a substitute)?"
+    }
+  ]
+}

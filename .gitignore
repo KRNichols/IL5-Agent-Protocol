@@ -1,0 +1,5 @@
+# Fetched official OSCAL catalogs (rebuild via tools/generate_production_banks.py)
+question-bank/raw/
+tools/__pycache__/
+__pycache__/
+*.pyc

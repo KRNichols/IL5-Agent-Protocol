@@ -1,0 +1,55 @@
+{
+  "generated_from_catalog": true,
+  "production": true,
+  "fetched_at": "2026-09-08T23:16:34Z",
+  "question_count": 4246,
+  "fedramp_high_class_d_ids_from_official_profile": 410,
+  "nist_sp_800_53b_high_ids": 370,
+  "nist_53b_high_is_not_fedramp_high": true,
+  "question_count_is_not_a_control_count": true,
+  "class_d_equals_fedramp_high": true,
+  "high_alone_fails_il5": true,
+  "sources": [
+    {
+      "role": "NIST SP 800-53 Rev 5 + SP 800-53A Rev 5 assessment procedures",
+      "url": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog-min.json",
+      "also": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json",
+      "csrc": "https://csrc.nist.gov/pubs/sp/800/53/a/r5/final",
+      "local": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json"
+    },
+    {
+      "role": "FedRAMP Rev 5 High / Class D ID list (OSCAL profile)",
+      "url": "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/baselines/rev5/json/FedRAMP_rev5_HIGH-baseline_profile.json",
+      "resolved_catalog": "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-resources/main/baselines/rev5/json/FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.json",
+      "fedramp_certification": "https://fedramp.gov/2026/reference/fedramp-certification/",
+      "fedramp_controls": "https://fedramp.gov/2026/reference/controls/",
+      "title": "FedRAMP Rev 5 High Baseline",
+      "version": "fedramp-3.0.0rc1-oscal-1.1.2",
+      "last_modified": "2025-02-28T00:00:00Z",
+      "id_count": 410,
+      "local_ids": "question-bank/fedramp-high-class-d.ids.txt"
+    },
+    {
+      "role": "NIST SP 800-53B HIGH profile (comparison only; NOT FedRAMP High)",
+      "url": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json",
+      "id_count": 370
+    },
+    {
+      "role": "DoD FedRAMP+ / SSP Addendum / SRG (not fetched \u2014 login wall)",
+      "url": "https://public.cyber.mil/dccs/dccs-documents/",
+      "fetched": false,
+      "overlay_hooks": "question-bank/il5-overlay-hooks.json"
+    },
+    {
+      "role": "CNSSI 1253 NSS overlays (not fetched as a catalog)",
+      "url": "https://www.cnss.gov/CNSS/issuances/Instructions.cfm",
+      "fetched": false
+    }
+  ],
+  "artifacts": {
+    "questions": "question-bank/fedramp-high-class-d.questions.jsonl",
+    "meta": "question-bank/fedramp-high-class-d.meta.json",
+    "ids": "question-bank/fedramp-high-class-d.ids.txt",
+    "overlay_hooks": "question-bank/il5-overlay-hooks.json"
+  }
+}
