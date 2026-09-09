@@ -1,0 +1,21 @@
+{
+  "Reservations": [
+    {
+      "Instances": [
+        {
+          "InstanceId": "i-fixture0000000000",
+          "PublicIpAddress": "203.0.113.10",
+          "PrivateIpAddress": "10.0.1.20",
+          "VpcId": "vpc-fixture",
+          "SubnetId": "subnet-fixture",
+          "Placement": {"AvailabilityZone": "us-east-1a"},
+          "MetadataOptions": {"HttpTokens": "optional", "HttpPutResponseHopLimit": 2},
+          "IamInstanceProfile": {"Arn": "arn:aws:iam::123456789012:instance-profile/neo4j-fixture"},
+          "SecurityGroups": [{"GroupId": "sg-fixture", "GroupName": "neo4j-fixture"}],
+          "BlockDeviceMappings": [{"Ebs": {"VolumeId": "vol-fixture"}}],
+          "NetworkInterfaces": [{"Association": {"PublicIp": "203.0.113.10"}}]
+        }
+      ]
+    }
+  ]
+}

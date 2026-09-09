@@ -1,0 +1,177 @@
+{
+  "format": "il5-evidence-map-v1",
+  "playbook": "playbooks/NEO4J-EC2-GOVCLOUD.md",
+  "collector": "tools/collect_neo4j_ec2_evidence.sh",
+  "answerer": "tools/answer_bank_from_evidence.py",
+  "default_bank": "il5-scanner/banks/production-high-53a-questions.jsonl",
+  "never_invent_pass": true,
+  "high_alone_fails_il5": true,
+  "not_an_ato": true,
+  "shared_responsibility": {
+    "iaas_ec2": "AWS GovCloud FedRAMP High / IL5 PA covers PE and in-scope IaaS services only. Inheritance is service-by-service. See standard §21–§22.",
+    "neo4j_software": "Customer-managed Neo4j on EC2 is not inherited from the AWS PA. Auth, TLS, plugins, query logs, backups of graph data, and Bolt/HTTP listeners are customer-responsible."
+  },
+  "collectors": [
+    {
+      "id": "neo4j.conf",
+      "paths": ["neo4j/neo4j.conf", "neo4j/neo4j.conf.redacted"],
+      "families": ["AC", "AU", "CM", "IA", "SC"],
+      "controls": ["AC-2", "AC-3", "AC-6", "AC-17", "AU-2", "AU-12", "CM-6", "CM-7", "IA-2", "IA-5", "SC-7", "SC-8", "SC-13"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "neo4j-admin-settings",
+      "paths": ["neo4j/neo4j-admin-settings.txt", "neo4j/server-report-note.txt"],
+      "families": ["CM", "SC"],
+      "controls": ["CM-6", "CM-8", "SC-8"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "auth-providers",
+      "paths": ["neo4j/auth-providers.txt", "neo4j/ldap-settings.redacted.txt"],
+      "families": ["AC", "IA"],
+      "controls": ["AC-2", "AC-3", "IA-2", "IA-5", "IA-8"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "tls",
+      "paths": ["neo4j/tls-settings.txt", "neo4j/ssl-policy/"],
+      "families": ["SC", "AC"],
+      "controls": ["SC-8", "SC-8(1)", "SC-12", "SC-13", "AC-17", "AC-17(2)"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "listeners-ports",
+      "paths": ["neo4j/listeners.txt", "os/listening-ports.txt"],
+      "families": ["SC", "AC", "CM"],
+      "controls": ["SC-7", "CM-7", "AC-4", "AC-17"],
+      "methods": ["Examine", "Test"]
+    },
+    {
+      "id": "encryption-at-rest",
+      "paths": ["neo4j/encryption-at-rest.txt", "ec2/ebs-volumes.json"],
+      "families": ["SC"],
+      "controls": ["SC-12", "SC-13", "SC-28", "SC-28(1)"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "backups",
+      "paths": ["neo4j/backup-settings.txt", "neo4j/backup-jobs.txt"],
+      "families": ["CP", "SC"],
+      "controls": ["CP-9", "CP-9(8)", "SC-28"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "plugins-apoc",
+      "paths": ["neo4j/plugins.txt", "neo4j/apoc.conf", "neo4j/apoc.conf.redacted"],
+      "families": ["AC", "CM", "SI"],
+      "controls": ["AC-6", "CM-7", "SI-7"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "query-logging",
+      "paths": ["neo4j/query-log-settings.txt", "neo4j/logging.txt"],
+      "families": ["AU"],
+      "controls": ["AU-2", "AU-3", "AU-9", "AU-12"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "security-groups",
+      "paths": ["ec2/security-groups.json", "ec2/nacl.json"],
+      "families": ["SC", "AC"],
+      "controls": ["SC-7", "AC-4", "AC-17"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "imdsv2",
+      "paths": ["ec2/imds.json", "os/imds-hop-limit.txt"],
+      "families": ["AC", "SC", "CM"],
+      "controls": ["AC-6", "CM-6", "SC-7"],
+      "methods": ["Examine", "Test"]
+    },
+    {
+      "id": "ebs-kms",
+      "paths": ["ec2/ebs-volumes.json", "ec2/kms-keys.json"],
+      "families": ["SC", "MP"],
+      "controls": ["SC-12", "SC-13", "SC-28"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "vpc-subnet",
+      "paths": ["ec2/instance.json", "ec2/vpc.json", "ec2/subnets.json"],
+      "families": ["SC", "AC"],
+      "controls": ["SC-7", "AC-4", "SC-32"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "ssm",
+      "paths": ["ec2/ssm-instance.json", "ec2/ssm-inventory.json"],
+      "families": ["AC", "CM", "MA"],
+      "controls": ["AC-17", "CM-3", "CM-8", "MA-2"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "cloudwatch",
+      "paths": ["ec2/cloudwatch-log-groups.json", "ec2/cloudwatch-alarms.json"],
+      "families": ["AU", "SI"],
+      "controls": ["AU-6", "AU-12", "SI-4"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "ssm-patch",
+      "paths": ["ec2/ssm-patch-state.json", "ec2/ssm-patch-baseline.json"],
+      "families": ["SI", "CM", "RA"],
+      "controls": ["SI-2", "CM-6", "RA-5"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "stig",
+      "paths": ["os/stig-notes.txt", "os/scap-results.txt", "scans/"],
+      "families": ["CM"],
+      "controls": ["CM-6"],
+      "methods": ["Examine", "Test"]
+    },
+    {
+      "id": "iam-instance-profile",
+      "paths": ["ec2/iam-instance-profile.json", "ec2/iam-role-policies.json"],
+      "families": ["AC", "IA"],
+      "controls": ["AC-6", "IA-2", "IA-5"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "public-ip",
+      "paths": ["ec2/network-interfaces.json", "ec2/instance.json"],
+      "families": ["SC", "AC"],
+      "controls": ["SC-7", "AC-17"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "fips",
+      "paths": ["os/fips.txt", "os/crypto-modules.txt", "neo4j/java-security.txt"],
+      "families": ["SC", "IA"],
+      "controls": ["SC-8", "SC-13", "IA-7"],
+      "methods": ["Examine", "Test"]
+    },
+    {
+      "id": "partition-region",
+      "paths": ["ec2/identity-document.json", "ec2/region.txt"],
+      "families": ["SA", "PE", "SC"],
+      "controls": ["SA-9", "SA-9(5)", "PE-18"],
+      "methods": ["Examine"]
+    },
+    {
+      "id": "interviews",
+      "paths": ["interviews/", "notes/"],
+      "families": ["*"],
+      "controls": [],
+      "methods": ["Interview"]
+    },
+    {
+      "id": "scans",
+      "paths": ["scans/", "os/listening-ports.txt", "os/fips.txt"],
+      "families": ["RA", "CM", "SI", "SC"],
+      "controls": ["RA-5", "CM-6", "SI-2"],
+      "methods": ["Test"]
+    }
+  ]
+}

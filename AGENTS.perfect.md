@@ -12,6 +12,9 @@ Rubric (required read on every start):
 DoD IL5 Complete Build-Against, Scan, and Certification Guide,
 4 Sep 2026). If that file is missing, `HOLD` in Plain English.
 
+Operator how-to (Codex): `RUN.md`.
+Neo4j on EC2 US GovCloud: `playbooks/NEO4J-EC2-GOVCLOUD.md`.
+
 ## Hard truths
 
 - There is no official "FedRAMP Impact Level 5." IL5 is
@@ -36,7 +39,7 @@ the three answers are already in this session, do not re-ask.
 1. Target stack: FedRAMP High only | IL5 non-NSS | IL5 NSS |
    unknown
 2. What to scan (paths, repo, package folder, architecture
-   doc, evidence pack)
+   doc, evidence pack, or Neo4j EC2 GovCloud target)
 3. Shared responsibility: IaaS | PaaS | SaaS | unknown
 
 Then `HOLD` until answers that are still needed arrive. After
@@ -45,29 +48,53 @@ they land, fire the scan playbook.
 ## Scan playbook (after answers)
 
 1. Confirm `FEDRAMP-HIGH-IL5-STANDARD.md` is readable.
-2. Categorization and path (FIPS 199 / NSS / CUI) vs what the
+2. Load the production HIGH bank by default:
+   `il5-scanner/banks/production-high-53a-questions.jsonl`
+   (4003 questions). If that file is missing, `HOLD`.
+   `fixtures/question-bank/` is a unit fixture only.
+3. Categorization and path (FIPS 199 / NSS / CUI) vs what the
    solution claims.
-3. Four-layer control stack: FedRAMP High, FedRAMP+, CNSSI
+4. Four-layer control stack: FedRAMP High, FedRAMP+, CNSSI
    1253 if NSS, SRG architecture.
-4. Non-control IL5 architecture: citizenship, CAC/PIV,
+5. Non-control IL5 architecture: citizenship, CAC/PIV,
    FIPS 140-3 crypto, BCAP/SCCA readiness when DoD-connected.
-5. Scan program (standard §14): discovery, authenticated
+6. Scan program (standard §14): discovery, authenticated
    OS/web/DB, container, IaC, SAST/secrets, SCAP/STIG, cadence,
    evidence corpus. Inventory must match scan targets.
-6. POA&M, remediation clocks, ConMon, incident reporting if
+7. POA&M, remediation clocks, ConMon, incident reporting if
    claimed.
-7. Package artifacts: SSP appendices, CRM inheritance, boundary.
-8. Common failure modes (standard §28).
-9. Answer every in-scope question in the production HIGH bank
-   `il5-scanner/banks/production-high-53a-questions.jsonl`
-   (4003 questions from NIST 800-53A on the 800-53B HIGH
-   resolved catalog — not FedRAMP Appendix A). Synthesis is
-   in `QUESTION-BANK.md`. Do not invent a fake control count.
-   `fixtures/question-bank/` is a unit fixture only.
+8. Package artifacts: SSP appendices, CRM inheritance, boundary.
+9. Common failure modes (standard §28).
+10. Answer every in-scope question in the production HIGH bank
+    `PASS | HOLD | WARN | N/A | MISSING` with cited evidence
+    paths. Synthesis is in `QUESTION-BANK.md`. Do not invent
+    a fake control count.
 
 Score only what was handed to you. Mark the rest `MISSING`.
 Do not invent evidence. Cite standard sections on gaps
 (e.g. §14, §28).
+
+## Neo4j on EC2 US GovCloud
+
+When what-to-scan is Neo4j hosted on EC2 in AWS GovCloud
+(or the operator points at that shape):
+
+1. Read `playbooks/NEO4J-EC2-GOVCLOUD.md` and `RUN.md`.
+2. Shared split: IaaS (EC2) vs customer-managed Neo4j.
+   The AWS GovCloud PA does not cover Neo4j.
+3. Run the read-only collector (SSM, SSH, or local paths).
+   No graph dump. No secrets committed.
+   `tools/collect_neo4j_ec2_evidence.sh`
+4. Run the bank answerer against the HIGH 4003 bank and
+   `evidence/<run-id>/`:
+   `tools/answer_bank_from_evidence.py`
+5. Map collector files → control families → each in-scope
+   question. The stub marks MISSING unless a mapped file
+   is present. It never invents PASS. You may upgrade
+   HOLD→PASS only when the cited file shows the objective
+   is met.
+6. Emit GRADE + QUESTIONS + `CONFIG-CHANGES.md`
+   (`current → required → evidence`).
 
 ## Question bank (production)
 

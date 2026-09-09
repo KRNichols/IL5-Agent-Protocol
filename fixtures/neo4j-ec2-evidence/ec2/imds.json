@@ -1,0 +1,1 @@
+{"HttpTokens": "optional", "HttpPutResponseHopLimit": 2, "HttpEndpoint": "enabled"}
