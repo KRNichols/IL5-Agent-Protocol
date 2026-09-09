@@ -1,8 +1,16 @@
 # How to run this with Codex
 
-Production scanner. Default bank is **HIGH 4003** (`il5-scanner/banks/production-high-53a-questions.jsonl`). `READY` is **never** ATO, FedRAMP authorization, or DISA PA. High alone fails IL5. No exploits, PoCs, or attack playbooks. Do not put secrets in the repo.
+Production scanner. Default bank is **FedRAMP High / Class D** —
+`il5-scanner/banks/production-high-53a-questions.jsonl` (**410** official
+profile IDs → **4238** 53A questions). Grade-gate wording: [`KEYS.md`](KEYS.md).
+Provenance: [`il5-scanner/banks/PROVENANCE.md`](il5-scanner/banks/PROVENANCE.md).
+
+`READY` is **never** ATO, FedRAMP authorization, or DISA PA. High alone
+fails IL5. No exploits, PoCs, or attack playbooks. Do not put secrets,
+live instance IDs, or real evidence packs in the repo.
 
 `fixtures/question-bank/` is a **unit fixture only**. Do not grade from it.
+NIST 800-53B HIGH (**4003**) is a comparison bank only — not the grade path.
 
 ---
 
@@ -13,6 +21,7 @@ Production scanner. Default bank is **HIGH 4003** (`il5-scanner/banks/production
 Drop or clone the pack at the Codex workspace root so these files sit together:
 
 - `AGENTS.md` (contract; twin `AGENTS.perfect.md` must stay identical)
+- `KEYS.md`
 - `SCANNER.md`
 - `FEDRAMP-HIGH-IL5-STANDARD.md`
 - `RUN.md` (this file)
@@ -21,7 +30,9 @@ Drop or clone the pack at the Codex workspace root so these files sit together:
 
 **Option B — GitHub**
 
-`main` already has the production HIGH **4003** bank (PR #1, `c9d74ce`). Point Codex at `https://github.com/KRNichols/IL5-Agent-Protocol` on **`main`** for the bank + contract. Until **this** PR lands, checkout this branch for `RUN.md`, the Neo4j GovCloud playbook, and the collectors.
+Point Codex at `https://github.com/KRNichols/IL5-Agent-Protocol` on **`main`**
+for the FedRAMP High bank, contract, `RUN.md`, Neo4j GovCloud playbook, and
+collectors.
 
 Linux:
 
@@ -37,7 +48,7 @@ git clone https://github.com/KRNichols/IL5-Agent-Protocol.git
 cd IL5-Agent-Protocol
 ```
 
-Tell Codex: *Follow `AGENTS.md`. Operator steps are `RUN.md`.*
+Tell Codex: *Follow `AGENTS.md`. Operator steps are `RUN.md`. Grade gate is `KEYS.md`.*
 
 ---
 
@@ -58,14 +69,14 @@ Codex asks **three** intake questions, then **stops and waits**. It must not rec
 ## 3. Answer the three intake questions
 
 1. **Target stack:** `FedRAMP High only` | `IL5 non-NSS` | `IL5 NSS` | `unknown`
-2. **What to scan:** Neo4j on EC2 in AWS GovCloud — plus instance id, region, and/or local paths (see step 4)
-3. **Shared responsibility:** `IaaS` (EC2 + customer-managed Neo4j). Not PaaS. AWS PA does not cover Neo4j.
+2. **What to scan:** paths / package / architecture doc — or Neo4j on EC2 GovCloud **via already-copied configs**. Do not paste live instance IDs, secrets, or classified targets into git or the chat log.
+3. **Shared responsibility:** `IaaS` | `PaaS` | `SaaS` | `unknown` (EC2 + customer-managed Neo4j is IaaS. AWS PA does not cover Neo4j.)
 
-Example reply you can paste:
+Example reply you can paste (fixture / local-root — no live host):
 
 ```text
 1. IL5 non-NSS
-2. Neo4j on EC2 in AWS GovCloud; instance i-0123456789abcdef0; region us-gov-west-1; collect via SSM. Evidence dest: evidence/neo4j-govcloud-1
+2. Neo4j on EC2 GovCloud shape; collect from fixtures/neo4j-ec2-evidence via --local-root. Evidence dest: evidence/fixture-smoke
 3. IaaS
 ```
 
@@ -73,15 +84,15 @@ If any of the three is still missing, Codex HOLDs and waits. Do not add a buyer-
 
 ---
 
-## 4. Point at the Neo4j EC2 GovCloud target
+## 4. Point at configs (no live targets in git)
 
-Give **one** transport. **No secrets in the repo** (no PEM files, no SSO tokens, no passwords).
+Give **one** transport. **No secrets in the repo** (no PEM files, no SSO tokens, no passwords). Prefer `--local-root` of configs you already copied. Instance IDs and profiles stay on **your** machine.
 
 | Transport | What you hand Codex |
 |---|---|
-| SSM | Instance id + GovCloud region + AWS profile name (profile lives in *your* `~/.aws`, not git) |
-| SSH | `user@private-ip` or host from your SSH config (keys stay local) |
 | Paths | Directory you already copied (`neo4j.conf`, AWS JSON). Use `--local-root` |
+| SSM | Instance id + GovCloud region + AWS profile name (profile lives in *your* `~/.aws`, not git). Do not commit the id. |
+| SSH | `user@private-ip` or host from your SSH config (keys stay local) |
 
 GovCloud regions: `us-gov-west-1`, `us-gov-east-1` (partition `aws-us-gov`). Commercial regions are the wrong cloud.
 
@@ -96,31 +107,16 @@ chmod +x tools/collect_neo4j_ec2_evidence.sh
 
 # Already-copied configs (safest first run)
 tools/collect_neo4j_ec2_evidence.sh \
-  --run-id neo4j-govcloud-1 \
+  --run-id neo4j-local-1 \
   --local-root /path/to/copied-configs \
   --region us-gov-west-1 \
   --skip-aws
-
-# SSH + AWS describe (read-only)
-tools/collect_neo4j_ec2_evidence.sh \
-  --run-id neo4j-govcloud-1 \
-  --ssh admin@10.0.1.20 \
-  --region us-gov-west-1 \
-  --instance-id i-0123456789abcdef0 \
-  --profile gov
-
-# SSM + AWS describe (read-only)
-tools/collect_neo4j_ec2_evidence.sh \
-  --run-id neo4j-govcloud-1 \
-  --ssm i-0123456789abcdef0 \
-  --region us-gov-west-1 \
-  --profile gov
 ```
 
 Windows PowerShell (collector is bash — use Git Bash, WSL, or the same commands inside WSL):
 
 ```powershell
-wsl -e bash -lc 'cd /mnt/c/src/IL5-Agent-Protocol && tools/collect_neo4j_ec2_evidence.sh --run-id neo4j-govcloud-1 --local-root /mnt/c/tmp/copied-configs --region us-gov-west-1 --skip-aws'
+wsl -e bash -lc 'cd /mnt/c/src/IL5-Agent-Protocol && tools/collect_neo4j_ec2_evidence.sh --run-id neo4j-local-1 --local-root /mnt/c/tmp/copied-configs --region us-gov-west-1 --skip-aws'
 ```
 
 Writes `evidence/<run-id>/` (`MANIFEST.json`, `neo4j/`, `ec2/`, `os/`). Redacts password lines. **Does not dump the graph.**
@@ -136,13 +132,13 @@ tools/collect_neo4j_ec2_evidence.sh \
 
 ---
 
-## 6. Run the bank answerer (HIGH 4003)
+## 6. Run the bank answerer (FedRAMP High 4238)
 
 Linux / macOS / WSL:
 
 ```bash
 python3 tools/answer_bank_from_evidence.py \
-  --evidence evidence/neo4j-govcloud-1 \
+  --evidence evidence/fixture-smoke \
   --path "IL5 non-NSS" \
   --shared-responsibility IaaS
 ```
@@ -151,16 +147,27 @@ Windows PowerShell:
 
 ```powershell
 python tools\answer_bank_from_evidence.py `
-  --evidence evidence\neo4j-govcloud-1 `
+  --evidence evidence\fixture-smoke `
   --path "IL5 non-NSS" `
   --shared-responsibility IaaS
 ```
 
 Defaults:
 
-- Bank: `il5-scanner/banks/production-high-53a-questions.jsonl` (**4003**)
+- Bank: `il5-scanner/banks/production-high-53a-questions.jsonl` (**4238** FedRAMP High / Class D)
 - Map: `il5-scanner/collectors/neo4j-ec2-govcloud-map.json`
 - IL5 paths also append overlay **hooks** (not a downloaded SSP Addendum)
+
+Named alternate only (not the grade path):
+
+```bash
+python3 tools/answer_bank_from_evidence.py \
+  --evidence evidence/fixture-smoke \
+  --path "FedRAMP High" \
+  --bank il5-scanner/banks/nist-800-53b-high-53a-questions.jsonl
+```
+
+That file is NIST SP 800-53B HIGH (**4003** / 370 IDs). Do not use it to claim a FedRAMP High grade.
 
 The stub marks **MISSING** unless a mapped evidence file is present. It **never invents PASS**. Codex may upgrade HOLD→PASS only after reading the cited file.
 
@@ -177,21 +184,24 @@ Writes (under the evidence dir unless `--out-dir` is set):
 
 Open, in order:
 
-1. `evidence/<run-id>/GRADE.md` — `GRADE`, `PATH`, `COVERAGE`, **QUESTIONS** tally
-2. `evidence/<run-id>/CONFIG-CHANGES.md` — concrete config changes
-3. `evidence/<run-id>/answers.jsonl` — per-question `PASS|HOLD|WARN|N/A|MISSING` + cited paths
-4. `playbooks/NEO4J-EC2-GOVCLOUD.md` — what still needs a human package (SSP, CRM, STIG, CAC/PIV)
+1. `KEYS.md` — what READY means, and what still fails IL5
+2. `evidence/<run-id>/GRADE.md` — `GRADE`, `PATH`, `COVERAGE`, **QUESTIONS** tally
+3. `evidence/<run-id>/CONFIG-CHANGES.md` — concrete config changes
+4. `evidence/<run-id>/answers.jsonl` — per-question `PASS|HOLD|WARN|N/A|MISSING` + cited paths
+5. `playbooks/NEO4J-EC2-GOVCLOUD.md` — what still needs a human package (SSP, CRM, STIG, CAC/PIV)
 
 `answered` = PASS + HOLD + WARN + N/A. This stub’s PASS count is **0** until a human/Codex upgrades from evidence.
 
-If PATH is FedRAMP High only and the mission needed IL5: **HOLD**. High alone fails IL5.
+If PATH is IL5: **HOLD** until High **plus** overlays **plus** architecture have cited evidence. High-alone + IL5 claim = HOLD.
+
+Full bank PASS ≠ FedRAMP High package READY ≠ IL5 ≠ ATO. Package READY also needs COVERAGE gates (SSP / CRM / §14). See `KEYS.md`.
 
 ---
 
 ## What Codex does after intake (no extra quiz)
 
 1. Confirm `FEDRAMP-HIGH-IL5-STANDARD.md` is readable.
-2. Load the production HIGH bank (4003). HOLD if it is missing.
+2. Load the production FedRAMP High bank (4238). HOLD if it is missing.
 3. If the target is Neo4j + EC2 + GovCloud: run the collector, then the answerer.
 4. Map findings to in-scope questions with cited paths.
 5. Print the GRADE block + QUESTIONS tally + config-change list.

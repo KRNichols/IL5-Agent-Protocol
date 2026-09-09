@@ -79,7 +79,7 @@ if [[ -z "$INSTANCE_ID" && -n "$SSM_ID" ]]; then
   INSTANCE_ID="$SSM_ID"
 fi
 
-mkdir -p "$OUT_DIR"/{neo4j,ec2,os,scans,interviews,notes}
+mkdir -p "$OUT_DIR"/{neo4j,ec2,os,scans,interviews,notes,package,architecture}
 ABS_OUT="$(cd "$OUT_DIR" && pwd)"
 
 aws_cli() {

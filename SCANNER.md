@@ -2,9 +2,9 @@
 
 `AGENTS.md` is the contract. `FEDRAMP-HIGH-IL5-STANDARD.md` is the rubric. Read both at the checkout root before you grade. `AGENTS.perfect.md` is the identical twin of `AGENTS.md` when present.
 
-How to run with Codex: **`RUN.md`**. Neo4j on EC2 US GovCloud: **`playbooks/NEO4J-EC2-GOVCLOUD.md`**.
+How to run with Codex: **`RUN.md`**. Grade gate: **`KEYS.md`**. Neo4j on EC2 US GovCloud: **`playbooks/NEO4J-EC2-GOVCLOUD.md`**. Provenance: **`il5-scanner/banks/PROVENANCE.md`**.
 
-The production HIGH bank is `il5-scanner/banks/production-high-53a-questions.jsonl` (**4003** questions from NIST SP 800-53A on the NIST HIGH-baseline-resolved-profile catalog). Interim baseline label: `NIST-800-53B-HIGH` — not FedRAMP Appendix A. Rebuild with `tools/generate_production_banks.py`. See `QUESTION-BANK.md`. `fixtures/question-bank/` is a unit fixture only. Do not invent official control counts.
+The production HIGH bank is `il5-scanner/banks/production-high-53a-questions.jsonl` (**4238** questions from NIST SP 800-53A on the official FedRAMP Rev 5 High / Class D OSCAL profile — **410** IDs). NIST 800-53B HIGH (4003 / 370 IDs) is comparison only. Rebuild with `tools/generate_production_banks.py`. See `QUESTION-BANK.md`. `fixtures/question-bank/` is a unit fixture only. Do not invent official control counts.
 
 This file is a pointer. It does not replace the contract. Paths here are checkout-relative (`FEDRAMP-HIGH-IL5-STANDARD.md`), not absolute machine paths.
 
@@ -35,7 +35,7 @@ If `FEDRAMP-HIGH-IL5-STANDARD.md` is missing, `HOLD` in Plain English.
 Score only what was handed to you. Mark the rest `MISSING`. Do not invent evidence. Cite standard sections on gaps (e.g. §14, §28).
 
 1. Confirm `FEDRAMP-HIGH-IL5-STANDARD.md` is readable.
-2. Load `il5-scanner/banks/production-high-53a-questions.jsonl` (4003). HOLD if missing.
+2. Load `il5-scanner/banks/production-high-53a-questions.jsonl` (FedRAMP High 4238). HOLD if missing.
 3. Categorization and path (FIPS 199 / NSS / CUI) vs what the solution claims.
 4. Four-layer control stack: FedRAMP High, FedRAMP+, CNSSI 1253 if NSS, SRG architecture.
 5. Non-control IL5 architecture: citizenship, CAC/PIV, FIPS 140-3 crypto, BCAP/SCCA readiness when DoD-connected.
@@ -50,7 +50,7 @@ Score only what was handed to you. Mark the rest `MISSING`. Do not invent eviden
 1. Read `playbooks/NEO4J-EC2-GOVCLOUD.md` and `RUN.md`.
 2. IaaS (EC2) vs customer-managed Neo4j — AWS PA does not cover Neo4j.
 3. `tools/collect_neo4j_ec2_evidence.sh` (SSM / SSH / `--local-root`). Read-only. No graph dump.
-4. `tools/answer_bank_from_evidence.py --evidence evidence/<run-id>`. Default bank is HIGH 4003. Never invents PASS.
+4. `tools/answer_bank_from_evidence.py --evidence evidence/<run-id>`. Default bank is FedRAMP High 4238. Never invents PASS.
 5. Print GRADE + QUESTIONS + `CONFIG-CHANGES.md` (`current → required → evidence`).
 
 ## Answering protocol (question bank)
@@ -60,7 +60,8 @@ Every in-scope synthesized question must be answered `PASS | HOLD | WARN | N/A |
 - PASS requires cited evidence from the handed solution.
 - Never invent answers. Wrong or guessed answers are HOLD.
 - READY never means ATO, FedRAMP authorization, or DISA PA.
-- High-alone still fails an IL5 assessment.
+- Full bank PASS ≠ FedRAMP High package READY ≠ IL5 ≠ ATO (`KEYS.md`).
+- High-alone + IL5 claim = HOLD. COVERAGE gates: SSP / CRM / §14 / overlays / architecture.
 - If SOURCE is missing or the catalog was not official, say so and do not treat the question count as the official C/CE count.
 
 ## Required GRADE block

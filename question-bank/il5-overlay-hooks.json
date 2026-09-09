@@ -1,6 +1,6 @@
 {
   "format": "il5-overlay-rows-v1",
-  "source": "IL5 overlay HOOKS — not a substitute for the official DoD Rev 5 SSP Addendum or CNSSI 1253. Fetched 2026-09-08: public.cyber.mil / www.cyber.mil/dccs/dccs-documents/ is a login-walled LWC community; no machine-readable addendum or crosswalk was retrieved. CNSSI 1253 remains on cnss.gov. These rows are documented architecture / parameter-cite hooks from FEDRAMP-HIGH-IL5-STANDARD.md §§6–12. They are not an invented extra-control count. Replace with official workbook extracts when the operator can download them.",
+  "source": "IL5 overlay HOOKS \u2014 not a substitute for the official DoD Rev 5 SSP Addendum, SRG Control Crosswalk, or CNSSI 1253. public.cyber.mil / www.cyber.mil/dccs/dccs-documents/ is a login-walled LWC community; no machine-readable addendum was retrieved. CNSSI 1253 remains on cnss.gov. Rows cite FEDRAMP-HIGH-IL5-STANDARD.md \u00a7\u00a76\u201328. They are not an invented extra-control count. Replace with official workbook extracts when the operator can download them. Default grade is MISSING until cited evidence is handed. Do not guess DSPAV values.",
   "official_workbooks_not_fetched": [
     "https://public.cyber.mil/dccs/dccs-documents/",
     "https://www.cyber.mil/dccs/dccs-documents/",
@@ -8,6 +8,10 @@
     "DoD SRG Control Crosswalk",
     "https://www.cnss.gov/CNSS/issuances/Instructions.cfm"
   ],
+  "not_an_official_control_count": true,
+  "high_alone_fails_il5": true,
+  "never_invent_pass": true,
+  "default_verdict_until_evidence": "MISSING",
   "rows": [
     {
       "control": "AC-7",
@@ -15,8 +19,11 @@
       "objective_id": "ac-7_dspav_cite",
       "method": "Examine",
       "layer": "FedRAMP+",
-      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
-      "question": "Examine: Does the handed SSP Addendum record the current DoD lockout parameter for AC-7 from Table D-1 / DSPAV? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil on 2026-09-08."
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for privileged lockout (AC-7)? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
     },
     {
       "control": "AC-7",
@@ -24,44 +31,503 @@
       "objective_id": "ac-7_dspav_cite",
       "method": "Interview",
       "layer": "FedRAMP+",
-      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
-      "question": "Interview: Who applies the DoD AC-7 lockout parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP?"
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD privileged lockout (AC-7) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "AU-5",
+      "enhancement": "1",
+      "objective_id": "au-5.1_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for audit-failure / capacity warning (AU-5(1))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "AU-5",
+      "enhancement": "1",
+      "objective_id": "au-5.1_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD audit-failure / capacity warning (AU-5(1)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "CM-7",
+      "enhancement": "5",
+      "objective_id": "cm-7.5_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for least-functionality DSPAV (CM-7(5))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "CM-7",
+      "enhancement": "5",
+      "objective_id": "cm-7.5_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD least-functionality DSPAV (CM-7(5)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "IA-5",
+      "enhancement": "1",
+      "objective_id": "ia-5.1_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for password-based authenticator DSPAV (IA-5(1))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "IA-5",
+      "enhancement": "1",
+      "objective_id": "ia-5.1_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD password-based authenticator DSPAV (IA-5(1)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "PE-15",
+      "enhancement": "",
+      "objective_id": "pe-15_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for water-damage DSPAV (PE-15)? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "PE-15",
+      "enhancement": "",
+      "objective_id": "pe-15_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD water-damage DSPAV (PE-15) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
     },
     {
       "control": "PS-3",
       "enhancement": "4",
-      "objective_id": "ps-3.4_srg_citizenship",
+      "objective_id": "ps-3.4_dspav_cite",
       "method": "Examine",
-      "layer": "SRG",
-      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
-      "question": "Examine: Does the handed package show US-person / citizenship screening for privileged users as required by the current CSP SRG / SSP Addendum? Cite the official row. CMMC is not a substitute."
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for personnel citizenship / US-person (PS-3(4))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
     },
     {
-      "control": "IA-2",
-      "enhancement": "12",
-      "objective_id": "ia-2.12_cac_piv",
-      "method": "Examine",
-      "layer": "SRG",
-      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
-      "question": "Examine: Does the handed package show CAC/PIV (or approved PKI) for privileged DoD users at Credential Strength D, with the implementation cited from the package (not inferred)?"
+      "control": "PS-3",
+      "enhancement": "4",
+      "objective_id": "ps-3.4_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD personnel citizenship / US-person (PS-3(4)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
     },
     {
-      "control": "SC-13",
+      "control": "SA-4",
+      "enhancement": "5",
+      "objective_id": "sa-4.5_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for system/component/service configurations (SA-4(5))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SA-4",
+      "enhancement": "5",
+      "objective_id": "sa-4.5_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD system/component/service configurations (SA-4(5)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "1",
+      "objective_id": "sa-9.1_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for external-service risk assessment (SA-9(1))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "1",
+      "objective_id": "sa-9.1_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD external-service risk assessment (SA-9(1)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "6",
+      "objective_id": "sa-9.6_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for external-service DSPAV listed for IL4/5/6 (SA-9(6))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "6",
+      "objective_id": "sa-9.6_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD external-service DSPAV listed for IL4/5/6 (SA-9(6)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "7",
+      "objective_id": "sa-9.7_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for external-service DSPAV listed for IL4/5/6 (SA-9(7))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "7",
+      "objective_id": "sa-9.7_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD external-service DSPAV listed for IL4/5/6 (SA-9(7)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "8",
+      "objective_id": "sa-9.8_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for external-service DSPAV listed for IL4/5/6 (SA-9(8))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "8",
+      "objective_id": "sa-9.8_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD external-service DSPAV listed for IL4/5/6 (SA-9(8)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SC-12",
+      "enhancement": "6",
+      "objective_id": "sc-12.6_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for PKI / key-establishment DSPAV (SC-12(6))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SC-12",
+      "enhancement": "6",
+      "objective_id": "sc-12.6_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD PKI / key-establishment DSPAV (SC-12(6)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SC-17",
       "enhancement": "",
-      "objective_id": "sc-13_fips_140-3",
+      "objective_id": "sc-17_dspav_cite",
       "method": "Examine",
-      "layer": "SRG",
-      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
-      "question": "Examine: When crypto is in scope, does the handed package cite active FIPS 140-3 CMVP module certificates (not historical, not revoked) for the modules actually used?"
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for PKI certificates per DoDI 8520.02 / 8520.03 (SC-17)? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
     },
     {
-      "control": "SC-13",
+      "control": "SC-17",
       "enhancement": "",
-      "objective_id": "sc-13_fips_140-3",
-      "method": "Test",
+      "objective_id": "sc-17_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD PKI certificates per DoDI 8520.02 / 8520.03 (SC-17) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SC-18",
+      "enhancement": "",
+      "objective_id": "sc-18_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for mobile-code DSPAV (SC-18)? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SC-18",
+      "enhancement": "",
+      "objective_id": "sc-18_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD mobile-code DSPAV (SC-18) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "SC-18",
+      "enhancement": "2",
+      "objective_id": "sc-18.2_dspav_cite",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed DoD Rev 5 SSP Addendum / Table D-1 / DSPAV record the current DoD parameter for mobile-code restrictions (SC-18(2))? Cite the official addendum cell. Do not guess the value. Official file was not fetchable from cyber.mil (standard \u00a76)."
+    },
+    {
+      "control": "SC-18",
+      "enhancement": "2",
+      "objective_id": "sc-18.2_dspav_cite",
+      "method": "Interview",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who applies the DoD mobile-code restrictions (SC-18(2)) parameter, and is it written in the SSP Addendum rather than silently edited into the FedRAMP SSP? (standard \u00a76.3)"
+    },
+    {
+      "control": "PL-10",
+      "enhancement": "",
+      "objective_id": "pl-10_addendum_join",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Was FedRAMP High Appendix A joined to the current DoD Rev 5 SSP Addendum on Control ID, with every 'DoD added' / 'parameter changed' / 'DSPAV required' row flagged? Do not use a blog extra-control count (standard \u00a76.3, \u00a728 #20)."
+    },
+    {
+      "control": "PL-11",
+      "enhancement": "",
+      "objective_id": "pl-11_high_alone",
+      "method": "Examine",
       "layer": "SRG",
-      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
-      "question": "Test: Does the handed evidence show FIPS mode enabled on in-scope modules, not merely licensed?"
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed package admit that FedRAMP High alone fails an IL5 assessment, and show the FedRAMP+ / SRG / (if NSS) CNSSI layers as in-scope? High Marketplace listing is not a DISA PA (standard hard truth; \u00a725; \u00a728 #18)."
+    },
+    {
+      "control": "CA-2",
+      "enhancement": "",
+      "objective_id": "ca-2_delta_test",
+      "method": "Examine",
+      "layer": "FedRAMP+",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is each extra / changed FedRAMP+ row mapped to a test case a 3PAO or DISA SCA will run? Cite the SAP / addendum. Missing addendum = MISSING, not PASS (standard \u00a76.3)."
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "5",
+      "objective_id": "sa-9.5_us_location",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Do SA-09(05) and PE-18 name United States / US outlying / DoD on-premises regions, facilities, and every replication target for IL5 processing, storage, and administration? Commercial-region hosts fail (standard \u00a78.1)."
+    },
+    {
+      "control": "PE-18",
+      "enhancement": "",
+      "objective_id": "pe-18_us_location",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does PE-18 document US-location of system components that process or store IL5 data, including backups and support staff reachability? Offshore admin of IL5 data fails (standard \u00a78.1, \u00a712.3)."
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "5",
+      "objective_id": "sa-9.5_us_location",
+      "method": "Interview",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Who can reach IL5 data from outside the United States, and is that path forbidden in the handed architecture?"
+    },
+    {
+      "control": "SC-7",
+      "enhancement": "21",
+      "objective_id": "sc-7.21_physical_separation",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed architecture show physical separation from non-DoD / non-federal tenants (no shared physical hosts, storage arrays, or switches with public/commercial tenants)? Virtual isolation among federal tenants is not enough to waive this (standard \u00a78.2)."
+    },
+    {
+      "control": "SC-4",
+      "enhancement": "",
+      "objective_id": "sc-4_logical_separation",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is virtual/logical separation among DoD and federal tenants documented, and is dedicated-host / isolated-VM / dedicated-tenancy the compute construct actually used? Do not assume cryptographic isolation unless the current PA says so (standard \u00a78.2)."
+    },
+    {
+      "control": "SC-7",
+      "enhancement": "20",
+      "objective_id": "sc-7.20_federal_community",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is the CSO a US federal-government community cloud (GovCloud / Azure Government / equivalent), not a public commercial stack with commercial neighbors (standard \u00a78.3)?"
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "",
+      "objective_id": "sa-9_mgmt_plane",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is the CSO management plane isolated from the vendor's commercial cloud? Can a commercial-region admin reach IL5 hosts? Where do break-glass and hypervisor admins sit (standard \u00a78.4)? A shared commercial management plane is a classic IL5 finding (\u00a728 #2)."
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "",
+      "objective_id": "sa-9_mgmt_plane",
+      "method": "Interview",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: How does the vendor corporate network touch the CSO, and can commercial-region staff administer IL5 hosts?"
+    },
+    {
+      "control": "SC-28",
+      "enhancement": "",
+      "objective_id": "sc-28_data_placement",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is IL5 data (including backups, snapshots, logs, crash dumps, and support bundles) kept off non-federal physical media? Encryption does not waive physical-separation rules unless the current SRG/PA explicitly allows it (standard \u00a78.5)."
+    },
+    {
+      "control": "CP-9",
+      "enhancement": "8",
+      "objective_id": "cp-9.8_backup_placement",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are IL5 backups encrypted with a validated module and stored only in the federal-community / US-location boundary named in SA-09(05) (standard \u00a78.5, \u00a79.2)?"
     },
     {
       "control": "AC-17",
@@ -69,8 +535,641 @@
       "objective_id": "ac-17.3_bcap_scca",
       "method": "Examine",
       "layer": "SRG",
-      "path_applicability": ["IL5 non-NSS", "IL5 NSS"],
-      "question": "Examine: If the CSO will connect to DoD networks, does the handed package show BCAP/SCCA-ready managed access points (AC-17(3)) rather than a High-only commercial edge?"
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: If the CSO will connect to DoD networks, does the handed package show BCAP/SCCA-ready managed access points (AC-17(3)) rather than a High-only commercial edge? PA is not permission to connect (standard \u00a78.6, \u00a711)."
+    },
+    {
+      "control": "AC-17",
+      "enhancement": "3",
+      "objective_id": "ac-17.3_no_internet_path",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is there a documented statement that there is no direct IL5 mission path across the open internet except through NIPRNet IAPs and a mission/DoD/DISA DMZ (standard \u00a711.1)?"
+    },
+    {
+      "control": "SC-7",
+      "enhancement": "3",
+      "objective_id": "sc-7.3_cap",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is the CAP (BCAP off-prem or ICAP on-prem) named, and is the circuit/path from the hosting enclave to that CAP in the architecture (standard \u00a78.6, \u00a711.2)? Collector configs cannot invent this \u2014 MISSING until the package shows it."
+    },
+    {
+      "control": "SC-7",
+      "enhancement": "",
+      "objective_id": "sc-7_vdss",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the package show a Virtual Datacenter Security Stack (VDSS) \u2014 firewall, IDS/IPS, WAF facing the CAP \u2014 or a written mission-owner split that the CSO supports (standard \u00a78.6)?"
+    },
+    {
+      "control": "AC-17",
+      "enhancement": "",
+      "objective_id": "ac-17_vdms",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the privileged path go through a Virtual Datacenter Management Stack (VDMS) / jump, not a coffee-shop split-tunnel laptop into IL5 (standard \u00a78.6, \u00a711.4, SC-07(07))?"
+    },
+    {
+      "control": "IA-5",
+      "enhancement": "",
+      "objective_id": "ia-5_tccm",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is a Trusted Cloud Credential Manager (TCCM) or equivalent vault/issuance path documented for cloud-admin credentials (standard \u00a78.6)?"
+    },
+    {
+      "control": "CM-7",
+      "enhancement": "",
+      "objective_id": "cm-7_ppsm",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are ports, protocols, and services registered under DoDI 8551.01 PPSM for any DoD-connected path? Unregistered PPS is a connection-approval finding (standard \u00a711.3)."
+    },
+    {
+      "control": "SC-20",
+      "enhancement": "",
+      "objective_id": "sc-20_dod_dns",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: If DoD-connected, does DNS go through DoD-approved DNS as the SRG requires (standard \u00a711.3)?"
+    },
+    {
+      "control": "CA-3",
+      "enhancement": "",
+      "objective_id": "ca-3_snap_catc_cptc",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: For a DoD-connected CSO, are SNAP / CATC / CPTC / SCCA activation artifacts present or explicitly not-yet (standard \u00a711.5\u2013\u00a711.6)? A FedRAMP High listing does not skip these. Do not invent connection tickets."
+    },
+    {
+      "control": "IR-4",
+      "enhancement": "",
+      "objective_id": "ir-4_cssp",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is the CSSP named and is sensor-insertion / monitoring live-before-traffic addressed (standard \u00a711.6, \u00a718.3)?"
+    },
+    {
+      "control": "SC-13",
+      "enhancement": "",
+      "objective_id": "sc-13_fips_140-3",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: When crypto is in scope, does the handed package cite active FIPS 140-3 CMVP module certificates (not historical, not revoked) for the modules actually used, operated in FIPS mode (standard \u00a79.1, \u00a728 #5)? 'FIPS-compliant' or 'AES-256' without a CMVP cert fails."
+    },
+    {
+      "control": "SC-13",
+      "enhancement": "",
+      "objective_id": "sc-13_fips_140-3",
+      "method": "Test",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Test: Does the handed evidence show FIPS mode enabled on in-scope modules, not merely licensed (standard \u00a79.1, \u00a724.5)?"
+    },
+    {
+      "control": "SC-13",
+      "enhancement": "",
+      "objective_id": "sc-13_140-2_sunset",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: If any FIPS 140-2 module remains, is there a documented transition off the CMVP historical list (140-2 goes historical 21 Sep 2026) (standard \u00a79.3, \u00a728 #6)?"
+    },
+    {
+      "control": "SC-12",
+      "enhancement": "",
+      "objective_id": "sc-12_cmk_hsm",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are customer-managed keys for IL5 mission data HSM-backed, stored separately from ciphertext, with SC-12(01) availability documented (standard \u00a79.4)?"
+    },
+    {
+      "control": "SC-8",
+      "enhancement": "1",
+      "objective_id": "sc-8.1_tls",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is in-transit crypto TLS 1.2 minimum / 1.3 preferred using a validated module in FIPS mode? SSL / TLS 1.0 / 1.1 are forbidden (NIST SP 800-52 Rev 2; standard \u00a79.2)."
+    },
+    {
+      "control": "SC-17",
+      "enhancement": "",
+      "objective_id": "sc-17_dod_pki",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Do DoD-facing endpoints use DoD PKI (or an AO-approved commercial-PKI path per DoDI 8520.02)? Let's Encrypt / public CA is not a default for IL5 DoD-facing endpoints (standard \u00a79.5)."
+    },
+    {
+      "control": "AU-9",
+      "enhancement": "3",
+      "objective_id": "au-9.3_log_crypto",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are audit logs cryptographically protected with a validated module (AU-09(03); standard \u00a79.2, \u00a719)?"
+    },
+    {
+      "control": "PL-2",
+      "enhancement": "",
+      "objective_id": "pl-2_appendix_q",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does SSP Appendix Q list every cryptographic module, version, CMVP certificate number, and FIPS-mode evidence (standard \u00a79.3, \u00a723.1, \u00a728 #16)? Missing cert numbers = HOLD."
+    },
+    {
+      "control": "IA-2",
+      "enhancement": "12",
+      "objective_id": "ia-2.12_cac_piv",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed package show CAC/PIV (or approved PKI) for privileged DoD users at Credential Strength D, with the implementation cited from the package \u2014 not inferred (standard \u00a710.2)? Software TOTP alone is not Strength D (\u00a728 #4)."
+    },
+    {
+      "control": "IA-2",
+      "enhancement": "1",
+      "objective_id": "ia-2.1_privileged_mfa",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Do CSP privileged admins use a hardware token or PKI, US persons, no shared accounts (standard \u00a710.2, \u00a712)?"
+    },
+    {
+      "control": "IA-5",
+      "enhancement": "7",
+      "objective_id": "ia-5.7_no_static_secrets",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are service accounts / NPEs PKI or hardware-backed with no embedded unencrypted static authenticators (IA-05(07); standard \u00a710.2)?"
+    },
+    {
+      "control": "IA-8",
+      "enhancement": "",
+      "objective_id": "ia-8_federation",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: If federated to DoD ICAM / mission IdP, are IA-08 profiles, assertion protection, and IdP-down behavior documented without a local password fallback below Strength D (standard \u00a710.3)?"
+    },
+    {
+      "control": "IA-2",
+      "enhancement": "12",
+      "objective_id": "ia-2.12_cac_piv",
+      "method": "Interview",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: How do privileged DoD users authenticate to the CSO and to customer-managed apps (including Neo4j if in scope) \u2014 CAC/PIV/PKI or software TOTP?"
+    },
+    {
+      "control": "PS-3",
+      "enhancement": "4",
+      "objective_id": "ps-3.4_srg_citizenship",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed package show US-citizen privileged access to IL5 CSO infrastructure, and US citizens / nationals / US persons for broader IL4/5 users per the current SRG / PS-03(04), with foreign persons only by AO approval? Cite the official row. CMMC is not a substitute (standard \u00a712.1, \u00a727)."
+    },
+    {
+      "control": "PS-3",
+      "enhancement": "",
+      "objective_id": "ps-3_screening",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is privileged screening (typical public bar: ADP-2 / IT-2 / Tier 3 plus NDA, or the AO's written tier) evidenced for people who can reach IL5 hosts or keys (standard \u00a712.2)?"
+    },
+    {
+      "control": "PS-4",
+      "enhancement": "2",
+      "objective_id": "ps-4.2_leaver",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Can a leaver's cloud-admin tokens be disabled fast enough (PS-04 automated actions) that they cannot retain IL5 admin (standard \u00a712.3)?"
+    },
+    {
+      "control": "PS-3",
+      "enhancement": "4",
+      "objective_id": "ps-3.4_srg_citizenship",
+      "method": "Interview",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Where does 24x7 ops sit, and can break-glass route through an offshore NOC (standard \u00a712.3, \u00a728 #3)?"
+    },
+    {
+      "control": "MA-5",
+      "enhancement": "",
+      "objective_id": "ma-5_nonlocal",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does nonlocal / vendor maintenance of IL5 systems originate only from US / eligible staff \u2014 not non-US / non-cleared staff over the open internet (standard \u00a75.9)?"
+    },
+    {
+      "control": "CM-6",
+      "enhancement": "",
+      "objective_id": "cm-6_stig_matrix",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is there a STIG/SRG coverage matrix for every in-scope product class (guest OS, Neo4j/app, jump host, logging, backup, admin workstations) with STIG ID, scan tool, last result date, and CAT I count (standard \u00a713.3)?"
+    },
+    {
+      "control": "CM-6",
+      "enhancement": "",
+      "objective_id": "cm-6_stig_cat1",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are open STIG CAT I findings zero at the claimed authorization posture? CAT I is High/severe \u2014 none open at ATO/PA (standard \u00a713.2). STIG-once-never-again fails (\u00a728 #11)."
+    },
+    {
+      "control": "CM-6",
+      "enhancement": "",
+      "objective_id": "cm-6_stig_cat1",
+      "method": "Test",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Test: Do handed SCAP / Evaluate-STIG / ACAS compliance results exist and map to Vuln IDs for the scanned inventory (standard \u00a713.4)? Config collection is not a STIG of record."
+    },
+    {
+      "control": "RA-5",
+      "enhancement": "",
+      "objective_id": "ra-5_acas",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: For DISN-connected IaaS/PaaS, is ACAS (or a DISA-accepted equivalent feeding the CSSP) identified? SaaS may N/A ACAS but still owes FedRAMP authenticated scans (standard \u00a713.5, \u00a721)."
+    },
+    {
+      "control": "RA-5",
+      "enhancement": "5",
+      "objective_id": "ra-5.5_authenticated",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are Moderate/High scans authenticated wherever possible (RA-05(05))? Unauthenticated \u226510% of a submission triggers DFR (standard \u00a714.3, \u00a728 #7)."
+    },
+    {
+      "control": "CM-8",
+      "enhancement": "",
+      "objective_id": "cm-8_inventory_match",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does Appendix M inventory match scan targets and running systems (hostnames / IPs / image IDs)? Inventory \u2260 scan targets is a hard hold (standard \u00a714.6, \u00a728 #8)."
+    },
+    {
+      "control": "RA-5",
+      "enhancement": "",
+      "objective_id": "ra-5_monthly_types",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the handed scan corpus include discovery, authenticated OS, web/API, database, container, IaC, SAST/secrets, and SCAP/STIG as applicable \u2014 not a single unauthenticated export (standard \u00a714.1)?"
+    },
+    {
+      "control": "RA-5",
+      "enhancement": "",
+      "objective_id": "ra-5_cadence",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is there a monthly-minimum authenticated OS+web+DB+container of 100% inventory (or AO-approved unique-class sample), with no sampling of internet-reachable assets (standard \u00a714.2)?"
+    },
+    {
+      "control": "RA-5",
+      "enhancement": "2",
+      "objective_id": "ra-5.2_signatures",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are scanner plugin/signature dates and config checksums attested, matching the last 3PAO-validated config (standard \u00a714.3)?"
+    },
+    {
+      "control": "SA-11",
+      "enhancement": "1",
+      "objective_id": "sa-11.1_sast",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is SAST / secret scan a pipeline gate on every release (SA-11(01); standard \u00a714.1)?"
+    },
+    {
+      "control": "CA-8",
+      "enhancement": "",
+      "objective_id": "ca-8_pentest",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is there a 3PAO (or rehearsal) pentest covering the six FedRAMP attack vectors, including tenant\u2192tenant isolation (standard \u00a715)? Automated scanning is not a pentest."
+    },
+    {
+      "control": "CA-8",
+      "enhancement": "2",
+      "objective_id": "ca-8.2_red_team",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: For High / Class D, are CA-08(02) red-team exercises scoped and scheduled separately from the annual pentest (standard \u00a715.1)? This ID is FedRAMP High, not NIST 53B HIGH."
+    },
+    {
+      "control": "CA-5",
+      "enhancement": "",
+      "objective_id": "ca-5_poam_template",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is the official FedRAMP POA&M Excel used, one unique scanner ID per item (no bundled rows) (standard \u00a716.1, \u00a728 #9)?"
+    },
+    {
+      "control": "SI-2",
+      "enhancement": "",
+      "objective_id": "si-2_clocks",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Do remediation clocks start correctly (Critical/High 30 days from detection; vendor patches 30 days from vendor release; KEV date if shorter) (standard \u00a716.3)?"
+    },
+    {
+      "control": "CA-7",
+      "enhancement": "",
+      "objective_id": "ca-7_conmon_monthly",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is a monthly ConMon package present or scheduled (raw scans, Appendix M, POA&M, deviations, exec summary, scanner attestation, incident list) (standard \u00a717.1)?"
+    },
+    {
+      "control": "IR-6",
+      "enhancement": "",
+      "objective_id": "ir-6_clocks",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the IRP quote the live CR26 Incident Evaluation clocks for Class D (not a Moderate copy; confirm on freeze day) (standard \u00a718.1, \u00a728 #17)?"
+    },
+    {
+      "control": "IR-6",
+      "enhancement": "",
+      "objective_id": "ir-6_dod",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are CSSP / CJCSM 6510.01 / (if CUI on a contractor enclave) DFARS 72-hour DIBNet paths written (standard \u00a718.3)? DFARS/CMMC is not an IL5 PA."
+    },
+    {
+      "control": "CM-3",
+      "enhancement": "",
+      "objective_id": "cm-3_significant_change",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are boundary / tenancy / crypto / identity / data-flow moves typed as significant or transformative, with FedRAMP SCN and (for IL5) DISA RE2 / SCCA notice (standard \u00a720)?"
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "",
+      "objective_id": "sa-9_crm",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the CRM / Appendix J name Implemented / Inherited / Shared / Customer / N/A per control, with inherited-from package ID + date (standard \u00a721\u2013\u00a722)?"
+    },
+    {
+      "control": "SA-9",
+      "enhancement": "",
+      "objective_id": "sa-9_no_false_inherit",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are customer-managed applications (including Neo4j on EC2) marked Customer for AC/IA/AU/SC/CM \u2014 not 'inherited from the AWS GovCloud PA'? A platform PA is service-by-service (standard \u00a722.2, \u00a728 #12, \u00a728 #14)."
+    },
+    {
+      "control": "PL-2",
+      "enhancement": "",
+      "objective_id": "pl-2_ssp_appendices",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are starred FedRAMP SSP appendices present or explicitly missing: A (High controls), F RoB, G ISCP, J CRM, M inventory, O POA&M, Q crypto modules \u2014 plus K FIPS 199, E identity, N ConMon, P SCRM (standard \u00a723.1)? The scanner cannot invent these."
+    },
+    {
+      "control": "RA-2",
+      "enhancement": "",
+      "objective_id": "ra-2_fips199",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is there a written FIPS 199 / AO categorization (CIA + IL + NSS yes/no + overlays)? Skipping this and discovering NSS later is \u00a728 #19 (standard \u00a73, \u00a723.1 App K)."
+    },
+    {
+      "control": "CA-2",
+      "enhancement": "",
+      "objective_id": "ca-2_sar_sap",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are SAP, test-case workbook, SAR, RET, High SRTM, and 3PAO independence statement present if an assessment is claimed \u2014 or marked MISSING if not handed (standard \u00a723.2)?"
+    },
+    {
+      "control": "CA-6",
+      "enhancement": "",
+      "objective_id": "ca-6_dod_delta",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is the DoD delta package present or listed as not-yet: filled SSP Addendum, architecture briefing, onboarding questionnaire, eMASS import plan, SCCA/BCAP design, CSSP CONOPS, citizenship evidence (standard \u00a723.3)?"
     },
     {
       "control": "IA-2",
@@ -78,8 +1177,130 @@
       "objective_id": "ia-2_cnssi_nss",
       "method": "Examine",
       "layer": "CNSSI",
-      "path_applicability": ["IL5 NSS"],
-      "question": "Examine: If the path is IL5 NSS, does the handed package show the AO-selected CNSSI 1253 Table D-1 '+' rows from the official instruction (cnss.gov), not a blog count?"
+      "path_applicability": [
+        "IL5 NSS"
+      ],
+      "question": "Examine: If the path is IL5 NSS, does the handed package show the AO-selected CNSSI 1253 Table D-1 '+' rows from the official instruction (cnss.gov), not a blog count (standard \u00a77, \u00a728 #20)? ~170 extras is directional only."
+    },
+    {
+      "control": "PL-10",
+      "enhancement": "",
+      "objective_id": "pl-10_cnssi_overlays",
+      "method": "Examine",
+      "layer": "CNSSI",
+      "path_applicability": [
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are applicable CNSSI attachments named (Privacy, ICS, CDS, Space) and is the Classified System Overlay explicitly not grabbed for IL5 (standard \u00a77.2)?"
+    },
+    {
+      "control": "PT-2",
+      "enhancement": "",
+      "objective_id": "pt-2_privacy_overlay",
+      "method": "Examine",
+      "layer": "CNSSI",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: If DoD PII/PHI is in scope, is the current CNSSI Privacy Overlay plus SRG PII/PHI parameter tables applied (standard \u00a77.3)? If PII is out of scope, say so with a cited boundary statement \u2014 do not invent N/A."
+    },
+    {
+      "control": "RA-2",
+      "enhancement": "",
+      "objective_id": "ra-2_nss_memo",
+      "method": "Examine",
+      "layer": "CNSSI",
+      "path_applicability": [
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is the NSS determination under NIST SP 800-59 in writing from the sponsoring AO (standard \u00a73.2, \u00a77.1)?"
+    },
+    {
+      "control": "CA-6",
+      "enhancement": "",
+      "objective_id": "ca-6_not_cmmc",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does the package treat CMMC / NIST SP 800-171 / ITAR / SOC 2 as non-substitutes for a DISA IL5 PA (standard \u00a727, \u00a728 #18)?"
+    },
+    {
+      "control": "CA-6",
+      "enhancement": "",
+      "objective_id": "ca-6_not_cmmc",
+      "method": "Interview",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Interview: Is anyone selling this slice as 'CMMC so we are IL5-ready'? That claim is a HOLD."
+    },
+    {
+      "control": "CA-6",
+      "enhancement": "",
+      "objective_id": "ca-6_ready_not_ato",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does any handed claim equate scanner READY / High Marketplace listing with ATO, FedRAMP authorization, or DISA PA? READY means ready for human GRC / 3PAO prep review of this slice only (AGENTS.md; KEYS.md; standard \u00a725)."
+    },
+    {
+      "control": "SC-7",
+      "enhancement": "",
+      "objective_id": "sc-7_no_public_admin",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are admin / Bolt / graph ports free of 0.0.0.0/0 and public IPs on IL5 hosts (standard \u00a728 #15)? Config evidence may HOLD this; the stub still will not invent PASS."
+    },
+    {
+      "control": "PL-8",
+      "enhancement": "",
+      "objective_id": "pl-8_architecture_narrative",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Does PL-08 describe tenant isolation, key management, and BCAP paths in enough detail that a 3PAO can pentest them (standard \u00a75.12, \u00a78)?"
+    },
+    {
+      "control": "AU-8",
+      "enhancement": "",
+      "objective_id": "au-8_time_cssp",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Are clocks UTC from an authoritative source (SC-45(01) / AU-08) and are logs queryable by CSP IR and CSSP without a days-long ticket (standard \u00a719)?"
+    },
+    {
+      "control": "SC-45",
+      "enhancement": "1",
+      "objective_id": "sc-45.1_authoritative",
+      "method": "Examine",
+      "layer": "SRG",
+      "path_applicability": [
+        "FedRAMP High",
+        "IL5 non-NSS",
+        "IL5 NSS"
+      ],
+      "question": "Examine: Is SC-45 / SC-45(01) implemented (authoritative time source)? These IDs are in FedRAMP High / Class D and are absent from NIST SP 800-53B HIGH (standard \u00a75.16, \u00a719)."
     }
   ]
 }

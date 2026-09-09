@@ -4,7 +4,7 @@
 # version: fedramp-3.0.0rc1-oscal-1.1.2
 # last-modified: 2025-02-28T00:00:00Z
 # published: 2024-09-24T02:24:00Z
-# fetched_at: 2026-09-08T23:16:34Z
+# fetched_at: 2026-09-09T10:51:25Z
 # id_count: 410  (count of with-ids in this official profile; not invented)
 # Class D = FedRAMP High (FedRAMP Consolidated Rules 2026).
 # This is NOT NIST SP 800-53B HIGH.

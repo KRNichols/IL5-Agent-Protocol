@@ -6,7 +6,7 @@ This playbook does **not** authorize, PA, or ATO anything. `READY` is never ATO.
 
 Operator steps (Codex): [`RUN.md`](../RUN.md). Contract: [`AGENTS.md`](../AGENTS.md). Rubric: [`FEDRAMP-HIGH-IL5-STANDARD.md`](../FEDRAMP-HIGH-IL5-STANDARD.md) §§8–9, §14, §21–§22, §28.
 
-Default bank after intake: `il5-scanner/banks/production-high-53a-questions.jsonl` (**4003** questions). Fixture tiny bank is fixture-only.
+Default bank after intake: `il5-scanner/banks/production-high-53a-questions.jsonl` (**4238** FedRAMP High / Class D questions). NIST 800-53B HIGH 4003 is comparison only. Fixture tiny bank is fixture-only. Grade gate: [`KEYS.md`](../KEYS.md).
 
 ---
 
@@ -79,7 +79,7 @@ Map file Codex loads: `il5-scanner/collectors/neo4j-ec2-govcloud-map.json`.
 
 ---
 
-## 4. Answering the 4003-question HIGH bank
+## 4. Answering the FedRAMP High bank (4238)
 
 After collection:
 
@@ -92,7 +92,7 @@ python3 tools/answer_bank_from_evidence.py \
 
 Stub rules:
 
-- Load **production HIGH** by default (4003). Do not grade from `fixtures/question-bank/`.
+- Load **production FedRAMP High** by default (4238 / 410 IDs). Do not grade from `fixtures/question-bank/` or the NIST 53B 4003 comparison bank.
 - Every in-scope question: `PASS | HOLD | WARN | N/A | MISSING`.
 - **MISSING** if no mapped evidence file is present.
 - **HOLD** if a mapped file is present — cited path, **not** PASS.
@@ -141,7 +141,7 @@ Do not apply changes from this scanner unless the operator separately asked for 
 ## 6. How Codex should run this slice
 
 1. Intake **three** questions only (target stack, what to scan, IaaS/PaaS/SaaS). Stop and wait.
-2. Load the production HIGH bank. Confirm 4003 rows and `il5-scanner/banks/SOURCE.json`.
+2. Load the production FedRAMP High bank. Confirm 4238 rows, 410 IDs, and `il5-scanner/banks/PROVENANCE.md`.
 3. If what-to-scan is Neo4j on EC2 GovCloud, read this playbook and `RUN.md`.
 4. Run the collector (SSM / SSH / `--local-root`). Do not recon beyond what was pointed.
 5. Run the answerer. Cite evidence paths on every HOLD.

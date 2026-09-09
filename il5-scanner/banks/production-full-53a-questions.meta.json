@@ -1,9 +1,9 @@
 {
   "generated_from_catalog": true,
   "not_an_official_control_count": true,
-  "catalog": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
-  "source": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
-  "baseline": null,
+  "catalog": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
+  "source": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
+  "baseline": "NIST-SP-800-53-REV5-FULL-CATALOG (not a baseline)",
   "overlays": [],
   "path_filter": null,
   "catalog_controls_emitted": 1196,

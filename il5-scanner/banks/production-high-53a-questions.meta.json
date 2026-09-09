@@ -1,20 +1,20 @@
 {
   "generated_from_catalog": true,
   "not_an_official_control_count": true,
-  "catalog": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_HIGH-baseline-resolved-profile_catalog-min.json",
-  "source": "/workspace/question-bank/raw/NIST_SP-800-53_rev5_HIGH-baseline-resolved-profile_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST Special Publication 800-53 Revision 5.1.1 HIGH IMPACT BASELINE",
-  "baseline": null,
+  "catalog": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json",
+  "source": "question-bank/raw/NIST_SP-800-53_rev5_catalog-min.json \u2014 Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
+  "baseline": "FedRAMP High / Class D OSCAL profile (question-bank/raw/FedRAMP_rev5_HIGH-baseline_profile.json)",
   "overlays": [],
   "path_filter": null,
-  "catalog_controls_emitted": 370,
-  "question_count": 4003,
+  "catalog_controls_emitted": 410,
+  "question_count": 4238,
   "by_layer": {
-    "High": 4003
+    "High": 4238
   },
   "by_method": {
-    "Examine": 1463,
-    "Interview": 1463,
-    "Test": 1077
+    "Examine": 1542,
+    "Interview": 1542,
+    "Test": 1154
   },
   "official_id_lists_live_in": [
     "FedRAMP Rev 5 High / Class D OSCAL profile (OSCAL-Foundation/fedramp-resources)",
@@ -22,5 +22,7 @@
     "DoD Rev 5 SSP Addendum + SRG Control Crosswalk on cyber.mil",
     "CNSSI 1253 if NSS"
   ],
-  "question_count_is_not_a_control_count": true
+  "question_count_is_not_a_control_count": true,
+  "fedramp_constraint_questions": 2414,
+  "fedramp_set_parameter_count": 309
 }

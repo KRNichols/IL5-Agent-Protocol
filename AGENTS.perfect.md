@@ -13,7 +13,9 @@ DoD IL5 Complete Build-Against, Scan, and Certification Guide,
 4 Sep 2026). If that file is missing, `HOLD` in Plain English.
 
 Operator how-to (Codex): `RUN.md`.
+Grade-gate wording (layman): `KEYS.md`.
 Neo4j on EC2 US GovCloud: `playbooks/NEO4J-EC2-GOVCLOUD.md`.
+Bank provenance: `il5-scanner/banks/PROVENANCE.md`.
 
 ## Hard truths
 
@@ -45,13 +47,20 @@ the three answers are already in this session, do not re-ask.
 Then `HOLD` until answers that are still needed arrive. After
 they land, fire the scan playbook.
 
+Do not ask for live GovCloud instance IDs, secrets, classified
+targets, or real evidence packs to be pasted into chat or git.
+Local-root / already-copied configs are enough.
+
 ## Scan playbook (after answers)
 
 1. Confirm `FEDRAMP-HIGH-IL5-STANDARD.md` is readable.
 2. Load the production HIGH bank by default:
    `il5-scanner/banks/production-high-53a-questions.jsonl`
-   (4003 questions). If that file is missing, `HOLD`.
+   (FedRAMP High / Class D — 410 official profile IDs,
+   4238 53A questions). If that file is missing, `HOLD`.
    `fixtures/question-bank/` is a unit fixture only.
+   NIST 800-53B HIGH (4003) is comparison only — not the
+   grade path. See `KEYS.md` and `PROVENANCE.md`.
 3. Categorization and path (FIPS 199 / NSS / CUI) vs what the
    solution claims.
 4. Four-layer control stack: FedRAMP High, FedRAMP+, CNSSI
@@ -67,7 +76,8 @@ they land, fire the scan playbook.
 9. Common failure modes (standard §28).
 10. Answer every in-scope question in the production HIGH bank
     `PASS | HOLD | WARN | N/A | MISSING` with cited evidence
-    paths. Synthesis is in `QUESTION-BANK.md`. Do not invent
+    paths. IL5 paths also answer overlay hooks
+    (`question-bank/il5-overlay-hooks.json`). Do not invent
     a fake control count.
 
 Score only what was handed to you. Mark the rest `MISSING`.
@@ -85,7 +95,7 @@ When what-to-scan is Neo4j hosted on EC2 in AWS GovCloud
 3. Run the read-only collector (SSM, SSH, or local paths).
    No graph dump. No secrets committed.
    `tools/collect_neo4j_ec2_evidence.sh`
-4. Run the bank answerer against the HIGH 4003 bank and
+4. Run the bank answerer against the FedRAMP High bank and
    `evidence/<run-id>/`:
    `tools/answer_bank_from_evidence.py`
 5. Map collector files → control families → each in-scope
@@ -98,15 +108,14 @@ When what-to-scan is Neo4j hosted on EC2 in AWS GovCloud
 
 ## Question bank (production)
 
-The production HIGH bank is
+The default production HIGH bank is
 `il5-scanner/banks/production-high-53a-questions.jsonl`
-(4003 questions). It is generated-from-catalog from NIST SP
-800-53A Rev 5 Examine / Interview / Test procedures on the
-NIST SP 800-53 HIGH-baseline-resolved-profile catalog.
-Label: interim baseline `NIST-800-53B-HIGH` — not FedRAMP
-Appendix A. The FedRAMP High OSCAL profile (410 IDs) is a
-different set. Overlay hooks apply when the target stack is
-IL5. Do not invent official control counts.
+(4238 questions from NIST SP 800-53A on the official
+FedRAMP Rev 5 High / Class D OSCAL profile — 410 IDs).
+Label: `FedRAMP-HIGH-CLASS-D`. NIST SP 800-53B HIGH
+(370 IDs / 4003 questions) is a different, smaller set.
+They are not equivalent. Overlay hooks apply when the
+target stack is IL5. Do not invent official control counts.
 
 ### Answering protocol
 
@@ -115,7 +124,13 @@ IL5. Do not invent official control counts.
 - PASS requires cited evidence from the handed solution
 - Never invent answers. Wrong or guessed answers are HOLD
 - READY never means ATO, FedRAMP authorization, or DISA PA
-- High-alone still fails an IL5 assessment
+- Full bank PASS ≠ FedRAMP High package READY ≠ IL5 ≠ ATO
+  (`KEYS.md`). Still never ATO.
+- High-alone + IL5 claim = HOLD. IL5 needs High + overlays
+  + architecture.
+- COVERAGE gates (SSP / CRM / §14 / overlays / architecture)
+  must be scored from handed evidence. The bank cannot invent
+  them.
 - If the bank SOURCE is missing or the catalog was not official,
   say so and do not treat the question count as the official
   C/CE count
@@ -163,11 +178,14 @@ than MISSING). Default artifact is
 `il5-scanner/banks/production-high-53a-questions.jsonl`.
 If that production HIGH bank is missing, `HOLD`.
 
-`HOLD` examples: High-only claiming IL5; unauthenticated-only
-scans; inventory ≠ scan targets; missing FIPS modules when
-crypto is in scope; treating CMMC as an IL5 PA; invented
-control counts; missing rubric file; guessed question-bank
-answers; missing production question bank.
+`HOLD` examples: full bank PASS treated as package READY;
+High-alone + IL5 claim; missing SSP / CRM / §14 COVERAGE
+gates; unauthenticated-only scans; inventory ≠ scan targets;
+missing FIPS modules when crypto is in scope; treating CMMC
+as an IL5 PA; invented control counts; missing rubric file;
+guessed question-bank answers; missing production question
+bank; grading from NIST 800-53B HIGH as if it were FedRAMP
+High.
 
 `WARN` is for soft gaps that do not kill the claimed stack.
 Never use `WARN` for a hard hold.
